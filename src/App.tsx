@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import CarList from './components/CarList';
-import About from './components/About';
 import BookingSteps from './components/BookingSteps';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
@@ -55,7 +54,7 @@ export default function App() {
       }
 
       if (currentPage === 'home') {
-        const sections = ['home', 'cars', 'about', 'steps', 'contact'];
+        const sections = ['home', 'cars', 'steps', 'contact'];
         const scrollPosition = window.scrollY + 250;
 
         for (const section of sections) {
@@ -77,11 +76,13 @@ export default function App() {
   }, [currentPage]);
 
   const handleNavClick = (sectionId: string) => {
-    if (sectionId === 'about-page') {
+    if (sectionId === 'about-page' || sectionId === 'about') {
       setCurrentPage('about');
+      setActiveSection('about');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (sectionId === 'rentals-page') {
       setCurrentPage('rentals');
+      setActiveSection('cars');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       if (currentPage !== 'home') {
@@ -111,7 +112,7 @@ export default function App() {
       
       {/* Header Bar */}
       <Header
-        activeSection={activeSection}
+        activeSection={currentPage === 'about' ? 'about-page' : activeSection}
         onNavClick={handleNavClick}
         lang={lang}
         setLang={handleSetLang}
@@ -122,27 +123,24 @@ export default function App() {
       <main className="flex-grow">
         {currentPage === 'home' ? (
           <>
-            {/* 1. HERO SECTION */}
+            {/* 1. HERO SECTION (With 'Hubungi Kami' button) */}
             <Hero 
               onExploreClick={() => handleNavClick('cars')} 
               lang={lang} 
               onBookingClick={() => setSelectedCar(CARS[0])} 
             />
 
-            {/* 2. PILIHAN KENDARAAN (DIRECTLY UNDER HERO) */}
+            {/* 2. PILIHAN KENDARAAN (Directly under Hero) */}
             <CarList 
               onSelectCar={handleSelectCar} 
               lang={lang} 
               onViewAllCars={() => handleNavClick('cars')}
             />
 
-            {/* 3. TENTANG KAMI & KEUNGGULAN */}
-            <About lang={lang} />
-
-            {/* 4. CARA BOOKING */}
+            {/* 3. CARA BOOKING */}
             <BookingSteps lang={lang} />
 
-            {/* 5. TESTIMONIALS */}
+            {/* 4. TESTIMONIALS */}
             <Testimonials lang={lang} />
           </>
         ) : currentPage === 'about' ? (

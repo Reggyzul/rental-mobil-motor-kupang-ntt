@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Car, Calendar, Search, ChevronDown, MessageCircle, MapPin, CheckCircle2, Shield } from 'lucide-react';
+import { Car, Calendar, ChevronDown, MessageCircle, MapPin, CheckCircle2 } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 
 interface HeroProps {
@@ -9,7 +9,7 @@ interface HeroProps {
   onBookingClick?: () => void;
 }
 
-export default function Hero({ onExploreClick, lang, onBookingClick }: HeroProps) {
+export default function Hero({ onExploreClick, lang }: HeroProps) {
   const [vehicleInput, setVehicleInput] = useState('Toyota Avanza (Manual)');
   const [travelDateInput, setTravelDateInput] = useState('');
 
@@ -126,10 +126,10 @@ export default function Hero({ onExploreClick, lang, onBookingClick }: HeroProps
               href="https://api.whatsapp.com/send?phone=6281529662483&text=Halo%20Rental%20Mobil%20%26%20Motor%20Kupang_NTT,%20saya%20ingin%20konsultasi%20dan%20booking%20rental%20kendaraan"
               target="_blank"
               rel="noreferrer"
-              className="w-full sm:w-auto bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-display font-black text-xs uppercase px-7 py-3.5 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer flex items-center justify-center gap-2"
+              className="w-full sm:w-auto bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-display font-black text-xs uppercase px-8 py-3.5 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer flex items-center justify-center gap-2"
             >
               <MessageCircle className="w-4 h-4 fill-current" />
-              <span>{t.hero_cta_wa} (0815-2966-2483)</span>
+              <span>{lang === 'EN' ? 'Contact Us' : 'Hubungi Kami'}</span>
             </a>
 
             <button

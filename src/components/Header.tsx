@@ -43,7 +43,7 @@ export default function Header({
   const navItems = [
     { id: 'home', label: t.nav_home },
     { id: 'cars', label: t.nav_vehicles },
-    { id: 'about', label: t.nav_about },
+    { id: 'about-page', label: t.nav_about },
     { id: 'contact', label: t.nav_contact }
   ];
 
@@ -85,7 +85,7 @@ export default function Header({
             {/* 2. CENTER: CLEAN DESKTOP NAV LINKS */}
             <nav className="hidden lg:flex items-center justify-center gap-8 xl:gap-10 text-xs uppercase tracking-wider font-sans font-extrabold text-slate-700 flex-1 px-4" id="desktop-nav">
               {navItems.map((item) => {
-                const isActive = activeSection === item.id;
+                const isActive = activeSection === item.id || (item.id === 'about-page' && (activeSection === 'about' || activeSection === 'about-page'));
                 return (
                   <button
                     key={item.id}
@@ -174,7 +174,7 @@ export default function Header({
           >
             <div className="px-5 pt-3 pb-6 space-y-2">
               {navItems.map((item) => {
-                const isActive = activeSection === item.id;
+                const isActive = activeSection === item.id || (item.id === 'about-page' && (activeSection === 'about' || activeSection === 'about-page'));
                 return (
                   <button
                     key={item.id}
