@@ -54,29 +54,29 @@ export default function Header({
       <div
         className={`w-full transition-all duration-300 ${
           isScrolled
-            ? 'bg-white/95 backdrop-blur-md py-2.5 shadow-md border-b border-slate-200/90'
-            : 'bg-white py-3 border-b border-slate-100'
+            ? 'bg-white/95 backdrop-blur-md py-2 sm:py-2.5 shadow-md border-b border-slate-200/90'
+            : 'bg-white py-2.5 sm:py-3 border-b border-slate-100'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between gap-2 sm:gap-4">
             
-            {/* 1. LEFT: BRAND LOGO (LOGO ONLY ON MOBILE / HANDPHONE) */}
+            {/* 1. LEFT: BRAND LOGO & TEXT BESIDE LOGO (VISIBLE ON MOBILE & DESKTOP) */}
             <div 
               onClick={() => handleItemClick('home')}
-              className="flex items-center gap-3 cursor-pointer group shrink-0"
+              className="flex items-center gap-2 sm:gap-3 cursor-pointer group shrink-0"
               id="header-logo"
             >
               <img
                 src="/logo.png"
                 alt="JL Rental Mobil & Motor Kupang Logo"
-                className="h-10 sm:h-12 md:h-13 w-auto object-contain group-hover:scale-105 transition-transform duration-200"
+                className="h-9 sm:h-11 md:h-13 w-auto object-contain group-hover:scale-105 transition-transform duration-200 shrink-0"
               />
-              <div className="hidden lg:flex flex-col leading-tight">
-                <span className="font-display font-black text-sm sm:text-base tracking-tight text-[#0f2b5c] uppercase">
+              <div className="flex flex-col leading-tight">
+                <span className="font-display font-black text-xs sm:text-sm md:text-base tracking-tight text-[#0f2b5c] uppercase">
                   Rental Mobil &amp; Motor <span className="text-red-600">Kupang</span>
                 </span>
-                <span className="font-sans font-semibold text-[10px] text-slate-500 tracking-wide">
+                <span className="font-sans font-bold text-[8px] sm:text-[9px] md:text-[10px] text-slate-500 tracking-wide uppercase">
                   Nusa Tenggara Timur
                 </span>
               </div>
