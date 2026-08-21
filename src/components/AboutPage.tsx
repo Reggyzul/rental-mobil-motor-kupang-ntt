@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, MapPin, Phone, Share2, CheckCircle2, ShieldCheck, Car, Bike, Compass } from 'lucide-react';
+import { Sparkles, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 
 interface AboutPageProps {
@@ -9,7 +9,6 @@ interface AboutPageProps {
 
 export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
   const t = TRANSLATIONS[lang];
-  const isEN = lang === 'EN';
 
   const servicesList = [
     t.service_1_title,
@@ -23,12 +22,12 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
   return (
     <div className="bg-white text-[#0d1b37] min-h-screen pt-20 text-left">
       
-      {/* 1. TOP HEADER BANNER */}
+      {/* 1. TOP HEADER BANNER (AVIF FORMAT) */}
       <div className="relative w-full h-[220px] sm:h-[280px] bg-slate-950 text-white overflow-hidden flex items-center justify-center">
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-40 transform scale-105"
           style={{
-            backgroundImage: `url('/hero_kupang.jpg')`
+            backgroundImage: `url('/hero_kupang.avif')`
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/60 to-slate-950/90" />

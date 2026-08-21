@@ -42,18 +42,18 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
   return (
     <div className="bg-white text-[#0d1b37] min-h-screen pt-20 text-left">
       
-      {/* TOP HEADER BANNER */}
+      {/* TOP HEADER BANNER (AVIF FORMAT) */}
       <div className="relative w-full h-[230px] sm:h-[290px] bg-slate-950 text-white overflow-hidden flex items-center justify-center">
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-40 transform scale-105"
           style={{
-            backgroundImage: `url('/hero_kupang.jpg')`
+            backgroundImage: `url('/hero_kupang.avif')`
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/60 to-slate-950/90" />
 
         <div className="relative z-10 text-center space-y-2 px-4">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blue-600/90 text-white font-extrabold text-[10px] uppercase tracking-widest mb-1 shadow-md">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-600/90 text-white font-extrabold text-[10px] uppercase tracking-widest mb-1 shadow-md">
             <span>Rental Mobil &amp; Motor Kupang_NTT</span>
           </div>
 

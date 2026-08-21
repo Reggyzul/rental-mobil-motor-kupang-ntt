@@ -51,11 +51,14 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
           {/* Column 1: Company Profile & Logo */}
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
-              <img
-                src="/logo.png"
-                alt="JL Rental Mobil & Motor Kupang Logo"
-                className="h-16 w-auto object-contain shrink-0"
-              />
+              <picture>
+                <source srcSet="/logo.avif" type="image/avif" />
+                <img
+                  src="/logo.png"
+                  alt="JL Rental Mobil & Motor Kupang Logo"
+                  className="h-16 w-auto object-contain shrink-0"
+                />
+              </picture>
               <div>
                 <span className="font-display font-black text-lg sm:text-xl tracking-tight text-white uppercase block">
                   Rental Mobil &amp; Motor <span className="text-red-500">Kupang_NTT</span>

@@ -38,11 +38,11 @@ export default function Hero({ onExploreClick, lang }: HeroProps) {
       {/* 1. HERO BANNER */}
       <div className="relative w-full min-h-[520px] sm:min-h-[580px] flex flex-col justify-between bg-slate-950 text-white overflow-hidden border-b border-slate-200">
         
-        {/* Kupang Coastal Background Photo */}
+        {/* Kupang Coastal Background Photo (AVIF Format) */}
         <div 
           className="absolute inset-0 bg-cover bg-center transform scale-105 transition-transform duration-1000"
           style={{
-            backgroundImage: `url('/hero_kupang.jpg')`
+            backgroundImage: `url('/hero_kupang.avif')`
           }}
         />
 

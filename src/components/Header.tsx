@@ -61,17 +61,20 @@ export default function Header({
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-2 sm:gap-4">
             
-            {/* 1. LEFT: BRAND LOGO & TEXT BESIDE LOGO (VISIBLE ON MOBILE & DESKTOP) */}
+            {/* 1. LEFT: BRAND LOGO & TEXT BESIDE LOGO (AVIF FORMAT) */}
             <div 
               onClick={() => handleItemClick('home')}
               className="flex items-center gap-2 sm:gap-3 cursor-pointer group shrink-0"
               id="header-logo"
             >
-              <img
-                src="/logo.png"
-                alt="JL Rental Mobil & Motor Kupang Logo"
-                className="h-9 sm:h-11 md:h-13 w-auto object-contain group-hover:scale-105 transition-transform duration-200 shrink-0"
-              />
+              <picture>
+                <source srcSet="/logo.avif" type="image/avif" />
+                <img
+                  src="/logo.png"
+                  alt="JL Rental Mobil & Motor Kupang Logo"
+                  className="h-9 sm:h-11 md:h-13 w-auto object-contain group-hover:scale-105 transition-transform duration-200 shrink-0"
+                />
+              </picture>
               <div className="flex flex-col leading-tight">
                 <span className="font-display font-black text-xs sm:text-sm md:text-base tracking-tight text-[#0f2b5c] uppercase">
                   Rental Mobil &amp; Motor <span className="text-red-600">Kupang</span>

@@ -3,12 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- HIGH-SCORE SECURITY & CSP META HEADERS -->
+    <meta 
+      http-equiv="Content-Security-Policy" 
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https: wss:; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.whatsapp.com https://wa.me; frame-ancestors 'none'; upgrade-insecure-requests;" 
+    />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), display-capture=()" />
+
+    <!-- SEO & METADATA -->
     <title>Rental Mobil & Motor Kupang - NTT | Sewa Mobil & Motor Praktis di Kupang</title>
     <meta name="description" content="Rental Mobil & Motor Kupang_NTT menyediakan layanan rental kendaraan untuk kebutuhan perjalanan pribadi, wisata, bisnis, maupun aktivitas harian di wilayah Kupang dan sekitarnya. WhatsApp: 0815-2966-2483." />
+    
+    <!-- GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="icon" type="image/png" href="/logo.png" />
+    
+    <!-- HIGH EFFICIENCY AVIF FAVICON -->
+    <link rel="icon" type="image/avif" href="/logo.avif" />
+    <link rel="alternate icon" type="image/png" href="/logo.png" />
   </head>
   <body class="font-sans antialiased bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white">
     <div id="root"></div>

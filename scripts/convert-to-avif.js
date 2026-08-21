@@ -28,23 +28,24 @@ async function convertImagesToAvif() {
       const originalStats = fs.statSync(inputPath);
       const originalSizeKb = (originalStats.size / 1024).toFixed(1);
 
+      // Preserve alpha transparency for PNGs (like logo.png and innova_reborn.png)
       await sharp(inputPath)
-        .avif({ quality: 80, effort: 5 })
+        .avif({ quality: 85, effort: 6, chromaSubsampling: '4:4:4' })
         .toFile(outputPath);
 
       const newStats = fs.statSync(outputPath);
       const newSizeKb = (newStats.size / 1024).toFixed(1);
-      const savedKb = ((originalStats.size - newStats.size) / 1024).toFixed(1);
-      totalSavedBytes += (originalStats.size - newStats.size);
+      const diff = originalStats.size - newStats.size;
+      totalSavedBytes += diff;
 
-      console.log(`✅ ${file} (${originalSizeKb} KB) ➔ ${outputFileName} (${newSizeKb} KB) | Saved: ${savedKb} KB`);
+      console.log(`✅ ${file} (${originalSizeKb} KB) ➔ ${outputFileName} (${newSizeKb} KB) | Saved: ${(diff / 1024).toFixed(1)} KB`);
       successCount++;
     } catch (err) {
       console.error(`❌ Failed to convert ${file}:`, err.message);
     }
   }
 
-  console.log(`\n🎉 Conversion complete! Converted ${successCount}/${imageFiles.length} images.`);
+  console.log(`\n🎉 Conversion complete! Converted ${successCount}/${imageFiles.length} images to AVIF.`);
   console.log(`📉 Total disk space saved: ${(totalSavedBytes / (1024 * 1024)).toFixed(2)} MB`);
 }
 
