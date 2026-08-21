@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, MessageCircle, Phone, MapPin } from 'lucide-react';
+import { Menu, X, MessageCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TRANSLATIONS } from '../utils/translations';
 
@@ -42,43 +42,14 @@ export default function Header({
 
   const navItems = [
     { id: 'home', label: t.nav_home },
-    { id: 'about', label: t.nav_about },
-    { id: 'services', label: t.nav_services },
     { id: 'cars', label: t.nav_vehicles },
+    { id: 'about', label: t.nav_about },
     { id: 'contact', label: t.nav_contact }
   ];
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 transition-all duration-300">
       
-      {/* Top Micro Info Bar */}
-      <div className="bg-[#0a1936] text-white py-1.5 px-4 text-xs font-sans border-b border-blue-950/80 hidden md:block">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-4 text-slate-300 text-[11px] font-medium">
-            <span className="flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5 text-red-400 shrink-0" />
-              Jl. Keladi, Manulai 2, Alak, Kupang, NTT
-            </span>
-            <span className="text-slate-600">•</span>
-            <span className="text-slate-400">
-              Sosial Media: <span className="text-slate-200 font-semibold">Rental mobil&amp;motor Kupang</span>
-            </span>
-          </div>
-
-          <div className="flex items-center gap-4 text-[11px]">
-            <a
-              href="https://api.whatsapp.com/send?phone=6281529662483&text=Halo%20Rental%20Mobil%20%26%20Motor%20Kupang_NTT,%20saya%20ingin%20tanya%20informasi%20rental%20kendaraan"
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 font-bold transition-colors"
-            >
-              <MessageCircle className="w-3.5 h-3.5 fill-current" />
-              <span>WhatsApp: 0815-2966-2483</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
       {/* Main Navbar */}
       <div
         className={`w-full transition-all duration-300 ${
@@ -112,7 +83,7 @@ export default function Header({
             </div>
 
             {/* 2. CENTER: CLEAN DESKTOP NAV LINKS */}
-            <nav className="hidden lg:flex items-center justify-center gap-7 xl:gap-9 text-xs uppercase tracking-wider font-sans font-extrabold text-slate-700 flex-1 px-4" id="desktop-nav">
+            <nav className="hidden lg:flex items-center justify-center gap-8 xl:gap-10 text-xs uppercase tracking-wider font-sans font-extrabold text-slate-700 flex-1 px-4" id="desktop-nav">
               {navItems.map((item) => {
                 const isActive = activeSection === item.id;
                 return (

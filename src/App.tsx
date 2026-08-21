@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import About from './components/About';
-import Services from './components/Services';
 import CarList from './components/CarList';
+import About from './components/About';
 import BookingSteps from './components/BookingSteps';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
@@ -56,7 +55,7 @@ export default function App() {
       }
 
       if (currentPage === 'home') {
-        const sections = ['home', 'about', 'services', 'cars', 'contact'];
+        const sections = ['home', 'cars', 'about', 'steps', 'contact'];
         const scrollPosition = window.scrollY + 250;
 
         for (const section of sections) {
@@ -123,27 +122,27 @@ export default function App() {
       <main className="flex-grow">
         {currentPage === 'home' ? (
           <>
+            {/* 1. HERO SECTION */}
             <Hero 
               onExploreClick={() => handleNavClick('cars')} 
               lang={lang} 
               onBookingClick={() => setSelectedCar(CARS[0])} 
             />
 
-            <About lang={lang} />
-
-            <Services 
-              lang={lang} 
-              onViewAllDestinations={() => handleNavClick('cars')}
-            />
-
+            {/* 2. PILIHAN KENDARAAN (DIRECTLY UNDER HERO) */}
             <CarList 
               onSelectCar={handleSelectCar} 
               lang={lang} 
               onViewAllCars={() => handleNavClick('cars')}
             />
 
+            {/* 3. TENTANG KAMI & KEUNGGULAN */}
+            <About lang={lang} />
+
+            {/* 4. CARA BOOKING */}
             <BookingSteps lang={lang} />
 
+            {/* 5. TESTIMONIALS */}
             <Testimonials lang={lang} />
           </>
         ) : currentPage === 'about' ? (
