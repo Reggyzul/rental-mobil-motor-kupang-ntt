@@ -111,11 +111,11 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
                 className="bg-white rounded-3xl overflow-hidden border border-slate-200/90 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col justify-between group cursor-pointer hover:-translate-y-1"
               >
                 <div>
-                  <div className="relative h-60 bg-slate-100 overflow-hidden flex items-center justify-center">
+                  <div className="relative h-60 bg-white overflow-hidden flex items-center justify-center border-b border-slate-100">
                     <img
                       src={car.image}
                       alt={car.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute top-4 left-4 bg-slate-900/85 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider">
                       {car.category}

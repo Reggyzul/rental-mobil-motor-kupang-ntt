@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CARS } from '../data/cars';
 import { Car } from '../types';
-import { Users, CheckCircle2, MessageCircle, Sparkles, Layers, Fuel, Settings2 } from 'lucide-react';
+import { Users, CheckCircle2, MessageCircle, Sparkles, Settings2 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { TRANSLATIONS } from '../utils/translations';
 
@@ -91,11 +91,11 @@ export default function CarList({ onSelectCar, lang }: CarListProps) {
               >
                 <div>
                   {/* Image banner */}
-                  <div className="relative h-60 bg-slate-100 overflow-hidden flex items-center justify-center">
+                  <div className="relative h-60 bg-white overflow-hidden flex items-center justify-center border-b border-slate-100">
                     <img
                       src={car.image}
                       alt={car.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute top-4 left-4 bg-slate-900/85 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider">
                       {car.category}
