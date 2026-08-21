@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Phone, MessageCircle, Share2, Sparkles, ChevronRight } from 'lucide-react';
+import { MapPin, Phone, MessageCircle, Share2, ChevronRight } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 
 interface FooterProps {
@@ -52,9 +52,9 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
               <img
-                src="/logo_kupang.jpg"
-                alt="Rental Mobil & Motor Kupang Logo"
-                className="h-14 w-auto object-contain rounded-2xl shrink-0 shadow-md"
+                src="/logo.png"
+                alt="JL Rental Mobil & Motor Kupang Logo"
+                className="h-16 w-auto object-contain shrink-0"
               />
               <div>
                 <span className="font-display font-black text-lg sm:text-xl tracking-tight text-white uppercase block">
@@ -145,15 +145,6 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
               </li>
               <li>
                 <button
-                  onClick={() => onNavigateSection('services')}
-                  className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1"
-                >
-                  <ChevronRight className="w-3.5 h-3.5 text-blue-400" />
-                  <span>{t.nav_services}</span>
-                </button>
-              </li>
-              <li>
-                <button
                   onClick={() => onNavigateSection('cars')}
                   className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1"
                 >
@@ -163,20 +154,11 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
               </li>
               <li>
                 <button
-                  onClick={() => onNavigateSection('why-us')}
+                  onClick={() => onNavigateSection('about')}
                   className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1"
                 >
                   <ChevronRight className="w-3.5 h-3.5 text-blue-400" />
-                  <span>{t.nav_why_us}</span>
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onNavigateSection('area')}
-                  className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1"
-                >
-                  <ChevronRight className="w-3.5 h-3.5 text-blue-400" />
-                  <span>{t.nav_area}</span>
+                  <span>{t.nav_about}</span>
                 </button>
               </li>
               <li>
@@ -186,6 +168,15 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
                 >
                   <ChevronRight className="w-3.5 h-3.5 text-blue-400" />
                   <span>{t.nav_steps}</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onNavigateSection('contact')}
+                  className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1"
+                >
+                  <ChevronRight className="w-3.5 h-3.5 text-blue-400" />
+                  <span>{t.nav_contact}</span>
                 </button>
               </li>
             </ul>
