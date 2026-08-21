@@ -61,18 +61,18 @@ export default function Header({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-4">
             
-            {/* 1. LEFT: BRAND LOGO & TITLE */}
+            {/* 1. LEFT: BRAND LOGO (LOGO ONLY ON MOBILE / HANDPHONE) */}
             <div 
               onClick={() => handleItemClick('home')}
-              className="flex items-center gap-2.5 cursor-pointer group shrink-0"
+              className="flex items-center gap-3 cursor-pointer group shrink-0"
               id="header-logo"
             >
               <img
                 src="/logo.png"
                 alt="JL Rental Mobil & Motor Kupang Logo"
-                className="h-11 sm:h-13 w-auto object-contain group-hover:scale-105 transition-transform duration-200"
+                className="h-10 sm:h-12 md:h-13 w-auto object-contain group-hover:scale-105 transition-transform duration-200"
               />
-              <div className="hidden sm:flex flex-col leading-tight">
+              <div className="hidden lg:flex flex-col leading-tight">
                 <span className="font-display font-black text-sm sm:text-base tracking-tight text-[#0f2b5c] uppercase">
                   Rental Mobil &amp; Motor <span className="text-red-600">Kupang</span>
                 </span>
