@@ -16,8 +16,8 @@ export default function Hero({ onExploreClick, lang }: HeroProps) {
   return (
     <section id="home" className="relative bg-[#061226] text-slate-900 overflow-hidden text-left">
       
-      {/* 1. PANORAMIC HERO PHOTO BANNER (Full, Grand & Spacious Bridge View) */}
-      <div className="relative w-full min-h-[480px] sm:min-h-[540px] md:min-h-[580px] pt-24 sm:pt-28 pb-20 bg-[#061226] text-white overflow-hidden flex flex-col justify-between">
+      {/* 1. PANORAMIC HERO PHOTO BANNER (Full, Grand & Spacious ~75% visible) */}
+      <div className="relative w-full h-[500px] sm:h-[560px] md:h-[620px] pt-24 sm:pt-28 bg-[#061226] text-white overflow-hidden flex flex-col justify-between">
         
         {/* Background Batam Barelang Sunset Photo */}
         <div 
@@ -27,7 +27,7 @@ export default function Hero({ onExploreClick, lang }: HeroProps) {
           }}
         />
 
-        {/* Subtle Gradient Overlay */}
+        {/* Subtle Dark Gradient Overlay for optimal contrast */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#061226]/80 via-transparent to-[#061226]/85" />
 
         {/* Location Pill in Top Banner */}
@@ -38,14 +38,14 @@ export default function Hero({ onExploreClick, lang }: HeroProps) {
           </div>
         </div>
 
-        {/* Vertical Spacer to keep photo view open and prominent */}
-        <div className="h-10 sm:h-16" />
+        {/* Vertical Spacer to keep 75% photo view open and prominent */}
+        <div className="h-12" />
 
       </div>
 
-      {/* 2. WHITE CONTENT CARD (Overlapping slightly onto bottom of hero banner) */}
+      {/* 2. WHITE CONTENT CARD (Overlapping precisely 25% onto the bottom of the hero banner) */}
       <div className="bg-slate-50 relative pb-10">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-20 -mt-16 sm:-mt-20 md:-mt-24">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-20 -mt-28 sm:-mt-36 md:-mt-40">
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
