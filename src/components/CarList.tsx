@@ -39,7 +39,7 @@ export default function CarList({ onSelectCar, lang }: CarListProps) {
   };
 
   return (
-    <section id="cars" className="py-20 bg-slate-50 text-[#081836] overflow-hidden relative border-b border-slate-100 text-left">
+    <section id="cars" className="pt-6 sm:pt-10 pb-20 bg-slate-50 text-[#081836] overflow-hidden relative border-b border-slate-100 text-left">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Heading */}
