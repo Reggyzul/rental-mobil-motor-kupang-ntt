@@ -11,24 +11,24 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
   const t = TRANSLATIONS[lang];
 
   return (
-    <footer id="contact" className="bg-[#0b1736] text-white pt-16 pb-12 overflow-hidden relative border-t border-slate-800 text-left">
+    <footer id="contact" className="bg-[#050f20] text-white pt-16 pb-12 overflow-hidden relative border-t border-slate-900 text-left">
       
       {/* Background Decorative Accents */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-sky-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-700/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Top CTA Callout Box */}
-        <div className="bg-gradient-to-r from-[#0f2b5c] via-[#1e3a8a] to-[#0b1736] rounded-3xl p-8 sm:p-10 border border-blue-700/60 shadow-2xl mb-14 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+        <div className="bg-gradient-to-r from-[#081836] via-[#0c2340] to-[#081836] rounded-3xl p-8 sm:p-10 border border-sky-900/40 shadow-xl mb-14 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
           <div className="md:col-span-8 text-left space-y-2">
-            <span className="text-[10px] font-black uppercase tracking-widest text-amber-300 bg-amber-950/80 px-3.5 py-1 rounded-full border border-amber-700/50 inline-block">
+            <span className="text-[10px] font-black uppercase tracking-widest text-sky-400 bg-sky-950/80 px-3.5 py-1 rounded-full border border-sky-800/50 inline-block">
               RIZAL TRANSPORTASI BATAM
             </span>
             <h3 className="font-display font-black text-2xl sm:text-3xl text-white uppercase tracking-tight">
               {t.footer_cta_heading}
             </h3>
-            <p className="font-sans text-xs sm:text-sm text-slate-200 font-medium max-w-xl leading-relaxed">
+            <p className="font-sans text-xs sm:text-sm text-slate-300 font-medium max-w-xl leading-relaxed">
               {t.footer_cta_sub}
             </p>
           </div>
@@ -37,7 +37,7 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
               href="https://api.whatsapp.com/send?phone=6285264018698&text=Halo%20Rizal%20Transportasi%20Batam,%20saya%20ingin%20booking%20rental%20mobil%20transportasi%20di%20Batam"
               target="_blank"
               rel="noreferrer"
-              className="bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-sans font-extrabold text-xs uppercase px-7 py-4 rounded-full shadow-xl transition-all flex items-center gap-2.5 cursor-pointer transform hover:scale-105"
+              className="bg-sky-600 hover:bg-sky-500 text-white font-sans font-extrabold text-xs uppercase px-7 py-4 rounded-full shadow-lg hover:shadow-sky-500/25 transition-all flex items-center gap-2.5 cursor-pointer transform hover:scale-105"
             >
               <MessageCircle className="w-5 h-5 fill-current" />
               <span>{t.footer_cta_btn}</span>
@@ -58,9 +58,9 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
               />
               <div>
                 <span className="font-display font-black text-lg sm:text-xl tracking-tight text-white uppercase block">
-                  Rizal Transportasi <span className="text-amber-400">Batam</span>
+                  Rizal Transportasi <span className="text-sky-400">Batam</span>
                 </span>
-                <span className="font-sans text-[10px] font-bold text-amber-300 tracking-wider block uppercase">
+                <span className="font-sans text-[10px] font-bold text-slate-400 tracking-wider block uppercase">
                   Rental Mobil &amp; Transportasi di Batam
                 </span>
               </div>
@@ -70,26 +70,26 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
               {t.hero_description}
             </p>
 
-            <div className="p-3.5 rounded-2xl bg-slate-900 border border-slate-800 space-y-1">
-              <span className="text-[10px] font-extrabold text-blue-400 uppercase tracking-wider block">
+            <div className="p-3.5 rounded-2xl bg-[#081836] border border-sky-950/60 space-y-1">
+              <span className="text-[10px] font-extrabold text-sky-400 uppercase tracking-wider block">
                 AREA LAYANAN UTAMA:
               </span>
               <p className="font-sans text-xs text-slate-300">
-                Kota Batam dan sekitarnya (Botania, Batam Center, Nagoya, Nongsa, Sekupang, Batu Aji, Bandara Hang Nadim &amp; Pelabuhan Ferry).
+                Kota Batam dan sekitarnya (Botania, Batam Center, Nagoya, Nongsa, Sekupang, Batu Aji, Bandara Hang Nadim &amp; Seluruh Pelabuhan Ferry).
               </p>
             </div>
           </div>
 
           {/* Column 2: Official Address & Contact */}
           <div className="md:col-span-4 space-y-4">
-            <h4 className="font-display font-black text-sm uppercase text-amber-400 tracking-wider">
+            <h4 className="font-display font-black text-sm uppercase text-sky-400 tracking-wider">
               {t.nav_contact}
             </h4>
 
             <div className="space-y-3.5 text-xs text-slate-300 font-medium">
               {/* Address */}
               <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
                 <div>
                   <span className="font-bold text-white block">{t.footer_address_title}</span>
                   <span className="text-slate-300 leading-relaxed block">
@@ -134,7 +134,7 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
 
           {/* Column 3: Navigation Links */}
           <div className="md:col-span-3 space-y-4">
-            <h4 className="font-display font-black text-sm uppercase text-blue-400 tracking-wider">
+            <h4 className="font-display font-black text-sm uppercase text-sky-400 tracking-wider">
               {t.footer_quick_links}
             </h4>
 
@@ -142,45 +142,36 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
               <li>
                 <button
                   onClick={() => onNavigateSection('home')}
-                  className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1"
+                  className="hover:text-sky-400 transition-colors cursor-pointer flex items-center gap-1"
                 >
-                  <ChevronRight className="w-3.5 h-3.5 text-blue-400" />
+                  <ChevronRight className="w-3.5 h-3.5 text-sky-400" />
                   <span>{t.nav_home}</span>
                 </button>
               </li>
               <li>
                 <button
                   onClick={() => onNavigateSection('cars')}
-                  className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1"
+                  className="hover:text-sky-400 transition-colors cursor-pointer flex items-center gap-1"
                 >
-                  <ChevronRight className="w-3.5 h-3.5 text-blue-400" />
+                  <ChevronRight className="w-3.5 h-3.5 text-sky-400" />
                   <span>{t.nav_vehicles}</span>
                 </button>
               </li>
               <li>
                 <button
                   onClick={() => onNavigateSection('about-page')}
-                  className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1"
+                  className="hover:text-sky-400 transition-colors cursor-pointer flex items-center gap-1"
                 >
-                  <ChevronRight className="w-3.5 h-3.5 text-blue-400" />
+                  <ChevronRight className="w-3.5 h-3.5 text-sky-400" />
                   <span>{t.nav_about}</span>
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onNavigateSection('steps')}
-                  className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1"
-                >
-                  <ChevronRight className="w-3.5 h-3.5 text-blue-400" />
-                  <span>{t.nav_steps}</span>
-                </button>
-              </li>
-              <li>
-                <button
                   onClick={() => onNavigateSection('contact')}
-                  className="hover:text-blue-400 transition-colors cursor-pointer flex items-center gap-1"
+                  className="hover:text-sky-400 transition-colors cursor-pointer flex items-center gap-1"
                 >
-                  <ChevronRight className="w-3.5 h-3.5 text-blue-400" />
+                  <ChevronRight className="w-3.5 h-3.5 text-sky-400" />
                   <span>{t.nav_contact}</span>
                 </button>
               </li>

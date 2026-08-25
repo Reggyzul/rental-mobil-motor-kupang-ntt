@@ -2,16 +2,14 @@ import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import CarList from './components/CarList';
-import BookingSteps from './components/BookingSteps';
 import Services from './components/Services';
-import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import BookingModal from './components/BookingModal';
 import AboutPage from './components/AboutPage';
 import TransportRentPage from './components/TransportRentPage';
 import { Car } from './types';
 import { CARS } from './data/cars';
-import { ChevronUp, MessageCircle } from 'lucide-react';
+import { ChevronUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TRANSLATIONS } from './utils/translations';
 
@@ -55,7 +53,7 @@ export default function App() {
       }
 
       if (currentPage === 'home') {
-        const sections = ['home', 'cars', 'services', 'steps', 'testimonials', 'contact'];
+        const sections = ['home', 'cars', 'services', 'contact'];
         const scrollPosition = window.scrollY + 250;
 
         for (const section of sections) {
@@ -109,7 +107,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col justify-between font-sans antialiased selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col justify-between font-sans antialiased selection:bg-sky-600 selection:text-white">
       
       {/* Header Bar */}
       <Header
@@ -131,7 +129,7 @@ export default function App() {
               onBookingClick={() => setSelectedCar(CARS[0])} 
             />
 
-            {/* 2. ARMADA & HARGA (Fleet list) */}
+            {/* 2. ARMADA (Fleet list) */}
             <CarList 
               onSelectCar={handleSelectCar} 
               lang={lang} 
@@ -140,12 +138,6 @@ export default function App() {
 
             {/* 3. LAYANAN, KEUNGGULAN & AREA LAYANAN */}
             <Services lang={lang} />
-
-            {/* 4. ALUR PEMESANAN (5 LANGKAH) */}
-            <BookingSteps lang={lang} />
-
-            {/* 5. TESTIMONIALS */}
-            <Testimonials lang={lang} />
           </>
         ) : currentPage === 'about' ? (
           <AboutPage lang={lang} onNavigateHome={() => handleNavClick('home')} />
@@ -173,7 +165,7 @@ export default function App() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
               onClick={scrollToTop}
-              className="w-10 h-10 rounded-full bg-[#0d1b37] text-white flex items-center justify-center shadow-lg hover:bg-slate-800 transition-colors cursor-pointer border border-slate-700"
+              className="w-10 h-10 rounded-full bg-[#081836] text-white flex items-center justify-center shadow-lg hover:bg-sky-600 transition-colors cursor-pointer border border-sky-900/50"
               title={lang === 'EN' ? "Scroll to top" : "Kembali ke atas"}
             >
               <ChevronUp className="w-5 h-5" />

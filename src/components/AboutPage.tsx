@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, ShieldCheck, CheckCircle2, Target, Eye, Compass, MapPin, Phone, Share2, Users } from 'lucide-react';
+import { Sparkles, ShieldCheck, CheckCircle2, Target, Eye, MapPin, Phone, Share2, Users } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 
 interface AboutPageProps {
@@ -51,20 +51,20 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
   ];
 
   return (
-    <div className="bg-white text-[#0d1b37] min-h-screen pt-20 text-left">
+    <div className="bg-white text-[#081836] min-h-screen pt-20 text-left">
       
       {/* 1. TOP HEADER BANNER */}
-      <div className="relative w-full h-[240px] sm:h-[300px] bg-slate-950 text-white overflow-hidden flex items-center justify-center">
+      <div className="relative w-full h-[240px] sm:h-[300px] bg-[#061226] text-white overflow-hidden flex items-center justify-center">
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-40 transform scale-105"
           style={{
             backgroundImage: `url('/hero_batam.jpg')`
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/60 to-slate-950/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#061226]/90 via-[#081836]/75 to-[#061226]/95" />
 
         <div className="relative z-10 text-center space-y-2 px-4">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-600/90 text-white font-extrabold text-[10px] uppercase tracking-widest mb-1 shadow-md">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/20 border border-sky-400/30 text-sky-300 font-extrabold text-[10px] uppercase tracking-widest mb-1 shadow-sm">
             <span>Rizal Transportasi Batam</span>
           </div>
 
@@ -72,7 +72,7 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
             {t.nav_about}
           </h1>
           <p className="font-sans text-xs font-bold text-slate-300 uppercase tracking-widest">
-            <span onClick={onNavigateHome} className="hover:text-blue-400 cursor-pointer">{t.nav_home}</span> / {t.nav_about}
+            <span onClick={onNavigateHome} className="hover:text-sky-400 cursor-pointer">{t.nav_home}</span> / {t.nav_about}
           </p>
         </div>
       </div>
@@ -83,21 +83,21 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
         {/* SECTION 1: ABOUT OVERVIEW */}
         <section className="space-y-6">
           <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100 text-blue-700 font-display font-black text-xs uppercase tracking-widest border border-blue-200 shadow-sm">
-              <Sparkles className="w-4 h-4 text-blue-600" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-50 text-sky-700 font-display font-black text-xs uppercase tracking-widest border border-sky-100 shadow-xs">
+              <Sparkles className="w-4 h-4 text-sky-600" />
               <span>PROFIL BISNIS</span>
             </div>
 
-            <h2 className="font-display font-black text-3xl sm:text-4xl text-[#0d1b37] uppercase tracking-tight">
+            <h2 className="font-display font-black text-3xl sm:text-4xl text-[#081836] uppercase tracking-tight">
               {t.brand_name}
             </h2>
-            <p className="font-sans text-sm font-bold text-blue-600">
+            <p className="font-sans text-sm font-bold text-sky-600">
               {t.brand_tagline}
             </p>
           </div>
 
           <div className="space-y-4">
-            <p className="font-sans text-sm font-medium text-slate-700 leading-relaxed bg-slate-50 p-6 rounded-3xl border border-slate-200">
+            <p className="font-sans text-sm font-medium text-slate-700 leading-relaxed bg-slate-50 p-6 rounded-3xl border border-slate-200/80">
               {t.hero_description}
             </p>
             <p className="font-sans text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
@@ -113,8 +113,8 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             
             {/* VISI */}
-            <div className="bg-gradient-to-br from-[#0f2b5c] to-slate-900 text-white rounded-3xl p-7 shadow-lg space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-amber-400">
+            <div className="bg-gradient-to-br from-[#081836] to-[#0c2340] text-white rounded-3xl p-7 shadow-md space-y-4 border border-sky-900/30">
+              <div className="w-12 h-12 rounded-2xl bg-sky-500/20 border border-sky-400/30 flex items-center justify-center text-sky-400">
                 <Eye className="w-6 h-6" />
               </div>
               <h3 className="font-display font-black text-xl text-white uppercase tracking-tight">
@@ -126,17 +126,17 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
             </div>
 
             {/* MISI */}
-            <div className="bg-slate-50 rounded-3xl p-7 border border-slate-200 shadow-sm space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-blue-100 flex items-center justify-center text-blue-600">
+            <div className="bg-slate-50 rounded-3xl p-7 border border-slate-200/80 shadow-xs space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-sky-100 flex items-center justify-center text-sky-700">
                 <Target className="w-6 h-6" />
               </div>
-              <h3 className="font-display font-black text-xl text-[#0d1b37] uppercase tracking-tight">
+              <h3 className="font-display font-black text-xl text-[#081836] uppercase tracking-tight">
                 {t.mission_title}
               </h3>
               <ul className="space-y-2.5">
                 {missionList.map((m, idx) => (
                   <li key={idx} className="flex items-start gap-2.5 text-xs text-slate-700 font-medium">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-sky-600 shrink-0 mt-0.5" />
                     <span>{m}</span>
                   </li>
                 ))}
@@ -149,34 +149,34 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
         {/* SECTION 3: KEUNGGULAN KAMI */}
         <section className="space-y-6 border-t border-slate-100 pt-10">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-700 font-display font-black text-xs uppercase tracking-widest border border-emerald-200 shadow-sm">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-50 text-sky-700 font-display font-black text-xs uppercase tracking-widest border border-sky-100 shadow-xs">
+              <ShieldCheck className="w-4 h-4 text-sky-600" />
               <span>{t.why_tag}</span>
             </div>
-            <h3 className="font-display font-black text-2xl sm:text-3xl text-[#0d1b37] uppercase">
+            <h3 className="font-display font-black text-2xl sm:text-3xl text-[#081836] uppercase">
               {t.why_title}
             </h3>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
-              <span className="font-display font-bold text-base text-blue-600 block">✓ {t.why_1_title}</span>
+            <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-xs space-y-2">
+              <span className="font-display font-bold text-base text-sky-700 block">✓ {t.why_1_title}</span>
               <p className="text-xs text-slate-600 font-medium leading-relaxed">{t.why_1_desc}</p>
             </div>
-            <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
-              <span className="font-display font-bold text-base text-blue-600 block">✓ {t.why_2_title}</span>
+            <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-xs space-y-2">
+              <span className="font-display font-bold text-base text-sky-700 block">✓ {t.why_2_title}</span>
               <p className="text-xs text-slate-600 font-medium leading-relaxed">{t.why_2_desc}</p>
             </div>
-            <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
-              <span className="font-display font-bold text-base text-blue-600 block">✓ {t.why_3_title}</span>
+            <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-xs space-y-2">
+              <span className="font-display font-bold text-base text-sky-700 block">✓ {t.why_3_title}</span>
               <p className="text-xs text-slate-600 font-medium leading-relaxed">{t.why_3_desc}</p>
             </div>
-            <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2">
-              <span className="font-display font-bold text-base text-blue-600 block">✓ {t.why_4_title}</span>
+            <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-xs space-y-2">
+              <span className="font-display font-bold text-base text-sky-700 block">✓ {t.why_4_title}</span>
               <p className="text-xs text-slate-600 font-medium leading-relaxed">{t.why_4_desc}</p>
             </div>
-            <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-2 md:col-span-2 lg:col-span-2">
-              <span className="font-display font-bold text-base text-blue-600 block">✓ {t.why_5_title}</span>
+            <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-xs space-y-2 md:col-span-2 lg:col-span-2">
+              <span className="font-display font-bold text-base text-sky-700 block">✓ {t.why_5_title}</span>
               <p className="text-xs text-slate-600 font-medium leading-relaxed">{t.why_5_desc}</p>
             </div>
           </div>
@@ -185,11 +185,11 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
         {/* SECTION 4: TARGET PELANGGAN */}
         <section className="space-y-6 border-t border-slate-100 pt-10">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100 text-amber-800 font-display font-black text-xs uppercase tracking-widest border border-amber-200 shadow-sm">
-              <Users className="w-4 h-4 text-amber-600" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-50 text-sky-800 font-display font-black text-xs uppercase tracking-widest border border-sky-100 shadow-xs">
+              <Users className="w-4 h-4 text-sky-600" />
               <span>{t.target_tag}</span>
             </div>
-            <h3 className="font-display font-black text-2xl sm:text-3xl text-[#0d1b37] uppercase">
+            <h3 className="font-display font-black text-2xl sm:text-3xl text-[#081836] uppercase">
               {t.target_title}
             </h3>
             <p className="font-sans text-xs sm:text-sm text-slate-600 font-medium">
@@ -200,7 +200,7 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {targetList.map((target, idx) => (
               <div key={idx} className="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200">
-                <CheckCircle2 className="w-4 h-4 text-amber-500 shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-sky-600 shrink-0" />
                 <span className="font-sans font-bold text-xs text-slate-800">{target}</span>
               </div>
             ))}
@@ -210,11 +210,11 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
         {/* SECTION 5: LAYANAN KAMI */}
         <section className="space-y-6 border-t border-slate-100 pt-10">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100 text-blue-700 font-display font-black text-xs uppercase tracking-widest border border-blue-200 shadow-sm">
-              <Sparkles className="w-4 h-4 text-blue-600" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-50 text-sky-700 font-display font-black text-xs uppercase tracking-widest border border-sky-100 shadow-xs">
+              <Sparkles className="w-4 h-4 text-sky-600" />
               <span>{t.services_tag}</span>
             </div>
-            <h3 className="font-display font-black text-2xl sm:text-3xl text-[#0d1b37] uppercase">
+            <h3 className="font-display font-black text-2xl sm:text-3xl text-[#081836] uppercase">
               {t.services_title}
             </h3>
           </div>
@@ -222,7 +222,7 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {servicesList.map((item, idx) => (
               <div key={idx} className="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200">
-                <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-sky-600 shrink-0" />
                 <span className="font-sans font-bold text-xs text-slate-800">{item}</span>
               </div>
             ))}
@@ -231,7 +231,7 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
 
         {/* SECTION 6: AREA LAYANAN & KONTAK */}
         <section className="space-y-6 border-t border-slate-100 pt-10">
-          <div className="bg-gradient-to-br from-slate-900 via-[#0f2b5c] to-slate-950 text-white rounded-3xl p-8 space-y-6">
+          <div className="bg-gradient-to-br from-[#061226] via-[#081836] to-[#0c2340] text-white rounded-3xl p-8 space-y-6 border border-sky-900/30">
             <div className="space-y-2">
               <h3 className="font-display font-black text-2xl text-white uppercase">
                 {t.area_title}

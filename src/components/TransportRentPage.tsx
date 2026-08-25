@@ -40,20 +40,20 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
   };
 
   return (
-    <div className="bg-white text-[#0d1b37] min-h-screen pt-20 text-left">
+    <div className="bg-white text-[#081836] min-h-screen pt-20 text-left">
       
       {/* TOP HEADER BANNER */}
-      <div className="relative w-full h-[230px] sm:h-[290px] bg-slate-950 text-white overflow-hidden flex items-center justify-center">
+      <div className="relative w-full h-[230px] sm:h-[290px] bg-[#061226] text-white overflow-hidden flex items-center justify-center">
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-40 transform scale-105"
           style={{
             backgroundImage: `url('/hero_batam.jpg')`
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/60 to-slate-950/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#061226]/90 via-[#081836]/75 to-[#061226]/95" />
 
         <div className="relative z-10 text-center space-y-2 px-4">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-600/90 text-white font-extrabold text-[10px] uppercase tracking-widest mb-1 shadow-md">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/20 border border-sky-400/30 text-sky-300 font-extrabold text-[10px] uppercase tracking-widest mb-1 shadow-sm">
             <span>Rizal Transportasi Batam</span>
           </div>
 
@@ -62,7 +62,7 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
           </h1>
 
           <p className="font-sans text-xs font-bold text-slate-300 uppercase tracking-widest">
-            <span onClick={onNavigateHome} className="hover:text-blue-400 cursor-pointer">{t.nav_home}</span> / {t.nav_vehicles}
+            <span onClick={onNavigateHome} className="hover:text-sky-400 cursor-pointer">{t.nav_home}</span> / {t.nav_vehicles}
           </p>
         </div>
       </div>
@@ -72,10 +72,10 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
         
         {/* Page Description */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <h2 className="font-display font-black text-3xl sm:text-4xl text-[#0d1b37] uppercase">
+          <h2 className="font-display font-black text-3xl sm:text-4xl text-[#081836] uppercase">
             {t.vehicles_title}
           </h2>
-          <div className="w-16 h-1 bg-amber-500 mx-auto rounded-full" />
+          <div className="w-16 h-1 bg-sky-600 mx-auto rounded-full" />
           <p className="font-sans text-slate-600 text-xs sm:text-sm leading-relaxed font-medium">
             {t.vehicles_desc}
           </p>
@@ -89,7 +89,7 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
               onClick={() => setFilterCategory(cat.id)}
               className={`px-5 py-2.5 rounded-2xl font-display font-extrabold text-xs uppercase transition-all cursor-pointer ${
                 filterCategory === cat.id
-                  ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25 scale-[1.02]'
+                  ? 'bg-[#081836] text-white shadow-md shadow-sky-950/20 scale-[1.02]'
                   : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
               }`}
             >
@@ -99,7 +99,7 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
         </div>
 
         {/* Fleet Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
           {filteredCars.map((car) => {
             return (
               <motion.div
@@ -108,41 +108,41 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 onClick={() => onSelectCar(car)}
-                className="bg-white rounded-3xl overflow-hidden border border-slate-200/90 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col justify-between group cursor-pointer hover:-translate-y-1"
+                className="bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-sky-200 transition-all duration-300 flex flex-col justify-between group cursor-pointer hover:-translate-y-1"
               >
                 <div>
-                  <div className="relative h-60 bg-gradient-to-b from-slate-50 to-white overflow-hidden flex items-center justify-center border-b border-slate-100 p-3">
+                  <div className="relative h-60 bg-gradient-to-b from-slate-50/80 to-white overflow-hidden flex items-center justify-center border-b border-slate-100 p-3">
                     <img
                       src={car.image}
                       alt={car.name}
-                      className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500 drop-shadow-md"
+                      className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500 drop-shadow-sm"
                     />
-                    <div className="absolute top-4 left-4 bg-slate-900/85 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider">
+                    <div className="absolute top-4 left-4 bg-[#081836]/90 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider">
                       {car.category}
                     </div>
 
-                    <div className="absolute top-4 right-4 bg-gradient-to-r from-amber-500 to-amber-600 text-white px-3.5 py-1 rounded-full text-xs font-display font-black tracking-wide shadow-md">
+                    <div className="absolute top-4 right-4 bg-sky-600 text-white px-3 py-1 rounded-full text-xs font-display font-bold tracking-wide shadow-xs">
                       Mulai {car.priceDisplay}
                     </div>
                   </div>
 
                   <div className="p-6 space-y-4 text-left">
                     <div>
-                      <h3 className="font-display font-black text-xl text-[#0d1b37] tracking-tight group-hover:text-blue-600 transition-colors uppercase">
+                      <h3 className="font-display font-black text-xl text-[#081836] tracking-tight group-hover:text-sky-600 transition-colors uppercase">
                         {car.name}
                       </h3>
-                      <p className="font-sans text-xs text-slate-600 font-medium mt-1 leading-relaxed">
+                      <p className="font-sans text-xs text-slate-500 font-medium mt-1 leading-relaxed">
                         {car.description}
                       </p>
                     </div>
 
                     <div className="flex items-center gap-2 text-xs font-bold text-slate-700 pt-2 border-t border-slate-100">
-                      <div className="flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-lg">
-                        <Users className="w-4 h-4 text-blue-600" />
+                      <div className="flex items-center gap-1.5 bg-sky-50/80 px-3 py-1.5 rounded-lg text-sky-900 border border-sky-100/80">
+                        <Users className="w-4 h-4 text-sky-600" />
                         <span>{car.seats} {isEN ? 'Seats' : 'Kursi'}</span>
                       </div>
                       <div className="flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-lg">
-                        <Settings2 className="w-4 h-4 text-blue-600" />
+                        <Settings2 className="w-4 h-4 text-slate-600" />
                         <span>{car.transmission}</span>
                       </div>
                     </div>
@@ -153,8 +153,8 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
                       </span>
                       <ul className="space-y-1">
                         {car.includeList.map((inc, idx) => (
-                          <li key={idx} className="flex items-center gap-2 text-xs font-semibold text-slate-700">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                          <li key={idx} className="flex items-center gap-2 text-xs font-medium text-slate-700">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-sky-500 shrink-0" />
                             <span>{inc}</span>
                           </li>
                         ))}
@@ -163,15 +163,15 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
                   </div>
                 </div>
 
-                <div className="p-6 pt-0 space-y-2.5">
+                <div className="p-6 pt-0 space-y-2">
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       onSelectCar(car);
                     }}
-                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-display font-black text-xs uppercase py-3 rounded-2xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-2 tracking-wider"
+                    className="w-full bg-[#081836] hover:bg-[#0c2340] text-white font-display font-black text-xs uppercase py-3 rounded-2xl shadow-xs transition-all cursor-pointer flex items-center justify-center gap-2 tracking-wider"
                   >
-                    <Sparkles className="w-4 h-4" />
+                    <Sparkles className="w-4 h-4 text-sky-300" />
                     <span>{t.vehicles_btn_book}</span>
                   </button>
 
@@ -180,7 +180,7 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
                       e.stopPropagation();
                       handleWhatsAppBooking(car);
                     }}
-                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-display font-black text-xs uppercase py-2.5 rounded-2xl shadow-xs transition-all cursor-pointer flex items-center justify-center gap-2 tracking-wider"
+                    className="w-full bg-sky-600 hover:bg-sky-500 text-white font-display font-black text-xs uppercase py-2.5 rounded-2xl shadow-xs transition-all cursor-pointer flex items-center justify-center gap-2 tracking-wider"
                   >
                     <MessageCircle className="w-4 h-4 fill-current" />
                     <span>{t.vehicles_btn_wa}</span>
@@ -192,9 +192,9 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
         </div>
 
         {/* Note Box */}
-        <div className="bg-amber-50 border border-amber-200/80 rounded-2xl p-4 sm:p-5 flex items-start gap-3 text-left">
-          <Info className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-          <p className="font-sans text-xs sm:text-sm text-amber-900 leading-relaxed font-medium">
+        <div className="bg-sky-50 border border-sky-100 rounded-2xl p-4 sm:p-5 flex items-start gap-3 text-left">
+          <Info className="w-5 h-5 text-sky-600 shrink-0 mt-0.5" />
+          <p className="font-sans text-xs sm:text-sm text-sky-950 leading-relaxed font-medium">
             {t.vehicles_price_note}
           </p>
         </div>
