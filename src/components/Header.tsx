@@ -68,9 +68,9 @@ export default function Header({
               id="header-logo"
             >
               <img
-                src="/logo_rizal.jpg"
+                src="/logo.png"
                 alt="Rizal Transportasi Batam Logo"
-                className="h-10 sm:h-12 w-auto object-contain rounded-xl shadow-xs group-hover:scale-105 transition-transform duration-200 shrink-0 border border-slate-100"
+                className="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-200 shrink-0"
               />
               <div className="flex flex-col leading-tight">
                 <span className="font-display font-black text-sm sm:text-base md:text-lg tracking-tight text-[#0f2b5c] uppercase">

@@ -52,9 +52,9 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
               <img
-                src="/logo_rizal.jpg"
+                src="/logo.png"
                 alt="Rizal Transportasi Batam Logo"
-                className="h-14 w-auto object-contain rounded-2xl border border-slate-700 shadow-md shrink-0"
+                className="h-14 w-auto object-contain shrink-0 p-1 bg-white/10 rounded-2xl border border-white/20 shadow-md backdrop-blur-sm"
               />
               <div>
                 <span className="font-display font-black text-lg sm:text-xl tracking-tight text-white uppercase block">
