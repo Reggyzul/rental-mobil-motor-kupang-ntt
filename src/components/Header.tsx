@@ -50,36 +50,36 @@ export default function Header({
   return (
     <header className="fixed top-0 left-0 w-full z-50 transition-all duration-300">
       
-      {/* 1. TOP SLIM BAR (Matching reference design topbar) */}
-      <div className="w-full bg-[#081836] text-white border-b border-sky-950/60 py-1.5 px-4 sm:px-6 lg:px-8 text-xs font-sans">
+      {/* 1. TOP SLIM BAR */}
+      <div className="w-full bg-[#061226] text-white py-1.5 px-4 sm:px-6 lg:px-8 text-xs font-sans border-b border-white/5">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           
-          {/* Left: Phone / WhatsApp direct number */}
+          {/* Left: Direct Phone/WhatsApp */}
           <a
             href="https://api.whatsapp.com/send?phone=6285264018698&text=Halo%20Rizal%20Transportasi%20Batam,%20saya%20ingin%20tanya%20rental%20mobil"
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-2 text-sky-200 hover:text-white font-bold transition-colors cursor-pointer"
+            className="flex items-center gap-2 text-sky-300 hover:text-white font-bold transition-colors cursor-pointer"
           >
             <Phone className="w-3.5 h-3.5 text-sky-400 fill-current" />
             <span>0852-6401-8698</span>
           </a>
 
-          {/* Right: Language switch */}
+          {/* Right: Language Switch */}
           <div className="flex items-center gap-1 text-[11px] font-bold">
             <button
               onClick={() => setLang('ID')}
-              className={`px-1.5 py-0.5 rounded transition-colors ${
-                lang === 'ID' ? 'text-sky-300 font-black' : 'text-slate-400 hover:text-white'
+              className={`px-1.5 py-0.5 rounded transition-colors cursor-pointer ${
+                lang === 'ID' ? 'text-sky-400 font-black' : 'text-slate-400 hover:text-white'
               }`}
             >
               ID
             </button>
-            <span className="text-slate-500">|</span>
+            <span className="text-slate-600">|</span>
             <button
               onClick={() => setLang('EN')}
-              className={`px-1.5 py-0.5 rounded transition-colors ${
-                lang === 'EN' ? 'text-sky-300 font-black' : 'text-slate-400 hover:text-white'
+              className={`px-1.5 py-0.5 rounded transition-colors cursor-pointer ${
+                lang === 'EN' ? 'text-sky-400 font-black' : 'text-slate-400 hover:text-white'
               }`}
             >
               EN
@@ -89,40 +89,43 @@ export default function Header({
         </div>
       </div>
 
-      {/* 2. MAIN NAVBAR (Dark background with clean layout matching reference screenshot) */}
+      {/* 2. MAIN NAVBAR */}
       <div
         className={`w-full transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#050f20]/95 backdrop-blur-md py-2.5 shadow-lg border-b border-sky-950'
-            : 'bg-[#050f20] py-3.5 border-b border-sky-950/80'
+            ? 'bg-[#081836]/95 backdrop-blur-md py-2.5 shadow-xl'
+            : 'bg-[#081836] py-3'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-4">
             
-            {/* Left: Brand Logo & Typography */}
+            {/* Left: Brand Logo & Typography with crisp white background badge for maximum contrast */}
             <div 
               onClick={() => handleItemClick('home')}
               className="flex items-center gap-3 cursor-pointer group shrink-0"
               id="header-logo"
             >
-              <img
-                src="/logo.png"
-                alt="Rizal Transportasi Batam Logo"
-                className="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-200 shrink-0 p-0.5 bg-white/10 rounded-xl"
-              />
+              <div className="bg-white p-1 rounded-xl shadow-xs group-hover:scale-105 transition-transform duration-200 shrink-0 flex items-center justify-center">
+                <img
+                  src="/logo.png"
+                  alt="Rizal Transportasi Batam Logo"
+                  className="h-8 sm:h-9 w-auto object-contain"
+                />
+              </div>
+              
               <div className="flex flex-col leading-tight">
                 <span className="font-display font-black text-base sm:text-lg tracking-tight text-white uppercase">
                   Rizal Transportasi <span className="text-sky-400">Batam</span>
                 </span>
-                <span className="font-sans font-bold text-[9px] sm:text-[10px] text-slate-400 tracking-wider uppercase">
+                <span className="font-sans font-bold text-[9px] sm:text-[10px] text-slate-300 tracking-wider uppercase">
                   Rental Mobil &amp; Transportasi
                 </span>
               </div>
             </div>
 
             {/* Center/Right: Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center justify-end gap-7 xl:gap-9 text-xs uppercase tracking-wider font-sans font-extrabold text-slate-200" id="desktop-nav">
+            <nav className="hidden lg:flex items-center justify-end gap-8 text-xs uppercase tracking-wider font-sans font-extrabold text-slate-200" id="desktop-nav">
               {navItems.map((item) => {
                 const isActive = activeSection === item.id || (item.id === 'about-page' && (activeSection === 'about' || activeSection === 'about-page'));
                 return (
@@ -178,7 +181,7 @@ export default function Header({
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-[#050f20] border-b border-sky-950 shadow-2xl overflow-hidden text-left"
+            className="lg:hidden bg-[#081836] border-b border-white/10 shadow-2xl overflow-hidden text-left"
             id="mobile-menu-drawer"
           >
             <div className="px-5 pt-3 pb-6 space-y-2 text-white">
@@ -188,7 +191,7 @@ export default function Header({
                   <button
                     key={item.id}
                     onClick={() => handleItemClick(item.id)}
-                    className={`block w-full text-left font-display font-bold text-sm py-2.5 border-b border-slate-800 transition-colors ${
+                    className={`block w-full text-left font-display font-bold text-sm py-2.5 border-b border-slate-700 transition-colors ${
                       isActive ? 'text-sky-400 font-extrabold' : 'text-slate-200 hover:text-sky-400'
                     }`}
                   >
