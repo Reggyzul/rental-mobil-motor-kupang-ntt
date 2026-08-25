@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Phone, MessageCircle, Share2, ChevronRight } from 'lucide-react';
+import { MapPin, Phone, MessageCircle, ChevronRight } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 
 interface FooterProps {
@@ -110,22 +110,6 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
                     className="text-emerald-400 hover:underline font-bold block pt-0.5"
                   >
                     📱 +62 852-6401-8698
-                  </a>
-                </div>
-              </div>
-
-              {/* Social Media */}
-              <div className="flex items-start gap-2.5">
-                <Share2 className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
-                <div>
-                  <span className="font-bold text-white block">{t.footer_socmed_title}</span>
-                  <a
-                    href="https://www.facebook.com"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-slate-300 hover:text-sky-300 block pt-0.5 font-bold text-sky-300"
-                  >
-                    📘 Facebook: Rizal Transportasi Batam
                   </a>
                 </div>
               </div>

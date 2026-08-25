@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone, MessageCircle, Share2, Facebook } from 'lucide-react';
+import { Menu, X, Phone, MessageCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TRANSLATIONS } from '../utils/translations';
 
@@ -65,41 +65,25 @@ export default function Header({
             <span>0852-6401-8698</span>
           </a>
 
-          {/* Right: Social icons & language */}
-          <div className="flex items-center gap-4">
-            <div className="hidden sm:flex items-center gap-3 text-slate-300">
-              <a
-                href="https://www.facebook.com"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-sky-300 transition-colors flex items-center gap-1"
-                title="Facebook: Rizal Transportasi Batam"
-              >
-                <Facebook className="w-3.5 h-3.5" />
-                <span className="text-[11px] font-semibold">Rizal Transportasi Batam</span>
-              </a>
-            </div>
-
-            {/* Compact Language switch in top bar */}
-            <div className="flex items-center gap-1 text-[11px] font-bold border-l border-sky-900/60 pl-3">
-              <button
-                onClick={() => setLang('ID')}
-                className={`px-1.5 py-0.5 rounded transition-colors ${
-                  lang === 'ID' ? 'text-sky-300 font-black' : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                ID
-              </button>
-              <span className="text-slate-500">|</span>
-              <button
-                onClick={() => setLang('EN')}
-                className={`px-1.5 py-0.5 rounded transition-colors ${
-                  lang === 'EN' ? 'text-sky-300 font-black' : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                EN
-              </button>
-            </div>
+          {/* Right: Language switch */}
+          <div className="flex items-center gap-1 text-[11px] font-bold">
+            <button
+              onClick={() => setLang('ID')}
+              className={`px-1.5 py-0.5 rounded transition-colors ${
+                lang === 'ID' ? 'text-sky-300 font-black' : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              ID
+            </button>
+            <span className="text-slate-500">|</span>
+            <button
+              onClick={() => setLang('EN')}
+              className={`px-1.5 py-0.5 rounded transition-colors ${
+                lang === 'EN' ? 'text-sky-300 font-black' : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              EN
+            </button>
           </div>
 
         </div>

@@ -241,20 +241,16 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 text-xs border-t border-white/10 pt-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 text-xs border-t border-white/10 pt-4">
               <div className="space-y-1">
                 <span className="text-slate-400 font-bold block uppercase">Alamat Kantor:</span>
                 <span className="text-white font-medium">{t.footer_address_text}</span>
               </div>
               <div className="space-y-1">
-                <span className="text-slate-400 font-bold block uppercase">WhatsApp:</span>
+                <span className="text-slate-400 font-bold block uppercase">WhatsApp Resmi:</span>
                 <a href="https://api.whatsapp.com/send?phone=6285264018698" target="_blank" rel="noreferrer" className="text-emerald-400 font-bold hover:underline">
                   +62 852-6401-8698
                 </a>
-              </div>
-              <div className="space-y-1">
-                <span className="text-slate-400 font-bold block uppercase">Sosial Media:</span>
-                <span className="text-sky-300 font-bold">{t.footer_socmed_text}</span>
               </div>
             </div>
           </div>

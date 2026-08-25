@@ -53,7 +53,7 @@ export default function App() {
       }
 
       if (currentPage === 'home') {
-        const sections = ['home', 'cars', 'services', 'contact'];
+        const sections = ['home', 'cars', 'contact'];
         const scrollPosition = window.scrollY + 250;
 
         for (const section of sections) {
@@ -135,9 +135,6 @@ export default function App() {
               lang={lang} 
               onViewAllCars={() => handleNavClick('cars')}
             />
-
-            {/* 3. LAYANAN, KEUNGGULAN & AREA LAYANAN */}
-            <Services lang={lang} />
           </>
         ) : currentPage === 'about' ? (
           <AboutPage lang={lang} onNavigateHome={() => handleNavClick('home')} />
