@@ -44,6 +44,7 @@ export default function Header({
     { id: 'home', label: t.nav_home },
     { id: 'cars', label: t.nav_vehicles },
     { id: 'about-page', label: t.nav_about },
+    { id: 'steps', label: t.nav_steps },
     { id: 'contact', label: t.nav_contact }
   ];
 
@@ -61,32 +62,29 @@ export default function Header({
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-2 sm:gap-4">
             
-            {/* 1. LEFT: BRAND LOGO & TEXT BESIDE LOGO (AVIF FORMAT) */}
+            {/* 1. LEFT: BRAND LOGO & TEXT BESIDE LOGO */}
             <div 
               onClick={() => handleItemClick('home')}
-              className="flex items-center gap-2 sm:gap-3 cursor-pointer group shrink-0"
+              className="flex items-center gap-2.5 sm:gap-3 cursor-pointer group shrink-0"
               id="header-logo"
             >
-              <picture>
-                <source srcSet="/logo.avif" type="image/avif" />
-                <img
-                  src="/logo.png"
-                  alt="JL Rental Mobil & Motor Kupang Logo"
-                  className="h-9 sm:h-11 md:h-13 w-auto object-contain group-hover:scale-105 transition-transform duration-200 shrink-0"
-                />
-              </picture>
+              <img
+                src="/logo_rizal.jpg"
+                alt="Rizal Transportasi Batam Logo"
+                className="h-10 sm:h-12 w-auto object-contain rounded-xl shadow-xs group-hover:scale-105 transition-transform duration-200 shrink-0 border border-slate-100"
+              />
               <div className="flex flex-col leading-tight">
-                <span className="font-display font-black text-xs sm:text-sm md:text-base tracking-tight text-[#0f2b5c] uppercase">
-                  Rental Mobil &amp; Motor <span className="text-red-600">Kupang</span>
+                <span className="font-display font-black text-sm sm:text-base md:text-lg tracking-tight text-[#0f2b5c] uppercase">
+                  Rizal Transportasi <span className="text-amber-500">Batam</span>
                 </span>
-                <span className="font-sans font-bold text-[8px] sm:text-[9px] md:text-[10px] text-slate-500 tracking-wide uppercase">
-                  Nusa Tenggara Timur
+                <span className="font-sans font-bold text-[9px] sm:text-[10px] text-slate-500 tracking-wide uppercase">
+                  Rental Mobil &amp; Transportasi
                 </span>
               </div>
             </div>
 
-            {/* 2. CENTER: CLEAN DESKTOP NAV LINKS */}
-            <nav className="hidden lg:flex items-center justify-center gap-8 xl:gap-10 text-xs uppercase tracking-wider font-sans font-extrabold text-slate-700 flex-1 px-4" id="desktop-nav">
+            {/* 2. CENTER: DESKTOP NAV LINKS */}
+            <nav className="hidden lg:flex items-center justify-center gap-7 xl:gap-9 text-xs uppercase tracking-wider font-sans font-extrabold text-slate-700 flex-1 px-4" id="desktop-nav">
               {navItems.map((item) => {
                 const isActive = activeSection === item.id || (item.id === 'about-page' && (activeSection === 'about' || activeSection === 'about-page'));
                 return (
@@ -143,7 +141,7 @@ export default function Header({
               {/* Booking CTA Button */}
               <button
                 onClick={onBookingClick}
-                className="bg-gradient-to-r from-blue-700 via-blue-600 to-red-600 hover:from-blue-800 hover:to-red-700 text-white font-display font-black text-xs uppercase px-5 py-2.5 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer tracking-wider flex items-center gap-1.5"
+                className="bg-gradient-to-r from-blue-700 via-blue-600 to-amber-600 hover:from-blue-800 hover:to-amber-700 text-white font-display font-black text-xs uppercase px-5 py-2.5 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer tracking-wider flex items-center gap-1.5"
                 id="header-book-btn"
               >
                 <MessageCircle className="w-3.5 h-3.5 fill-current" />
@@ -227,7 +225,7 @@ export default function Header({
                     setMobileMenuOpen(false);
                     onBookingClick();
                   }}
-                  className="w-full bg-gradient-to-r from-blue-600 to-red-600 text-white font-display font-bold text-xs uppercase py-3.5 rounded-xl shadow-md flex items-center justify-center gap-2"
+                  className="w-full bg-gradient-to-r from-blue-600 to-amber-600 text-white font-display font-bold text-xs uppercase py-3.5 rounded-xl shadow-md flex items-center justify-center gap-2"
                 >
                   <MessageCircle className="w-4 h-4 fill-current" />
                   <span>{t.nav_book_btn}</span>

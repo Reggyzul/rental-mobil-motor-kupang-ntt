@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Car, Bike, Compass, Users, Briefcase, HelpCircle, MapPin, CheckCircle2, Sparkles, MessageCircle, ShieldCheck } from 'lucide-react';
+import { Car, Users, Compass, Plane, MapPin, CheckCircle2, Sparkles, MessageCircle, ShieldCheck, Briefcase } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 
 interface ServicesProps {
@@ -18,42 +18,42 @@ export default function Services({ lang }: ServicesProps) {
       title: t.service_1_title,
       desc: t.service_1_desc,
       color: 'from-blue-600 to-indigo-600',
-      badge: 'Mobil Harian / Luar Kota'
-    },
-    {
-      icon: Bike,
-      title: t.service_2_title,
-      desc: t.service_2_desc,
-      color: 'from-emerald-600 to-teal-600',
-      badge: 'Praktis & Hemat'
-    },
-    {
-      icon: Compass,
-      title: t.service_3_title,
-      desc: t.service_3_desc,
-      color: 'from-amber-600 to-orange-600',
-      badge: 'Wisata & Liburan'
+      badge: 'Mobil Keluarga & Pribadi'
     },
     {
       icon: Users,
+      title: t.service_2_title,
+      desc: t.service_2_desc,
+      color: 'from-emerald-600 to-teal-600',
+      badge: 'Hiace & Bus 33 Seat'
+    },
+    {
+      icon: MapPin,
+      title: t.service_3_title,
+      desc: t.service_3_desc,
+      color: 'from-amber-600 to-orange-600',
+      badge: 'Seluruh Kawasan Batam'
+    },
+    {
+      icon: Plane,
       title: t.service_4_title,
       desc: t.service_4_desc,
       color: 'from-purple-600 to-indigo-600',
-      badge: 'Keluarga Nyaman'
+      badge: 'Hang Nadim & Pelabuhan'
+    },
+    {
+      icon: Compass,
+      title: t.service_5_title,
+      desc: t.service_5_desc,
+      color: 'from-rose-600 to-red-600',
+      badge: 'Barelang & City Tour'
     },
     {
       icon: Briefcase,
-      title: t.service_5_title,
-      desc: t.service_5_desc,
-      color: 'from-slate-700 to-slate-900',
-      badge: 'Bisnis & Pekerjaan'
-    },
-    {
-      icon: HelpCircle,
       title: t.service_6_title,
       desc: t.service_6_desc,
-      color: 'from-red-600 to-rose-600',
-      badge: 'Konsultasi Gratis'
+      color: 'from-slate-700 to-slate-900',
+      badge: 'Korporat & Tamu VIP'
     }
   ];
 
@@ -66,25 +66,30 @@ export default function Services({ lang }: ServicesProps) {
     {
       title: t.why_2_title,
       desc: t.why_2_desc,
-      icon: MessageCircle
+      icon: Compass
     },
     {
       title: t.why_3_title,
       desc: t.why_3_desc,
-      icon: Compass
+      icon: ShieldCheck
     },
     {
       title: t.why_4_title,
       desc: t.why_4_desc,
       icon: MapPin
+    },
+    {
+      title: t.why_5_title,
+      desc: t.why_5_desc,
+      icon: MessageCircle
     }
   ];
 
   const handleConsultService = (serviceTitle: string) => {
-    const waNumber = '6281529662483';
+    const waNumber = '6285264018698';
     const message = isEN
-      ? `Hello Rental Mobil & Motor Kupang_NTT, I would like to ask about the service: ${serviceTitle}. Please inform details and rates. Thank you!`
-      : `Halo Rental Mobil & Motor Kupang_NTT, saya ingin konsultasi mengenai layanan: ${serviceTitle}. Mohon informasi rincian dan harga. Terima kasih!`;
+      ? `Hello Rizal Transportasi Batam, I would like to ask about the service: ${serviceTitle}. Please inform details and rates. Thank you!`
+      : `Halo Rizal Transportasi Batam, saya ingin konsultasi mengenai layanan: ${serviceTitle}. Mohon informasi rincian dan penawaran harga. Terima kasih!`;
     window.open(`https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(message)}`, '_blank', 'noreferrer');
   };
 
@@ -102,13 +107,13 @@ export default function Services({ lang }: ServicesProps) {
           <h2 className="font-display font-black text-3xl sm:text-5xl text-[#0d1b37] tracking-tight leading-tight uppercase">
             {t.services_title}
           </h2>
-          <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full" />
+          <div className="w-20 h-1 bg-amber-500 mx-auto rounded-full" />
           <p className="font-sans text-slate-600 text-xs sm:text-sm leading-relaxed font-medium">
             {t.services_desc}
           </p>
         </div>
 
-        {/* 2. 6 CORE SERVICES GRID */}
+        {/* 2. CORE SERVICES GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {servicesList.map((service, idx) => {
             const IconComp = service.icon;
@@ -171,7 +176,7 @@ export default function Services({ lang }: ServicesProps) {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {whyChooseUs.map((item, idx) => {
               const IconComponent = item.icon;
               return (
@@ -204,7 +209,7 @@ export default function Services({ lang }: ServicesProps) {
         <div id="area" className="bg-gradient-to-br from-slate-900 via-[#0f2b5c] to-slate-950 text-white rounded-3xl p-8 sm:p-10 shadow-2xl border border-blue-900/60 relative overflow-hidden">
           <div className="relative z-10 max-w-4xl space-y-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-[11px] font-black uppercase tracking-wider">
-              <MapPin className="w-3.5 h-3.5 text-red-400" />
+              <MapPin className="w-3.5 h-3.5 text-amber-400" />
               <span>{t.area_tag}</span>
             </div>
 
@@ -220,16 +225,16 @@ export default function Services({ lang }: ServicesProps) {
             {/* Coverage highlights */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
               <div className="bg-white/10 border border-white/15 px-4 py-3 rounded-2xl text-center font-sans text-xs font-bold text-slate-100">
-                📍 Manulai 2 &amp; Alak
+                📍 Botania &amp; Batam Center
               </div>
               <div className="bg-white/10 border border-white/15 px-4 py-3 rounded-2xl text-center font-sans text-xs font-bold text-slate-100">
-                📍 Seluruh Kota Kupang
+                📍 Nagoya &amp; Sekupang
               </div>
               <div className="bg-white/10 border border-white/15 px-4 py-3 rounded-2xl text-center font-sans text-xs font-bold text-slate-100">
-                📍 Bandara El Tari Kupang
+                📍 Bandara Hang Nadim
               </div>
               <div className="bg-white/10 border border-white/15 px-4 py-3 rounded-2xl text-center font-sans text-xs font-bold text-slate-100">
-                📍 Luar Wilayah Kupang*
+                📍 Seluruh Pelabuhan Ferry
               </div>
             </div>
 
@@ -239,7 +244,7 @@ export default function Services({ lang }: ServicesProps) {
 
             <div className="pt-3">
               <a
-                href="https://api.whatsapp.com/send?phone=6281529662483&text=Halo%20Rental%20Mobil%20%26%20Motor%20Kupang_NTT,%20saya%20ingin%20tanya%20mengenai%20area%20layanan%20rental"
+                href="https://api.whatsapp.com/send?phone=6285264018698&text=Halo%20Rizal%20Transportasi%20Batam,%20saya%20ingin%20tanya%20mengenai%20rute%20dan%20area%20layanan%20rental"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-sans font-bold text-xs uppercase px-6 py-3 rounded-xl shadow-lg transition-all cursor-pointer"

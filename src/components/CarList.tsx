@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CARS } from '../data/cars';
 import { Car } from '../types';
-import { Users, CheckCircle2, MessageCircle, Sparkles, Settings2 } from 'lucide-react';
+import { Users, CheckCircle2, MessageCircle, Sparkles, Settings2, Info } from 'lucide-react';
 import { motion } from 'motion/react';
 import { TRANSLATIONS } from '../utils/translations';
 
@@ -16,25 +16,25 @@ export default function CarList({ onSelectCar, lang }: CarListProps) {
   const t = TRANSLATIONS[lang];
 
   const categories = [
-    { id: 'all', label: lang === 'EN' ? 'All Fleets (5)' : 'Semua Kendaraan (5)' },
-    { id: 'family', label: lang === 'EN' ? 'Family & Compact Cars' : 'Mobil Keluarga & Compact' },
-    { id: 'suv', label: lang === 'EN' ? 'SUV Premium' : 'SUV' },
-    { id: 'motor', label: lang === 'EN' ? 'Motorbike Rental' : 'Rental Motor' }
+    { id: 'all', label: lang === 'EN' ? 'All Fleets (5)' : 'Semua Armada (5)' },
+    { id: 'family', label: lang === 'EN' ? 'Family Cars' : 'Mobil Keluarga' },
+    { id: 'luxury', label: lang === 'EN' ? 'Luxury MPV' : 'Luxury MPV' },
+    { id: 'group', label: lang === 'EN' ? 'Minibus & Bus' : 'Minibus & Bus Rombongan' }
   ];
 
   const filteredCars = CARS.filter(car => {
     if (filterCategory === 'all') return true;
-    if (filterCategory === 'family') return car.id === 'avanza' || car.id === 'brio' || car.id === 'innova-reborn';
-    if (filterCategory === 'suv') return car.id === 'fortuner';
-    if (filterCategory === 'motor') return car.id === 'rental-motor';
+    if (filterCategory === 'family') return car.id === 'new-avanza' || car.id === 'innova-reborn';
+    if (filterCategory === 'luxury') return car.id === 'toyota-zenix' || car.id === 'innova-reborn';
+    if (filterCategory === 'group') return car.id === 'toyota-hiace' || car.id === 'medium-bus';
     return true;
   });
 
   const handleWhatsAppBooking = (car: Car) => {
-    const waNumber = '6281529662483';
+    const waNumber = '6285264018698';
     const message = lang === 'EN'
-      ? `Hello Rental Mobil & Motor Kupang_NTT, I am interested in renting: ${car.name}. Please inform price quote and availability. Thank you!`
-      : `Halo Rental Mobil & Motor Kupang_NTT, saya berminat rental kendaraan: ${car.name}. Mohon informasi penawaran harga & ketersediaan unit. Terima kasih!`;
+      ? `Hello Rizal Transportasi Batam, I am interested in renting: ${car.name} (${car.priceDisplay}). Please inform price quote and availability. Thank you!`
+      : `Halo Rizal Transportasi Batam, saya berminat rental armada: ${car.name} (${car.priceDisplay}). Mohon informasi penawaran harga & ketersediaan unit. Terima kasih!`;
     window.open(`https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(message)}`, '_blank', 'noreferrer');
   };
 
@@ -53,7 +53,7 @@ export default function CarList({ onSelectCar, lang }: CarListProps) {
             {t.vehicles_title}
           </h2>
 
-          <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full" />
+          <div className="w-20 h-1 bg-amber-500 mx-auto rounded-full" />
 
           <p className="font-sans text-slate-600 text-xs sm:text-sm leading-relaxed font-medium max-w-2xl mx-auto">
             {t.vehicles_desc}
@@ -91,26 +91,33 @@ export default function CarList({ onSelectCar, lang }: CarListProps) {
               >
                 <div>
                   {/* Image banner */}
-                  <div className="relative h-60 bg-white overflow-hidden flex items-center justify-center border-b border-slate-100">
+                  <div className="relative h-60 bg-gradient-to-b from-slate-50 to-white overflow-hidden flex items-center justify-center border-b border-slate-100 p-3">
                     <img
                       src={car.image}
                       alt={car.name}
-                      className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500 drop-shadow-md"
                     />
                     <div className="absolute top-4 left-4 bg-slate-900/85 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider">
                       {car.category}
+                    </div>
+
+                    {/* Price Tag Pill */}
+                    <div className="absolute top-4 right-4 bg-gradient-to-r from-amber-500 to-amber-600 text-white px-3.5 py-1 rounded-full text-xs font-display font-black tracking-wide shadow-md">
+                      Mulai {car.priceDisplay}
                     </div>
                   </div>
 
                   {/* Card Body */}
                   <div className="p-6 space-y-4 text-left">
-                    <div>
-                      <h3 className="font-display font-black text-xl text-[#0d1b37] tracking-tight group-hover:text-blue-600 transition-colors uppercase">
-                        {car.name}
-                      </h3>
-                      <p className="font-sans text-xs text-slate-600 font-medium mt-1 leading-relaxed">
-                        {car.description}
-                      </p>
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
+                        <h3 className="font-display font-black text-xl text-[#0d1b37] tracking-tight group-hover:text-blue-600 transition-colors uppercase">
+                          {car.name}
+                        </h3>
+                        <p className="font-sans text-xs text-slate-600 font-medium mt-1 leading-relaxed">
+                          {car.description}
+                        </p>
+                      </div>
                     </div>
 
                     {/* Quick Specs Badges */}
@@ -169,6 +176,14 @@ export default function CarList({ onSelectCar, lang }: CarListProps) {
               </motion.div>
             );
           })}
+        </div>
+
+        {/* Note Box */}
+        <div className="mt-12 bg-amber-50 border border-amber-200/80 rounded-2xl p-4 sm:p-5 flex items-start gap-3 text-left">
+          <Info className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+          <p className="font-sans text-xs sm:text-sm text-amber-900 leading-relaxed font-medium">
+            {t.vehicles_price_note}
+          </p>
         </div>
 
       </div>

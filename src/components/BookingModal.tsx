@@ -13,7 +13,7 @@ interface BookingModalProps {
 }
 
 export default function BookingModal({ car, onClose, lang, onCarChange }: BookingModalProps) {
-  const [selectedCarId, setSelectedCarId] = useState<string>(car?.id || 'avanza');
+  const [selectedCarId, setSelectedCarId] = useState<string>(car?.id || 'new-avanza');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [rentalDate, setRentalDate] = useState('');
@@ -48,37 +48,37 @@ export default function BookingModal({ car, onClose, lang, onCarChange }: Bookin
       return;
     }
 
-    const waNumber = '6281529662483';
+    const waNumber = '6285264018698';
 
     const textTemplate = isEN
-      ? `Hello Rental Mobil & Motor Kupang_NTT, I would like to book a vehicle:
+      ? `Hello Rizal Transportasi Batam, I would like to book a vehicle:
 
 📋 *BOOKING DETAILS:*
-• Selected Vehicle: *${currentSelectedCar.name}* (${currentSelectedCar.category})
-• Transmission: *${currentSelectedCar.transmission}*
+• Selected Fleet: *${currentSelectedCar.name}* (${currentSelectedCar.category})
+• Starting Rate: *${currentSelectedCar.priceDisplay}*
 • Date of Use: *${rentalDate}*
 • Duration: *${duration}*
 
 👤 *CUSTOMER INFORMATION:*
 • Name: *${name}*
 • WhatsApp: *${phone}*
-• Pickup / Delivery Address in Kupang: *${pickupAddress}*
-• Notes / Purpose: *${notes || '-'}*
+• Pickup Location in Batam: *${pickupAddress}*
+• Notes / Itinerary: *${notes || '-'}*
 
 Please confirm availability and rate quote. Thank you!`
-      : `Halo Rental Mobil & Motor Kupang_NTT, saya ingin melakukan pemesanan rental kendaraan:
+      : `Halo Rizal Transportasi Batam, saya ingin melakukan pemesanan rental kendaraan:
 
 📋 *DETAIL PEMESANAN:*
-• Pilihan Kendaraan: *${currentSelectedCar.name}* (${currentSelectedCar.category})
-• Transmisi: *${currentSelectedCar.transmission}*
+• Pilihan Armada: *${currentSelectedCar.name}* (${currentSelectedCar.category})
+• Tarif Mulai: *${currentSelectedCar.priceDisplay}*
 • Tanggal Pemakaian: *${rentalDate}*
 • Lama Pemakaian: *${duration}*
 
 👤 *DATA PEMESAN:*
 • Nama Lengkap: *${name}*
 • No. WhatsApp: *${phone}*
-• Lokasi Penjemputan / Antar di Kupang: *${pickupAddress}*
-• Catatan / Keperluan: *${notes || '-'}*
+• Lokasi Penjemputan di Batam: *${pickupAddress}*
+• Catatan / Keperluan Rute: *${notes || '-'}*
 
 Mohon konfirmasi ketersediaan armada dan penawaran harga terbaik. Terima kasih!`;
 
@@ -117,16 +117,21 @@ Mohon konfirmasi ketersediaan armada dan penawaran harga terbaik. Terima kasih!`
               
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-[10px] font-extrabold uppercase tracking-widest">
                 <Sparkles className="w-3.5 h-3.5 text-blue-400" />
-                <span>Rental Mobil &amp; Motor Kupang_NTT</span>
+                <span>Rizal Transportasi Batam</span>
               </div>
 
               <div>
                 <h3 className="font-display font-black text-2xl text-white uppercase tracking-tight">
                   {currentSelectedCar.name}
                 </h3>
-                <p className="font-sans text-xs text-amber-300 font-bold mt-0.5">
-                  {currentSelectedCar.category} ({currentSelectedCar.seats} {isEN ? 'Seats' : 'Kursi'})
-                </p>
+                <div className="flex items-center gap-2 mt-1">
+                  <span className="font-sans text-xs text-amber-300 font-bold">
+                    {currentSelectedCar.category} ({currentSelectedCar.seats} {isEN ? 'Seats' : 'Kursi'})
+                  </span>
+                  <span className="text-[11px] bg-amber-500 text-white px-2 py-0.5 rounded font-black">
+                    {currentSelectedCar.priceDisplay}
+                  </span>
+                </div>
               </div>
 
               {/* Car Photo */}
@@ -149,8 +154,8 @@ Mohon konfirmasi ketersediaan armada dan penawaran harga terbaik. Terima kasih!`
                   <span className="font-semibold text-emerald-400">{currentSelectedCar.seats} {isEN ? 'Seats' : 'Kursi/Orang'}</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-white/5">
-                  <span className="text-slate-400">Area:</span>
-                  <span className="font-semibold text-amber-300">Kupang &amp; Sekitarnya</span>
+                  <span className="text-slate-400">Area Layanan:</span>
+                  <span className="font-semibold text-amber-300">Kota Batam &amp; Sekitarnya</span>
                 </div>
               </div>
 
@@ -208,7 +213,7 @@ Mohon konfirmasi ketersediaan armada dan penawaran harga terbaik. Terima kasih!`
                   >
                     {CARS.map((c) => (
                       <option key={c.id} value={c.id}>
-                        {c.name} ({c.category} - {c.transmission})
+                        {c.name} ({c.category} - Mulai {c.priceDisplay})
                       </option>
                     ))}
                   </select>
@@ -269,7 +274,7 @@ Mohon konfirmasi ketersediaan armada dan penawaran harga terbaik. Terima kasih!`
                       type="text"
                       value={duration}
                       onChange={(e) => setDuration(e.target.value)}
-                      placeholder={isEN ? "e.g., 2 Days" : "Contoh: 1 Hari / 3 Hari / 1 Minggu"}
+                      placeholder={isEN ? "e.g., 1 Day / 3 Days" : "Contoh: 1 Hari / 3 Hari / 1 Minggu"}
                       className="w-full text-xs font-semibold px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50"
                     />
                   </div>
@@ -284,7 +289,7 @@ Mohon konfirmasi ketersediaan armada dan penawaran harga terbaik. Terima kasih!`
                       required
                       value={pickupAddress}
                       onChange={(e) => setPickupAddress(e.target.value)}
-                      placeholder={isEN ? "Pickup address in Kupang (e.g. El Tari Airport, Hotel...)" : "Lokasi penjemputan di Kupang (Contoh: Bandara El Tari / Hotel / Alamat Rumah)..."}
+                      placeholder={isEN ? "Pickup location in Batam (e.g. Hang Nadim Airport, Hotel, Botania...)" : "Lokasi penjemputan di Batam (Contoh: Bandara Hang Nadim / Pelabuhan / Hotel / Alamat Rumah)..."}
                       className="w-full text-xs font-semibold px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50"
                     />
                   </div>
@@ -297,7 +302,7 @@ Mohon konfirmasi ketersediaan armada dan penawaran harga terbaik. Terima kasih!`
                       rows={2}
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
-                      placeholder={isEN ? "Additional notes or requirements..." : "Catatan kebutuhan perjalanan (opsional)..."}
+                      placeholder={isEN ? "Additional notes or itinerary requirements..." : "Catatan kebutuhan perjalanan / rute khusus (opsional)..."}
                       className="w-full text-xs font-semibold px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50 resize-none"
                     />
                   </div>
@@ -321,10 +326,10 @@ Mohon konfirmasi ketersediaan armada dan penawaran harga terbaik. Terima kasih!`
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
                 <h4 className="font-display font-black text-2xl text-[#0d1b37] uppercase">
-                  {isEN ? 'Booking Form Sent to WhatsApp!' : 'Formulir Booking Terkirim!'}
+                  {isEN ? 'Reservation Sent to WhatsApp!' : 'Formulir Pemesanan Terkirim!'}
                 </h4>
                 <p className="font-sans text-xs text-slate-600 leading-relaxed font-medium max-w-md mx-auto">
-                  {isEN ? 'Thank you! You have been redirected to WhatsApp. Our team in Kupang will assist you shortly.' : 'Terima kasih! Anda telah terhubung langsung dengan WhatsApp Rental Mobil & Motor Kupang_NTT (0815-2966-2483).'}
+                  {isEN ? 'Thank you! You have been redirected to WhatsApp. Our admin in Batam will assist you shortly.' : 'Terima kasih! Anda telah terhubung langsung dengan WhatsApp Admin Rizal Transportasi Batam (+62 852-6401-8698).'}
                 </p>
                 <button
                   onClick={onClose}

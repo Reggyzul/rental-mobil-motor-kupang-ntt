@@ -22,9 +22,9 @@ export default function About({ lang }: AboutProps) {
           </div>
 
           <h2 className="font-display font-black text-4xl sm:text-5xl text-[#0d1b37] tracking-tight leading-tight uppercase">
-            Rental Mobil &amp; Motor Kupang - NTT
+            Rizal Transportasi Batam
           </h2>
-          <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full" />
+          <div className="w-20 h-1 bg-amber-500 mx-auto rounded-full" />
           <p className="font-sans text-slate-600 text-xs sm:text-sm leading-relaxed font-medium">
             "{t.brand_tagline}"
           </p>
@@ -44,7 +44,7 @@ export default function About({ lang }: AboutProps) {
             <div className="space-y-6">
               
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-400 shadow-md">
+                <div className="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-amber-400 shadow-md">
                   <Award className="w-6 h-6" />
                 </div>
                 <div>
@@ -52,7 +52,7 @@ export default function About({ lang }: AboutProps) {
                     PROFIL RESMI
                   </span>
                   <h3 className="font-display font-black text-xl text-white uppercase tracking-tight">
-                    Rental Mobil &amp; Motor Kupang_NTT
+                    Rizal Transportasi Batam
                   </h3>
                 </div>
               </div>
@@ -66,18 +66,18 @@ export default function About({ lang }: AboutProps) {
                 </div>
 
                 <div className="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+                  <MapPin className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
                   <p className="font-sans text-xs text-slate-200 leading-relaxed font-medium">
-                    <span className="font-bold text-white block">Lokasi di Kupang:</span>
-                    Jl. Keladi, Manulai 2, Alak, Kupang, NTT
+                    <span className="font-bold text-white block">Alamat Kantor:</span>
+                    Perumahan Buana Vista Indah 2, Blok A No. 67, Botania, Batam
                   </p>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-start gap-3">
                   <MessageCircle className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                   <p className="font-sans text-xs text-slate-200 leading-relaxed font-medium">
-                    <span className="font-bold text-white block">Pemesanan WhatsApp:</span>
-                    0815-2966-2483 (Respon Cepat)
+                    <span className="font-bold text-white block">WhatsApp Resmi:</span>
+                    +62 852-6401-8698 (Respon Cepat)
                   </p>
                 </div>
               </div>
@@ -91,7 +91,7 @@ export default function About({ lang }: AboutProps) {
             </div>
           </motion.div>
 
-          {/* RIGHT COLUMN: 4 KEUNGGULAN UTAMA */}
+          {/* RIGHT COLUMN: KEUNGGULAN UTAMA */}
           <motion.div
             initial={{ opacity: 0, x: 25 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -102,8 +102,8 @@ export default function About({ lang }: AboutProps) {
             <div className="space-y-5">
               
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 shadow-sm">
-                  <ShieldCheck className="w-6 h-6 text-blue-600" />
+                <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shadow-sm">
+                  <ShieldCheck className="w-6 h-6 text-emerald-600" />
                 </div>
                 <div>
                   <span className="text-[10px] font-extrabold uppercase tracking-widest text-slate-400 block">
@@ -162,7 +162,7 @@ export default function About({ lang }: AboutProps) {
 
             <div className="p-4 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-between">
               <span className="font-sans text-xs text-blue-800 font-extrabold uppercase">
-                📍 Berbasis di Manulai 2, Alak, Kupang • WhatsApp: 0815-2966-2483
+                📍 Botania, Batam • WhatsApp: +62 852-6401-8698
               </span>
             </div>
           </motion.div>

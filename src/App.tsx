@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import CarList from './components/CarList';
 import BookingSteps from './components/BookingSteps';
+import Services from './components/Services';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import BookingModal from './components/BookingModal';
@@ -20,7 +21,7 @@ export default function App() {
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [lang, setLang] = useState<'EN' | 'ID'>(() => {
-    const saved = localStorage.getItem('kupang_app_lang');
+    const saved = localStorage.getItem('rizal_batam_lang');
     return (saved === 'ID' || saved === 'EN') ? saved : 'ID';
   });
 
@@ -28,7 +29,7 @@ export default function App() {
 
   const handleSetLang = (newLang: 'EN' | 'ID') => {
     setLang(newLang);
-    localStorage.setItem('kupang_app_lang', newLang);
+    localStorage.setItem('rizal_batam_lang', newLang);
   };
 
   useEffect(() => {
@@ -54,7 +55,7 @@ export default function App() {
       }
 
       if (currentPage === 'home') {
-        const sections = ['home', 'cars', 'steps', 'contact'];
+        const sections = ['home', 'cars', 'services', 'steps', 'testimonials', 'contact'];
         const scrollPosition = window.scrollY + 250;
 
         for (const section of sections) {
@@ -123,24 +124,27 @@ export default function App() {
       <main className="flex-grow">
         {currentPage === 'home' ? (
           <>
-            {/* 1. HERO SECTION (With 'Hubungi Kami' button) */}
+            {/* 1. HERO SECTION */}
             <Hero 
               onExploreClick={() => handleNavClick('cars')} 
               lang={lang} 
               onBookingClick={() => setSelectedCar(CARS[0])} 
             />
 
-            {/* 2. PILIHAN KENDARAAN (Directly under Hero) */}
+            {/* 2. ARMADA & HARGA (Fleet list) */}
             <CarList 
               onSelectCar={handleSelectCar} 
               lang={lang} 
               onViewAllCars={() => handleNavClick('cars')}
             />
 
-            {/* 3. CARA BOOKING */}
+            {/* 3. LAYANAN, KEUNGGULAN & AREA LAYANAN */}
+            <Services lang={lang} />
+
+            {/* 4. ALUR PEMESANAN (5 LANGKAH) */}
             <BookingSteps lang={lang} />
 
-            {/* 4. TESTIMONIALS */}
+            {/* 5. TESTIMONIALS */}
             <Testimonials lang={lang} />
           </>
         ) : currentPage === 'about' ? (
@@ -181,11 +185,11 @@ export default function App() {
         <motion.a
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          href="https://api.whatsapp.com/send?phone=6281529662483&text=Halo%20Rental%20Mobil%20%26%20Motor%20Kupang_NTT,%20saya%20ingin%20konsultasi%20dan%20booking%20rental%20kendaraan"
+          href="https://api.whatsapp.com/send?phone=6285264018698&text=Halo%20Rizal%20Transportasi%20Batam,%20saya%20ingin%20konsultasi%20dan%20booking%20rental%20mobil%20transportasi"
           target="_blank"
           rel="noreferrer"
           className="relative group flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-2xl hover:scale-110 transition-transform duration-300 border-2 border-white cursor-pointer"
-          title="Chat WhatsApp: 0815-2966-2483"
+          title="Chat WhatsApp: +62 852-6401-8698"
         >
           {/* Authentic WhatsApp Logo SVG */}
           <svg className="w-8 h-8 fill-current" viewBox="0 0 24 24">
