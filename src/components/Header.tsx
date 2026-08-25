@@ -44,7 +44,6 @@ export default function Header({
     { id: 'home', label: t.nav_home },
     { id: 'cars', label: t.nav_vehicles },
     { id: 'about-page', label: t.nav_about },
-    { id: 'steps', label: t.nav_steps },
     { id: 'contact', label: t.nav_contact }
   ];
 
