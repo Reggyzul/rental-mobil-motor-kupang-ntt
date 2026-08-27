@@ -23,15 +23,15 @@ export interface TourPackage {
 }
 
 export const TOUR_PACKAGES: TourPackage[] = [
-  // 1. WISATA BERASTAGI
+  // 1. BERASTAGI
   {
     id: 'tour-berastagi',
-    title: 'PAKET WISATA BERASTAGI HIGHLANDS',
+    title: 'Berastagi',
     location: 'Kabupaten Karo, Sumatera Utara',
     duration: 'Full Day / 2D1N',
     route: ['Medan / Simalingkar B', 'Taman Hutan Raya Sibolangit', 'Bukit Gundaling', 'Pasar Buah Berastagi', 'Pagoda Taman Alam Lumbini', 'Pemandian Air Panas Sidebuk-debuk', 'Air Terjun Sipiso-piso'],
     routeDisplay: 'Medan - Berastagi - Bukit Gundaling - Sipiso-piso',
-    image: '/gallery_sipisopiso.avif',
+    image: '/tour_berastagi.jpg',
     badge: 'Wisata Pegunungan & Alam',
     minPrice: 'Konsultasikan via WA',
     tiers: [
@@ -60,15 +60,15 @@ export const TOUR_PACKAGES: TourPackage[] = [
     ]
   },
 
-  // 2. WISATA PARAPAT DANAU TOBA
+  // 2. PARAPAT
   {
     id: 'tour-parapat',
-    title: 'PAKET WISATA PARAPAT DANAU TOBA',
+    title: 'Parapat',
     location: 'Danau Toba, Simalungun, Sumatera Utara',
     duration: 'Full Day / 2D1N',
     route: ['Medan', 'Tebing Tinggi', 'Pematang Siantar', 'Parapat', 'Pantai Bebas Parapat', 'Bukit Senyum Danau Toba'],
     routeDisplay: 'Medan - Siantar - Parapat Danau Toba',
-    image: '/dest_toba.avif',
+    image: '/tour_parapat.jpg',
     badge: 'Ikon Danau Toba',
     minPrice: 'Konsultasikan via WA',
     tiers: [
@@ -97,15 +97,15 @@ export const TOUR_PACKAGES: TourPackage[] = [
     ]
   },
 
-  // 3. WISATA PULAU SAMOSIR
+  // 3. PULAU SAMOSIR
   {
     id: 'tour-samosir',
-    title: 'PAKET WISATA EKSOTIS PULAU SAMOSIR',
+    title: 'Pulau Samosir',
     location: 'Pulau Samosir, Danau Toba, Sumatera Utara',
     duration: '2D1N / 3D2N',
     route: ['Parapat / Pelabuhan Ajibata', 'Ferry Penyeberangan Tomok', 'Desa Wisata Tomok', 'Tuk-Tuk Siadong', 'Batu Kursi Raja Siallagan', 'Bukit Holbung', 'Pusuk Buhit'],
     routeDisplay: 'Parapat - Penyeberangan Ferry - Tomok - Tuk-Tuk Samosir',
-    image: '/dest_toba.jpg',
+    image: '/tour_samosir.jpg',
     badge: 'Budaya & Panorama Samosir',
     minPrice: 'Konsultasikan via WA',
     tiers: [
@@ -131,43 +131,6 @@ export const TOUR_PACKAGES: TourPackage[] = [
     ],
     excludes: [
       'Tiket Kapal Ferry Penyeberangan Mobil & Pribadi'
-    ]
-  },
-
-  // 4. PAKET KOMBINASI SUPER LENGKAP: MEDAN - BERASTAGI - PARAPAT - SAMOSIR
-  {
-    id: 'tour-super-toba',
-    title: 'PAKET TOUR LENGKAP: MEDAN - BERASTAGI - PARAPAT - SAMOSIR',
-    location: 'Sumatera Utara Grand Tour',
-    duration: '3D2N / 4D3N',
-    route: ['Medan (Simalingkar B / Bandara KNO)', 'Berastagi', 'Sipiso-piso', 'Simarjarunjung', 'Parapat', 'Pulau Samosir', 'Medan'],
-    routeDisplay: 'Medan - Berastagi - Simarjarunjung - Parapat - Samosir',
-    image: '/gallery_sipisopiso.avif',
-    badge: 'Paket Terfavorit',
-    minPrice: 'Konsultasikan via WA',
-    tiers: [
-      {
-        carType: 'Toyota Innova / Avanza / Calya / Sigra',
-        capacity: '4 - 7 Orang',
-        pricePerPerson: 'Hubungi WhatsApp Admin',
-        details: 'Private Tour Khusus Keluarga / Rombongan Anda',
-        notes: 'Eksplorasi Seluruh Destinasi Terbaik Sumatera Utara'
-      }
-    ],
-    highlights: [
-      'Menggabungkan keindahan pegunungan Berastagi dan pesona Danau Toba & Samosir',
-      'Singgah menikmati teh jahe & pisang goreng di Bukit Simarjarunjung',
-      'Eksplorasi budaya leluhur Batak di Pulau Samosir',
-      'Jadwal santai, fleksibel, ramah keluarga & didampingi supir berpengalaman'
-    ],
-    includes: [
-      'Mobil Pribadi Full AC (Bebas Gabung Orang Lain)',
-      'Driver Berpengalaman Sekaligus Pemandu Perjalanan',
-      'Bahan Bakar Minyak (BBM)',
-      'Penjemputan & Pengantaran Tepat Waktu'
-    ],
-    excludes: [
-      'Hotel Penginapan & Konsumsi Pribadi'
     ]
   }
 ];

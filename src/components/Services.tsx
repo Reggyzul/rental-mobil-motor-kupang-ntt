@@ -322,7 +322,7 @@ export default function Services({ lang }: ServicesProps) {
                     className="w-full bg-[#081836] hover:bg-sky-600 text-white font-display font-extrabold text-xs uppercase py-3.5 rounded-2xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
                   >
                     <MessageCircle className="w-4 h-4 fill-current" />
-                    <span>Konsultasi Tour via WA</span>
+                    <span>Konsultasi Wisata {pkg.title} via WA</span>
                   </button>
                 </div>
               </motion.div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone, MessageCircle, MapPin } from 'lucide-react';
+import { Menu, X, MessageCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TRANSLATIONS } from '../utils/translations';
 
@@ -50,69 +50,12 @@ export default function Header({
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 transition-all duration-300">
-      
-      {/* 1. TOP SLIM BAR */}
-      <div className="w-full bg-[#061226] text-white py-1.5 px-4 sm:px-6 lg:px-8 text-xs font-sans border-b border-white/5">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
-          
-          {/* Left: Contact Info (WhatsApp & TikTok & Address) */}
-          <div className="flex flex-wrap items-center gap-3 sm:gap-5 text-[11px] sm:text-xs">
-            <a
-              href="https://api.whatsapp.com/send?phone=6285270607796&text=Halo%20CV%20SRM%20MANDIRI,%20saya%20ingin%20tanya%20jasa%20transportasi%20dan%20rental%20mobil"
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-1.5 text-sky-300 hover:text-white font-bold transition-colors cursor-pointer"
-            >
-              <Phone className="w-3.5 h-3.5 text-sky-400 fill-current" />
-              <span>0852-7060-7796 / 0812-6232-0086</span>
-            </a>
-
-            <a
-              href="https://www.tiktok.com/@hendry.manullang"
-              target="_blank"
-              rel="noreferrer"
-              className="hidden md:flex items-center gap-1.5 text-rose-300 hover:text-white font-semibold transition-colors cursor-pointer"
-            >
-              <span className="font-bold">TikTok:</span>
-              <span>@hendry.manullang</span>
-            </a>
-
-            <div className="hidden lg:flex items-center gap-1 text-slate-400">
-              <MapPin className="w-3 h-3 text-sky-400" />
-              <span>Simalingkar B, Medan</span>
-            </div>
-          </div>
-
-          {/* Right: Language Switch */}
-          <div className="flex items-center gap-1 text-[11px] font-bold ml-auto">
-            <button
-              onClick={() => setLang('ID')}
-              className={`px-1.5 py-0.5 rounded transition-colors cursor-pointer ${
-                lang === 'ID' ? 'text-sky-400 font-black' : 'text-slate-400 hover:text-white'
-              }`}
-            >
-              ID
-            </button>
-            <span className="text-slate-600">|</span>
-            <button
-              onClick={() => setLang('EN')}
-              className={`px-1.5 py-0.5 rounded transition-colors cursor-pointer ${
-                lang === 'EN' ? 'text-sky-400 font-black' : 'text-slate-400 hover:text-white'
-              }`}
-            >
-              EN
-            </button>
-          </div>
-
-        </div>
-      </div>
-
-      {/* 2. MAIN NAVBAR */}
+      {/* MAIN NAVBAR */}
       <div
         className={`w-full transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#081836]/95 backdrop-blur-md py-2.5 shadow-xl'
-            : 'bg-[#081836] py-3'
+            ? 'bg-[#081836]/95 backdrop-blur-md py-3 shadow-xl border-b border-white/10'
+            : 'bg-[#081836] py-3.5 border-b border-white/5'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -142,8 +85,8 @@ export default function Header({
               </div>
             </div>
 
-            {/* Center/Right: Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center justify-end gap-7 text-xs uppercase tracking-wider font-sans font-extrabold text-slate-200" id="desktop-nav">
+            {/* Center/Right: Desktop Navigation Links + Lang + CTA */}
+            <nav className="hidden lg:flex items-center justify-end gap-6 text-xs uppercase tracking-wider font-sans font-extrabold text-slate-200" id="desktop-nav">
               {navItems.map((item) => {
                 const isActive = activeSection === item.id || (item.id === 'about-page' && (activeSection === 'about' || activeSection === 'about-page'));
                 return (
@@ -167,10 +110,31 @@ export default function Header({
                 );
               })}
 
+              {/* Language Switch */}
+              <div className="flex items-center gap-1 text-[11px] font-bold bg-white/10 px-2 py-1 rounded-lg border border-white/10 ml-1">
+                <button
+                  onClick={() => setLang('ID')}
+                  className={`px-1 py-0.5 rounded transition-colors cursor-pointer ${
+                    lang === 'ID' ? 'text-sky-400 font-black' : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  ID
+                </button>
+                <span className="text-slate-500">|</span>
+                <button
+                  onClick={() => setLang('EN')}
+                  className={`px-1 py-0.5 rounded transition-colors cursor-pointer ${
+                    lang === 'EN' ? 'text-sky-400 font-black' : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  EN
+                </button>
+              </div>
+
               {/* Book CTA Button */}
               <button
                 onClick={onBookingClick}
-                className="bg-sky-600 hover:bg-sky-500 text-white font-display font-black text-xs uppercase px-5 py-2.5 rounded-xl shadow-md hover:shadow-sky-500/25 transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer tracking-wider flex items-center gap-1.5 ml-2"
+                className="bg-sky-600 hover:bg-sky-500 text-white font-display font-black text-xs uppercase px-5 py-2.5 rounded-xl shadow-md hover:shadow-sky-500/25 transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer tracking-wider flex items-center gap-1.5"
                 id="header-book-btn"
               >
                 <MessageCircle className="w-3.5 h-3.5 fill-current" />
@@ -179,14 +143,32 @@ export default function Header({
             </nav>
 
             {/* Mobile Hamburger Toggle Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-xl text-white hover:bg-white/10 transition-colors cursor-pointer shrink-0"
-              id="mobile-menu-toggle"
-              aria-label="Toggle navigation menu"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+            <div className="lg:hidden flex items-center gap-2">
+              <div className="flex items-center gap-1 text-[11px] font-bold bg-white/10 px-2 py-1 rounded-lg border border-white/10">
+                <button
+                  onClick={() => setLang('ID')}
+                  className={`px-1 rounded ${lang === 'ID' ? 'text-sky-400 font-black' : 'text-slate-400'}`}
+                >
+                  ID
+                </button>
+                <span className="text-slate-500">|</span>
+                <button
+                  onClick={() => setLang('EN')}
+                  className={`px-1 rounded ${lang === 'EN' ? 'text-sky-400 font-black' : 'text-slate-400'}`}
+                >
+                  EN
+                </button>
+              </div>
+
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2 rounded-xl text-white hover:bg-white/10 transition-colors cursor-pointer shrink-0"
+                id="mobile-menu-toggle"
+                aria-label="Toggle navigation menu"
+              >
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
 
           </div>
         </div>

@@ -19,11 +19,11 @@ export default function Hero({ onExploreClick, lang, onBookingClick }: HeroProps
       {/* 1. PANORAMIC HERO PHOTO BANNER */}
       <div className="relative w-full h-[520px] sm:h-[580px] md:h-[640px] pt-24 sm:pt-28 bg-[#061226] text-white overflow-hidden flex flex-col justify-between">
         
-        {/* Background Danau Toba / Sumatra Scenic Photo */}
+        {/* Background Danau Toba / North Sumatra Generated Scenic Photo */}
         <div 
           className="absolute inset-0 bg-cover bg-center transform scale-100 transition-transform duration-1000"
           style={{
-            backgroundImage: `url('/dest_toba.avif')`
+            backgroundImage: `url('/hero_sumut.jpg')`
           }}
         />
 

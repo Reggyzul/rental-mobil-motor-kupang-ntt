@@ -237,7 +237,7 @@ export const TRANSLATIONS: Record<'EN' | 'ID', TranslationSchema> = {
 
     // Tours / Destinations Section
     tours_tag: "DESTINASI WISATA FAVORIT",
-    tours_title: "Paket Wisata Berastagi, Parapat & Pulau Samosir",
+    tours_title: "Destinasi Wisata Favorit",
     tours_desc: "Nikmati keindahan alam Sumatera Utara bersama CV SRM MANDIRI dengan pengalaman perjalanan yang menyenangkan dan tak terlupakan.",
 
     // Vehicles Section
@@ -401,7 +401,7 @@ export const TRANSLATIONS: Record<'EN' | 'ID', TranslationSchema> = {
 
     // Tours / Destinations Section
     tours_tag: "POPULAR TOURIST SPOTS",
-    tours_title: "Tours to Berastagi, Parapat & Samosir Island",
+    tours_title: "Popular Tourist Destinations",
     tours_desc: "Experience the mesmerizing landscapes of North Sumatra with CV SRM MANDIRI for a truly memorable journey.",
 
     // Vehicles Section
