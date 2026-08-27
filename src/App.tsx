@@ -3,7 +3,6 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import CarList from './components/CarList';
 import Services from './components/Services';
-import BookingSteps from './components/BookingSteps';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import BookingModal from './components/BookingModal';
@@ -55,7 +54,7 @@ export default function App() {
       }
 
       if (currentPage === 'home') {
-        const sections = ['home', 'cars', 'services', 'steps', 'testimonials', 'contact'];
+        const sections = ['home', 'cars', 'services', 'testimonials', 'contact'];
         const scrollPosition = window.scrollY + 250;
 
         for (const section of sections) {
@@ -144,10 +143,7 @@ export default function App() {
               onViewAllDestinations={() => handleNavClick('services')}
             />
 
-            {/* 4. ALUR CARA PEMESANAN (5 LANGKAH) */}
-            <BookingSteps lang={lang} />
-
-            {/* 5. TESTIMONIALS */}
+            {/* 4. TESTIMONIALS */}
             <Testimonials lang={lang} />
           </>
         ) : currentPage === 'about' ? (

@@ -376,67 +376,6 @@ export default function Services({ lang }: ServicesProps) {
           </div>
         </div>
 
-        {/* 5. AREA LAYANAN & LOKASI KANTOR */}
-        <div id="area" className="bg-gradient-to-br from-[#061226] via-[#081836] to-[#0c2340] text-white rounded-3xl p-8 sm:p-10 shadow-2xl border border-sky-900/30 relative overflow-hidden">
-          <div className="relative z-10 max-w-4xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-500/15 border border-sky-400/30 text-sky-300 text-[11px] font-black uppercase tracking-wider">
-              <MapPin className="w-3.5 h-3.5 text-sky-400" />
-              <span>{t.area_tag}</span>
-            </div>
-
-            <div className="space-y-3">
-              <h3 className="font-display font-black text-2xl sm:text-4xl text-white uppercase tracking-tight">
-                {t.area_title}
-              </h3>
-              <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-                {t.area_desc}
-              </p>
-            </div>
-
-            {/* Coverage highlights */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-              <div className="bg-white/10 border border-white/10 px-4 py-3 rounded-2xl text-center font-sans text-xs font-bold text-slate-100">
-                📍 Simalingkar B &amp; Medan
-              </div>
-              <div className="bg-white/10 border border-white/10 px-4 py-3 rounded-2xl text-center font-sans text-xs font-bold text-slate-100">
-                📍 Dumai, Duri, Kandis
-              </div>
-              <div className="bg-white/10 border border-white/10 px-4 py-3 rounded-2xl text-center font-sans text-xs font-bold text-slate-100">
-                📍 Pekanbaru, Kerinci, Jambi
-              </div>
-              <div className="bg-white/10 border border-white/10 px-4 py-3 rounded-2xl text-center font-sans text-xs font-bold text-slate-100">
-                📍 Berastagi &amp; Samosir
-              </div>
-            </div>
-
-            <p className="text-[11px] text-slate-400 italic pt-1">
-              *{t.area_note}
-            </p>
-
-            <div className="pt-3 flex flex-wrap items-center gap-3">
-              <a
-                href="https://api.whatsapp.com/send?phone=6285270607796&text=Halo%20CV%20SRM%20MANDIRI,%20saya%20ingin%20tanya%20mengenai%20rute%20dan%20area%20layanan%20transportasi"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-500 text-white font-sans font-bold text-xs uppercase px-6 py-3 rounded-xl shadow-lg hover:shadow-sky-500/25 transition-all cursor-pointer"
-              >
-                <MessageCircle className="w-4 h-4 fill-current" />
-                <span>WhatsApp: 0852-7060-7796</span>
-              </a>
-
-              <a
-                href="https://api.whatsapp.com/send?phone=6281262320086&text=Halo%20CV%20SRM%20MANDIRI,%20saya%20ingin%20tanya%20mengenai%20rute%20dan%20area%20layanan%20transportasi"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-sans font-bold text-xs uppercase px-6 py-3 rounded-xl shadow-lg hover:shadow-emerald-500/25 transition-all cursor-pointer"
-              >
-                <MessageCircle className="w-4 h-4 fill-current" />
-                <span>WhatsApp: 0812-6232-0086</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
       </div>
     </section>
   );
