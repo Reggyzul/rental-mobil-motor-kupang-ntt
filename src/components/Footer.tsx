@@ -61,11 +61,13 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
           {/* Column 1: Company Profile & Logo */}
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
-              <img
-                src="/logo.png"
-                alt="CV SRM MANDIRI Logo"
-                className="h-14 w-auto object-contain shrink-0 p-1 bg-white/10 rounded-2xl border border-white/20 shadow-md backdrop-blur-sm"
-              />
+              <div className="bg-white p-1.5 rounded-2xl shadow-md shrink-0 flex items-center justify-center">
+                <img
+                  src="/logo.png"
+                  alt="CV SRM MANDIRI Logo"
+                  className="h-11 sm:h-12 w-auto object-contain"
+                />
+              </div>
               <div>
                 <span className="font-display font-black text-lg sm:text-xl tracking-tight text-white uppercase block">
                   CV SRM <span className="text-sky-400">MANDIRI</span>

@@ -1,136 +1,82 @@
 Add-Type -AssemblyName System.Drawing
 
-$srcPath = "c:\Users\UsEr\.gemini\antigravity-ide\brain\d2040537-12f3-4a0a-bf83-c53c9837452a\.user_uploaded\media_1787300270522.jpg"
-$destPath = "c:\Users\UsEr\.gemini\antigravity-ide\scratch\rental mobil motor kupang ntt\public\logo.png"
+$inputPath = "C:\Users\UsEr\.gemini\antigravity-ide\brain\9ec26155-7b99-49c3-ad2a-e00a61bd8b12\.user_uploaded\media_1787834638691.jpg"
+$outputPath = "public\logo.png"
 
-$img = [System.Drawing.Image]::FromFile($srcPath)
-$width = $img.Width
-$height = $img.Height
+$bmp = [System.Drawing.Bitmap]::new($inputPath)
+$width = $bmp.Width
+$height = $bmp.Height
 
-$bmp = New-Object System.Drawing.Bitmap($width, $height, [System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
-$g = [System.Drawing.Graphics]::FromImage($bmp)
-$g.DrawImage($img, 0, 0, $width, $height)
-$g.Dispose()
-$img.Dispose()
+Write-Host "Image size: $width x $height"
 
-# Lock bits for fast processing
-$rect = New-Object System.Drawing.Rectangle(0, 0, $width, $height)
-$bmpData = $bmp.LockBits($rect, [System.Drawing.Imaging.ImageLockMode]::ReadWrite, [System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
-$stride = $bmpData.Stride
-$bytes = $stride * $height
-$pixelBuffer = New-Object byte[] $bytes
-[System.Runtime.InteropServices.Marshal]::Copy($bmpData.Scan0, $pixelBuffer, 0, $bytes)
+# Sample corner color
+$c1 = $bmp.GetPixel(5, 5)
+Write-Host "Corner pixel: R=$($c1.R), G=$($c1.G), B=$($c1.B)"
 
-# Visited / Background mask
-$bgMask = New-Object bool[] ($width * $height)
-$queue = New-Object System.Collections.Generic.Queue[int]
+# Background is light off-white (R ~ 242-248, G ~ 241-247, B ~ 238-245)
+# Foreground is navy blue (R < 100, G < 120, B < 180) and gold arrow (R ~ 180-220, G ~ 130-170, B ~ 60-110).
+# We can create a 32-bit ARGB bitmap
+$outBmp = [System.Drawing.Bitmap]::new($width, $height, [System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
 
-function IsDarkPixel([int]$x, [int]$y) {
-    $idx = ($y * $stride) + ($x * 4)
-    $b = $pixelBuffer[$idx]
-    $g = $pixelBuffer[$idx + 1]
-    $r = $pixelBuffer[$idx + 2]
-    # Background threshold: dark background near black
-    $maxVal = [Math]::Max($r, [Math]::Max($g, $b))
-    return ($maxVal -lt 38)
-}
+$minX = $width
+$maxX = 0
+$minY = $height
+$maxY = 0
 
-# Seed from all borders
-for ($x = 0; $x -lt $width; $x++) {
-    # top
-    if (IsDarkPixel $x 0) {
-        $p = 0 * $width + $x
-        if (-not $bgMask[$p]) { $bgMask[$p] = $true; $queue.Enqueue($p) }
-    }
-    # bottom
-    if (IsDarkPixel $x ($height - 1)) {
-        $p = ($height - 1) * $width + $x
-        if (-not $bgMask[$p]) { $bgMask[$p] = $true; $queue.Enqueue($p) }
-    }
-}
-
-for ($y = 0; $y -lt $height; $y++) {
-    # left
-    if (IsDarkPixel 0 $y) {
-        $p = $y * $width + 0
-        if (-not $bgMask[$p]) { $bgMask[$p] = $true; $queue.Enqueue($p) }
-    }
-    # right
-    if (IsDarkPixel ($width - 1) $y) {
-        $p = $y * $width + ($width - 1)
-        if (-not $bgMask[$p]) { $bgMask[$p] = $true; $queue.Enqueue($p) }
-    }
-}
-
-# Flood fill
-while ($queue.Count -gt 0) {
-    $curr = $queue.Dequeue()
-    $cx = $curr % $width
-    $cy = [Math]::Floor($curr / $width)
-
-    # 4 neighbors
-    $neighbors = @(
-        @($cx - 1, $cy),
-        @($cx + 1, $cy),
-        @($cx, $cy - 1),
-        @($cx, $cy + 1)
-    )
-
-    foreach ($n in $neighbors) {
-        $nx = $n[0]
-        $ny = $n[1]
-        if ($nx -ge 0 -and $nx -lt $width -and $ny -ge 0 -and $ny -lt $height) {
-            $np = $ny * $width + $nx
-            if (-not $bgMask[$np]) {
-                if (IsDarkPixel $nx $ny) {
-                    $bgMask[$np] = $true
-                    $queue.Enqueue($np)
-                }
-            }
-        }
-    }
-}
-
-# Apply transparency to bgMask pixels with soft edge feathering
 for ($y = 0; $y -lt $height; $y++) {
     for ($x = 0; $x -lt $width; $x++) {
-        $p = $y * $width + $x
-        $idx = ($y * $stride) + ($x * 4)
-        if ($bgMask[$p]) {
-            $pixelBuffer[$idx + 3] = 0 # Alpha = 0 (Transparent)
+        $p = $bmp.GetPixel($x, $y)
+        
+        # Calculate brightness / whiteness
+        # Pure background is close to (245, 243, 238)
+        # Difference from background color
+        $diffR = [Math]::Abs($p.R - 245)
+        $diffG = [Math]::Abs($p.G - 243)
+        $diffB = [Math]::Abs($p.B - 238)
+        $maxDiff = [Math]::Max($diffR, [Math]::Max($diffG, $diffB))
+        
+        # Also check brightness: if R > 230 and G > 228 and B > 222
+        $isLightBg = ($p.R -gt 232 -and $p.G -gt 230 -and $p.B -gt 224 -and $maxDiff -lt 25)
+        
+        if ($isLightBg) {
+            # Completely transparent
+            $outBmp.SetPixel($x, $y, [System.Drawing.Color]::FromArgb(0, 0, 0, 0))
         } else {
-            # Check if adjacent to background for slight anti-aliasing
-            $b = $pixelBuffer[$idx]
-            $gVal = $pixelBuffer[$idx + 1]
-            $r = $pixelBuffer[$idx + 2]
-            $brightness = [Math]::Max($r, [Math]::Max($gVal, $b))
-            if ($brightness -lt 45) {
-                # soft transition near edges
-                $isNearBg = $false
-                foreach ($dx in @(-1, 0, 1)) {
-                    foreach ($dy in @(-1, 0, 1)) {
-                        $tx = $x + $dx
-                        $ty = $y + $dy
-                        if ($tx -ge 0 -and $tx -lt $width -and $ty -ge 0 -and $ty -lt $height) {
-                            if ($bgMask[$ty * $width + $tx]) { $isNearBg = $true; break }
-                        }
-                    }
-                    if ($isNearBg) { break }
-                }
-                if ($isNearBg) {
-                    $alpha = [byte][Math]::Min(255, [Math]::Max(0, ($brightness - 10) * 8))
-                    $pixelBuffer[$idx + 3] = $alpha
-                }
+            # Semi-transparent smoothing near edge
+            if ($p.R -gt 215 -and $p.G -gt 212 -and $p.B -gt 205) {
+                # Edge transition
+                $dist = [Math]::Sqrt([Math]::Pow($p.R - 245, 2) + [Math]::Pow($p.G - 243, 2) + [Math]::Pow($p.B - 238, 2))
+                $alpha = [int][Math]::Min(255, [Math]::Max(0, ($dist / 35.0) * 255))
+                $outBmp.SetPixel($x, $y, [System.Drawing.Color]::FromArgb($alpha, $p.R, $p.G, $p.B))
+            } else {
+                # Fully opaque foreground logo
+                $outBmp.SetPixel($x, $y, [System.Drawing.Color]::FromArgb(255, $p.R, $p.G, $p.B))
+                if ($x -lt $minX) { $minX = $x }
+                if ($x -gt $maxX) { $maxX = $x }
+                if ($y -lt $minY) { $minY = $y }
+                if ($y -gt $maxY) { $maxY = $y }
             }
         }
     }
 }
 
-[System.Runtime.InteropServices.Marshal]::Copy($pixelBuffer, 0, $bmpData.Scan0, $bytes)
-$bmp.UnlockBits($bmpData)
+Write-Host "Bounding box: X=[$minX, $maxX], Y=[$minY, $maxY]"
 
-# Save as transparent PNG
-$bmp.Save($destPath, [System.Drawing.Imaging.ImageFormat]::Png)
+# Crop with nice padding around the logo
+$padding = 16
+$cropX = [Math]::Max(0, $minX - $padding)
+$cropY = [Math]::Max(0, $minY - $padding)
+$cropW = [Math]::Min($width - $cropX, ($maxX - $minX) + ($padding * 2))
+$cropH = [Math]::Min($height - $cropY, ($maxY - $minY) + ($padding * 2))
+
+$cropRect = [System.Drawing.Rectangle]::new($cropX, $cropY, $cropW, $cropH)
+$croppedBmp = $outBmp.Clone($cropRect, $outBmp.PixelFormat)
+
+# Save as PNG with transparent background
+$croppedBmp.Save($outputPath, [System.Drawing.Imaging.ImageFormat]::Png)
+
 $bmp.Dispose()
+$outBmp.Dispose()
+$croppedBmp.Dispose()
 
-Write-Output "Successfully converted and saved transparent logo to: $destPath"
+Write-Host "Logo successfully saved to $outputPath"
