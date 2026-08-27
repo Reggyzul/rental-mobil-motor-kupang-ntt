@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ChevronRight, MessageCircle, Car, MapPin, CheckCircle2 } from 'lucide-react';
+import { ChevronRight, MessageCircle, Car, MapPin, CheckCircle2, Sparkles } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 
 interface HeroProps {
@@ -73,14 +73,21 @@ export default function Hero({ onExploreClick, lang, onBookingClick }: HeroProps
               <span className="text-slate-400 hidden sm:inline">Simalingkar B, Medan</span>
             </div>
 
-            {/* Main Title */}
-            <h1 className="font-display font-black text-2xl sm:text-4xl md:text-[38px] text-[#081836] tracking-tight leading-snug sm:leading-tight uppercase">
-              {isEN ? (
-                <>CV SRM MANDIRI — <span className="text-sky-600">Reliable Transportation &amp; Car Rental</span></>
-              ) : (
-                <>CV SRM MANDIRI — <span className="text-sky-600">Melayani Jasa Transportasi Terpercaya</span></>
-              )}
-            </h1>
+            {/* Main Headline as requested */}
+            <div className="space-y-2">
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-bold uppercase tracking-wider border border-sky-100">
+                <Sparkles className="w-3.5 h-3.5 text-sky-600" />
+                <span>CV SRM MANDIRI</span>
+              </span>
+
+              <h1 className="font-display font-black text-2xl sm:text-4xl md:text-[42px] text-[#081836] tracking-tight leading-snug sm:leading-tight">
+                {isEN ? (
+                  <>Serving Your Journey <span className="text-sky-600">With All Our Heart</span></>
+                ) : (
+                  <>Melayani Perjalanan Anda <span className="text-sky-600">Sepenuh Hati</span></>
+                )}
+              </h1>
+            </div>
 
             {/* Subtext */}
             <p className="font-sans text-xs sm:text-sm md:text-[15px] text-slate-600 font-medium max-w-3xl mx-auto leading-relaxed text-center">
@@ -109,35 +116,48 @@ export default function Hero({ onExploreClick, lang, onBookingClick }: HeroProps
               </div>
             </div>
 
-            {/* Quick CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-              <a
-                href="https://api.whatsapp.com/send?phone=6285270607796&text=Halo%20CV%20SRM%20MANDIRI,%20saya%20ingin%20konsultasi%20dan%20booking%20jasa%20transportasi%20rental%20mobil"
-                target="_blank"
-                rel="noreferrer"
-                className="w-full sm:w-auto bg-sky-600 hover:bg-sky-500 text-white font-display font-black text-xs uppercase px-7 py-3.5 rounded-xl shadow-md hover:shadow-sky-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5"
-              >
-                <MessageCircle className="w-4 h-4 fill-current" />
-                <span>WhatsApp 1: 0852-7060-7796</span>
-              </a>
+            {/* Prominent Booking Sekarang Button + Quick WhatsApp Contacts */}
+            <div className="pt-2 space-y-3">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                {/* Main "Booking Sekarang" Button */}
+                <button
+                  onClick={onBookingClick}
+                  className="w-full sm:w-auto bg-sky-600 hover:bg-sky-500 text-white font-display font-black text-sm uppercase px-10 py-4 rounded-2xl shadow-lg hover:shadow-sky-500/30 transition-all flex items-center justify-center gap-2.5 cursor-pointer transform hover:-translate-y-0.5"
+                  id="hero-booking-now-btn"
+                >
+                  <MessageCircle className="w-5 h-5 fill-current" />
+                  <span>{isEN ? 'Book Now' : 'Booking Sekarang'}</span>
+                </button>
 
-              <a
-                href="https://api.whatsapp.com/send?phone=6281262320086&text=Halo%20CV%20SRM%20MANDIRI,%20saya%20ingin%20konsultasi%20dan%20booking%20jasa%20transportasi%20rental%20mobil"
-                target="_blank"
-                rel="noreferrer"
-                className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-display font-black text-xs uppercase px-7 py-3.5 rounded-xl shadow-md hover:shadow-emerald-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5"
-              >
-                <MessageCircle className="w-4 h-4 fill-current" />
-                <span>WhatsApp 2: 0812-6232-0086</span>
-              </a>
+                <button
+                  onClick={onExploreClick}
+                  className="w-full sm:w-auto bg-[#081836] hover:bg-[#0c2340] text-white font-display font-black text-xs uppercase px-7 py-4 rounded-2xl shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5"
+                >
+                  <Car className="w-4 h-4 text-sky-300" />
+                  <span>{t.hero_cta_vehicles}</span>
+                </button>
+              </div>
 
-              <button
-                onClick={onExploreClick}
-                className="w-full sm:w-auto bg-[#081836] hover:bg-[#0c2340] text-white font-display font-black text-xs uppercase px-7 py-3.5 rounded-xl shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5"
-              >
-                <Car className="w-4 h-4 text-sky-300" />
-                <span>{t.hero_cta_vehicles}</span>
-              </button>
+              {/* Direct WhatsApp Quick Links */}
+              <div className="flex flex-wrap items-center justify-center gap-2.5 pt-1 text-xs font-bold text-slate-600">
+                <span>Atau hubungi langsung:</span>
+                <a
+                  href="https://api.whatsapp.com/send?phone=6285270607796&text=Halo%20CV%20SRM%20MANDIRI,%20saya%20ingin%20booking%20jasa%20transportasi%20rental%20mobil"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-sky-700 hover:underline flex items-center gap-1 bg-sky-50 px-2.5 py-1 rounded-lg border border-sky-200"
+                >
+                  📱 WA 1: 0852-7060-7796
+                </a>
+                <a
+                  href="https://api.whatsapp.com/send?phone=6281262320086&text=Halo%20CV%20SRM%20MANDIRI,%20saya%20ingin%20booking%20jasa%20transportasi%20rental%20mobil"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-emerald-700 hover:underline flex items-center gap-1 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200"
+                >
+                  📱 WA 2: 0812-6232-0086
+                </a>
+              </div>
             </div>
 
           </motion.div>
