@@ -16,25 +16,25 @@ export default function CarList({ onSelectCar, lang }: CarListProps) {
   const t = TRANSLATIONS[lang];
 
   const categories = [
-    { id: 'all', label: lang === 'EN' ? 'All Fleets (5)' : 'Semua Armada (5)' },
-    { id: 'family', label: lang === 'EN' ? 'Family Cars' : 'Mobil Keluarga' },
-    { id: 'luxury', label: lang === 'EN' ? 'Luxury MPV' : 'Luxury MPV' },
-    { id: 'group', label: lang === 'EN' ? 'Minibus & Bus' : 'Minibus & Bus Rombongan' }
+    { id: 'all', label: lang === 'EN' ? 'All Fleets (4)' : 'Semua Armada (4)' },
+    { id: 'innova', label: 'Toyota Innova' },
+    { id: 'avanza', label: 'Toyota Avanza' },
+    { id: 'sigra_calya', label: 'Sigra & Calya' }
   ];
 
   const filteredCars = CARS.filter(car => {
     if (filterCategory === 'all') return true;
-    if (filterCategory === 'family') return car.id === 'new-avanza' || car.id === 'innova-reborn';
-    if (filterCategory === 'luxury') return car.id === 'toyota-zenix' || car.id === 'innova-reborn';
-    if (filterCategory === 'group') return car.id === 'toyota-hiace' || car.id === 'medium-bus';
+    if (filterCategory === 'innova') return car.id === 'toyota-innova';
+    if (filterCategory === 'avanza') return car.id === 'toyota-avanza';
+    if (filterCategory === 'sigra_calya') return car.id === 'daihatsu-sigra' || car.id === 'toyota-calya';
     return true;
   });
 
   const handleWhatsAppBooking = (car: Car) => {
-    const waNumber = '6285264018698';
+    const waNumber = '6285270607796';
     const message = lang === 'EN'
-      ? `Hello Rizal Transportasi Batam, I am interested in renting: ${car.name} (${car.priceDisplay}). Please inform price quote and availability. Thank you!`
-      : `Halo Rizal Transportasi Batam, saya berminat rental armada: ${car.name} (${car.priceDisplay}). Mohon informasi penawaran harga & ketersediaan unit. Terima kasih!`;
+      ? `Hello CV SRM MANDIRI, I would like to rent/charter the vehicle: ${car.name} (${car.priceDisplay}). Please provide schedule, rate quotation, and availability. Thank you!`
+      : `Halo CV SRM MANDIRI, saya berminat rental/carter armada: ${car.name} (${car.priceDisplay}). Mohon informasi jadwal, penawaran harga & ketersediaan unit. Alamat penjemputan: Simalingkar B / Medan. Terima kasih!`;
     window.open(`https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(message)}`, '_blank', 'noreferrer');
   };
 
@@ -78,7 +78,7 @@ export default function CarList({ onSelectCar, lang }: CarListProps) {
         </div>
 
         {/* Cars Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredCars.map((car) => {
             return (
               <motion.div
@@ -91,55 +91,55 @@ export default function CarList({ onSelectCar, lang }: CarListProps) {
               >
                 <div>
                   {/* Image banner */}
-                  <div className="relative h-60 bg-gradient-to-b from-slate-50/80 to-white overflow-hidden flex items-center justify-center border-b border-slate-100 p-3">
+                  <div className="relative h-52 bg-gradient-to-b from-slate-50/80 to-white overflow-hidden flex items-center justify-center border-b border-slate-100 p-3">
                     <img
                       src={car.image}
                       alt={car.name}
                       className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500 drop-shadow-sm"
                     />
-                    <div className="absolute top-4 left-4 bg-[#081836]/90 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider">
+                    <div className="absolute top-3 left-3 bg-[#081836]/90 backdrop-blur-md text-white px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wider">
                       {car.category}
                     </div>
 
                     {/* Price Tag Pill */}
-                    <div className="absolute top-4 right-4 bg-sky-600 text-white px-3 py-1 rounded-full text-xs font-display font-bold tracking-wide shadow-xs">
+                    <div className="absolute top-3 right-3 bg-sky-600 text-white px-2.5 py-0.5 rounded-full text-[11px] font-display font-bold tracking-wide shadow-xs">
                       Mulai {car.priceDisplay}
                     </div>
                   </div>
 
                   {/* Card Body */}
-                  <div className="p-6 space-y-4 text-left">
+                  <div className="p-5 space-y-3.5 text-left">
                     <div>
-                      <h3 className="font-display font-black text-xl text-[#081836] tracking-tight group-hover:text-sky-600 transition-colors uppercase">
+                      <h3 className="font-display font-black text-lg text-[#081836] tracking-tight group-hover:text-sky-600 transition-colors uppercase">
                         {car.name}
                       </h3>
-                      <p className="font-sans text-xs text-slate-500 font-medium mt-1 leading-relaxed">
+                      <p className="font-sans text-xs text-slate-500 font-medium mt-1 leading-relaxed line-clamp-2">
                         {car.description}
                       </p>
                     </div>
 
                     {/* Quick Specs Badges */}
                     <div className="flex items-center gap-2 text-xs font-bold text-slate-700 pt-2 border-t border-slate-100">
-                      <div className="flex items-center gap-1.5 bg-sky-50/80 px-3 py-1.5 rounded-lg text-sky-900 border border-sky-100/80">
-                        <Users className="w-4 h-4 text-sky-600" />
+                      <div className="flex items-center gap-1.5 bg-sky-50/80 px-2.5 py-1 rounded-lg text-sky-900 border border-sky-100/80 text-[11px]">
+                        <Users className="w-3.5 h-3.5 text-sky-600" />
                         <span>{car.seats} {lang === 'EN' ? 'Seats' : 'Kursi'}</span>
                       </div>
-                      <div className="flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-lg">
-                        <Settings2 className="w-4 h-4 text-slate-600" />
+                      <div className="flex items-center gap-1.5 bg-slate-100 px-2.5 py-1 rounded-lg text-[11px]">
+                        <Settings2 className="w-3.5 h-3.5 text-slate-600" />
                         <span>{car.transmission}</span>
                       </div>
                     </div>
 
                     {/* Key features list */}
-                    <div className="space-y-1.5 pt-2">
+                    <div className="space-y-1 pt-1">
                       <span className="text-[10px] font-extrabold uppercase text-slate-400 tracking-wider">
                         {lang === 'EN' ? 'Highlights:' : 'Keunggulan Armada:'}
                       </span>
                       <ul className="space-y-1">
-                        {car.includeList.map((inc, idx) => (
-                          <li key={idx} className="flex items-center gap-2 text-xs font-medium text-slate-700">
+                        {car.includeList.slice(0, 3).map((inc, idx) => (
+                          <li key={idx} className="flex items-center gap-1.5 text-[11px] font-medium text-slate-700">
                             <CheckCircle2 className="w-3.5 h-3.5 text-sky-500 shrink-0" />
-                            <span>{inc}</span>
+                            <span className="line-clamp-1">{inc}</span>
                           </li>
                         ))}
                       </ul>
@@ -148,15 +148,15 @@ export default function CarList({ onSelectCar, lang }: CarListProps) {
                 </div>
 
                 {/* Action buttons */}
-                <div className="p-6 pt-0 space-y-2">
+                <div className="p-5 pt-0 space-y-2">
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       onSelectCar(car);
                     }}
-                    className="w-full bg-[#081836] hover:bg-[#0c2340] text-white font-display font-black text-xs uppercase py-3 rounded-2xl shadow-xs transition-all cursor-pointer flex items-center justify-center gap-2 tracking-wider"
+                    className="w-full bg-[#081836] hover:bg-[#0c2340] text-white font-display font-black text-xs uppercase py-2.5 rounded-xl shadow-xs transition-all cursor-pointer flex items-center justify-center gap-2 tracking-wider"
                   >
-                    <Sparkles className="w-4 h-4 text-sky-300" />
+                    <Sparkles className="w-3.5 h-3.5 text-sky-300" />
                     <span>{t.vehicles_btn_book}</span>
                   </button>
 
@@ -165,9 +165,9 @@ export default function CarList({ onSelectCar, lang }: CarListProps) {
                       e.stopPropagation();
                       handleWhatsAppBooking(car);
                     }}
-                    className="w-full bg-sky-600 hover:bg-sky-500 text-white font-display font-black text-xs uppercase py-2.5 rounded-2xl shadow-xs transition-all cursor-pointer flex items-center justify-center gap-2 tracking-wider"
+                    className="w-full bg-sky-600 hover:bg-sky-500 text-white font-display font-black text-xs uppercase py-2 rounded-xl shadow-xs transition-all cursor-pointer flex items-center justify-center gap-2 tracking-wider"
                   >
-                    <MessageCircle className="w-4 h-4 fill-current" />
+                    <MessageCircle className="w-3.5 h-3.5 fill-current" />
                     <span>{t.vehicles_btn_wa}</span>
                   </button>
                 </div>

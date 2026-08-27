@@ -1,20 +1,19 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# CV SRM MANDIRI - Jasa Transportasi & Rental Mobil Medan
 
-# Run and deploy your AI Studio app
+Website resmi **CV SRM MANDIRI** – Melayani Jasa Transportasi, Rental Mobil, Carter Travel Antar Kota & Paket Wisata.
 
-This contains everything you need to run your app locally.
+### 📋 Profil Bisnis:
+- **Nama Bisnis**: CV SRM MANDIRI
+- **Visi & Misi**: Melayani jasa transportasi yang aman, nyaman, dan terpercaya
+- **Jenis Mobil / Armada**: Toyota Innova, Toyota Avanza, Daihatsu Sigra, dan Toyota Calya
+- **Rute Layanan**: Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, dan Jambi
+- **Destinasi Wisata**: Berastagi, Parapat, dan Pulau Samosir (Danau Toba)
+- **WhatsApp**: 0852-7060-7796 / 0812-6232-0086
+- **TikTok**: [@hendry.manullang](https://www.tiktok.com/@hendry.manullang)
+- **Alamat**: Simalingkar B, Medan, Sumatera Utara
 
-View your app in AI Studio: https://ai.studio/apps/05802460-e48d-4e98-b2bd-7f0546239c9f
+---
 
-## Run Locally
-
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Menjalankan Proyek Secara Lokal:
+1. `npm install`
+2. `npm run dev`

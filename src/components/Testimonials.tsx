@@ -33,18 +33,18 @@ export default function Testimonials({ lang }: TestimonialsProps) {
   const currentRev = reviews[activeIdx];
 
   return (
-    <section id="testimonials" className="py-24 bg-slate-100 overflow-hidden text-left border-b border-slate-200">
+    <section id="testimonials" className="py-20 bg-slate-100/70 overflow-hidden text-left border-b border-slate-200">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Heading */}
-        <div className="text-center max-w-3xl mx-auto mb-14 space-y-3" id="testimonials-heading">
-          <span className="font-display font-extrabold text-xs text-blue-600 tracking-widest uppercase bg-blue-100 px-3.5 py-1 rounded-full border border-blue-200 inline-block">
+        <div className="text-center max-w-3xl mx-auto mb-12 space-y-3" id="testimonials-heading">
+          <span className="font-display font-extrabold text-xs text-sky-700 tracking-widest uppercase bg-sky-100 px-3.5 py-1 rounded-full border border-sky-200 inline-block">
             {t.testi_tag}
           </span>
-          <h2 className="font-display font-black text-3xl sm:text-4xl text-[#0d1b37] tracking-tight uppercase">
+          <h2 className="font-display font-black text-3xl sm:text-4xl text-[#081836] tracking-tight uppercase">
             {t.testi_title}
           </h2>
-          <div className="w-16 h-1 bg-blue-600 mx-auto rounded-full" />
+          <div className="w-16 h-1 bg-sky-600 mx-auto rounded-full" />
           <p className="font-sans text-slate-600 text-xs sm:text-sm leading-relaxed font-medium">
             {t.testi_desc}
           </p>
@@ -66,7 +66,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
               >
                 {/* Decorative quote icon */}
                 <div className="absolute top-8 right-8 text-slate-200">
-                  <Quote className="w-16 h-16 transform -scale-x-100 fill-current opacity-50" />
+                  <Quote className="w-16 h-16 transform -scale-x-100 fill-current opacity-40" />
                 </div>
 
                 <div className="space-y-6 relative z-10 text-left">
@@ -78,7 +78,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                   </div>
 
                   {/* Testimonial text block */}
-                  <p className="font-sans text-slate-700 italic text-base sm:text-xl leading-relaxed font-medium">
+                  <p className="font-sans text-slate-700 italic text-base sm:text-lg leading-relaxed font-medium">
                     "{isEN ? currentRev.textEN : currentRev.textID}"
                   </p>
 
@@ -87,17 +87,17 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                     <img
                       src={currentRev.image}
                       alt={currentRev.name}
-                      className="w-13 h-13 rounded-full object-cover border-2 border-blue-500 shadow-sm"
+                      className="w-12 h-12 rounded-full object-cover border-2 border-sky-500 shadow-sm"
                       referrerPolicy="no-referrer"
                     />
                     <div>
-                      <h4 className="font-display font-black text-base text-[#0d1b37] uppercase tracking-wide">
+                      <h4 className="font-display font-black text-base text-[#081836] uppercase tracking-wide">
                         {currentRev.name}
                       </h4>
                       <p className="font-sans text-xs text-slate-500 font-semibold">
                         {isEN ? currentRev.roleEN : currentRev.roleID}
                       </p>
-                      <span className="inline-flex items-center gap-1 bg-blue-50 text-blue-700 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border border-blue-200 mt-1">
+                      <span className="inline-flex items-center gap-1 bg-sky-50 text-sky-700 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border border-sky-200 mt-1">
                         <Sparkles className="w-2.5 h-2.5" />
                         <span>
                           {t.testi_rented_label} {isEN ? currentRev.carModelEN : currentRev.carModelID} ({isEN ? currentRev.dateEN : currentRev.dateID})
@@ -114,7 +114,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
           <div className="flex items-center gap-4 mt-8">
             <button
               onClick={handlePrev}
-              className="w-10 h-10 rounded-full bg-white hover:bg-blue-600 hover:text-white text-slate-700 flex items-center justify-center transition-colors shadow-md border border-slate-200 cursor-pointer"
+              className="w-10 h-10 rounded-full bg-white hover:bg-sky-600 hover:text-white text-slate-700 flex items-center justify-center transition-colors shadow-md border border-slate-200 cursor-pointer"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -125,7 +125,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
                   key={idx}
                   onClick={() => setActiveIdx(idx)}
                   className={`h-2.5 rounded-full transition-all cursor-pointer ${
-                    activeIdx === idx ? 'w-8 bg-blue-600' : 'w-2.5 bg-slate-300'
+                    activeIdx === idx ? 'w-8 bg-sky-600' : 'w-2.5 bg-slate-300'
                   }`}
                 />
               ))}
@@ -133,7 +133,7 @@ export default function Testimonials({ lang }: TestimonialsProps) {
 
             <button
               onClick={handleNext}
-              className="w-10 h-10 rounded-full bg-white hover:bg-blue-600 hover:text-white text-slate-700 flex items-center justify-center transition-colors shadow-md border border-slate-200 cursor-pointer"
+              className="w-10 h-10 rounded-full bg-white hover:bg-sky-600 hover:text-white text-slate-700 flex items-center justify-center transition-colors shadow-md border border-slate-200 cursor-pointer"
             >
               <ChevronRight className="w-5 h-5" />
             </button>

@@ -22,7 +22,7 @@ export default function About({ lang }: AboutProps) {
           </div>
 
           <h2 className="font-display font-black text-4xl sm:text-5xl text-[#081836] tracking-tight leading-tight uppercase">
-            Rizal Transportasi Batam
+            CV SRM MANDIRI
           </h2>
           <div className="w-16 h-1 bg-sky-600 mx-auto rounded-full" />
           <p className="font-sans text-slate-600 text-xs sm:text-sm leading-relaxed font-medium">
@@ -52,7 +52,7 @@ export default function About({ lang }: AboutProps) {
                     PROFIL RESMI
                   </span>
                   <h3 className="font-display font-black text-xl text-white uppercase tracking-tight">
-                    Rizal Transportasi Batam
+                    CV SRM MANDIRI
                   </h3>
                 </div>
               </div>
@@ -69,16 +69,17 @@ export default function About({ lang }: AboutProps) {
                   <MapPin className="w-5 h-5 text-sky-400 shrink-0 mt-0.5" />
                   <p className="font-sans text-xs text-slate-200 leading-relaxed font-medium">
                     <span className="font-bold text-white block">Alamat Kantor:</span>
-                    Perumahan Buana Vista Indah 2, Blok A No. 67, Botania, Batam
+                    Simalingkar B, Medan, Sumatera Utara
                   </p>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-start gap-3">
                   <MessageCircle className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-                  <p className="font-sans text-xs text-slate-200 leading-relaxed font-medium">
+                  <div className="font-sans text-xs text-slate-200 leading-relaxed font-medium">
                     <span className="font-bold text-white block">WhatsApp Resmi:</span>
-                    +62 852-6401-8698 (Respon Cepat)
-                  </p>
+                    <span className="text-emerald-400 font-bold block">0852-7060-7796 / 0812-6232-0086</span>
+                    <span className="text-rose-300 font-semibold block mt-0.5">TikTok: @hendry.manullang</span>
+                  </div>
                 </div>
               </div>
 
@@ -162,7 +163,7 @@ export default function About({ lang }: AboutProps) {
 
             <div className="p-4 rounded-2xl bg-sky-50 border border-sky-100 flex items-center justify-between">
               <span className="font-sans text-xs text-sky-900 font-extrabold uppercase">
-                📍 Botania, Batam • WhatsApp: +62 852-6401-8698
+                📍 Simalingkar B, Medan • WhatsApp: 0852-7060-7796 / 0812-6232-0086
               </span>
             </div>
           </motion.div>

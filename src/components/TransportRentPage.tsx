@@ -17,25 +17,25 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
   const isEN = lang === 'EN';
 
   const categories = [
-    { id: 'all', label: isEN ? 'All Fleets (5)' : 'Semua Armada (5)' },
-    { id: 'family', label: isEN ? 'Family Cars' : 'Mobil Keluarga' },
-    { id: 'luxury', label: isEN ? 'Luxury MPV' : 'Luxury MPV' },
-    { id: 'group', label: isEN ? 'Minibus & Bus' : 'Minibus & Bus Rombongan' }
+    { id: 'all', label: isEN ? 'All Fleets (4)' : 'Semua Armada (4)' },
+    { id: 'innova', label: 'Toyota Innova' },
+    { id: 'avanza', label: 'Toyota Avanza' },
+    { id: 'sigra_calya', label: 'Sigra & Calya' }
   ];
 
   const filteredCars = CARS.filter(car => {
     if (filterCategory === 'all') return true;
-    if (filterCategory === 'family') return car.id === 'new-avanza' || car.id === 'innova-reborn';
-    if (filterCategory === 'luxury') return car.id === 'toyota-zenix' || car.id === 'innova-reborn';
-    if (filterCategory === 'group') return car.id === 'toyota-hiace' || car.id === 'medium-bus';
+    if (filterCategory === 'innova') return car.id === 'toyota-innova';
+    if (filterCategory === 'avanza') return car.id === 'toyota-avanza';
+    if (filterCategory === 'sigra_calya') return car.id === 'daihatsu-sigra' || car.id === 'toyota-calya';
     return true;
   });
 
   const handleWhatsAppBooking = (car: Car) => {
-    const waNumber = '6285264018698';
+    const waNumber = '6285270607796';
     const message = isEN
-      ? `Hello Rizal Transportasi Batam, I am interested in renting: ${car.name} (${car.priceDisplay}). Please inform price quote, schedule & unit availability. Thank you!`
-      : `Halo Rizal Transportasi Batam, saya berminat rental armada: ${car.name} (${car.priceDisplay}). Mohon informasi penawaran harga, jadwal & ketersediaan unit. Terima kasih!`;
+      ? `Hello CV SRM MANDIRI, I am interested in renting: ${car.name} (${car.priceDisplay}). Please inform price quote, schedule & unit availability. Thank you!`
+      : `Halo CV SRM MANDIRI, saya berminat rental armada: ${car.name} (${car.priceDisplay}). Mohon informasi penawaran harga, jadwal & ketersediaan unit. Alamat: Simalingkar B / Medan. Terima kasih!`;
     window.open(`https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(message)}`, '_blank', 'noreferrer');
   };
 
@@ -47,14 +47,14 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-40 transform scale-105"
           style={{
-            backgroundImage: `url('/hero_batam.jpg')`
+            backgroundImage: `url('/dest_toba.avif')`
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#061226]/90 via-[#081836]/75 to-[#061226]/95" />
 
         <div className="relative z-10 text-center space-y-2 px-4">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/20 border border-sky-400/30 text-sky-300 font-extrabold text-[10px] uppercase tracking-widest mb-1 shadow-sm">
-            <span>Rizal Transportasi Batam</span>
+            <span>CV SRM MANDIRI OFFICIAL</span>
           </div>
 
           <h1 className="font-display font-black text-3xl sm:text-5xl text-white tracking-tight leading-tight uppercase">
@@ -99,7 +99,7 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
         </div>
 
         {/* Fleet Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredCars.map((car) => {
             return (
               <motion.div
@@ -111,51 +111,51 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
                 className="bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-sky-200 transition-all duration-300 flex flex-col justify-between group cursor-pointer hover:-translate-y-1"
               >
                 <div>
-                  <div className="relative h-60 bg-gradient-to-b from-slate-50/80 to-white overflow-hidden flex items-center justify-center border-b border-slate-100 p-3">
+                  <div className="relative h-52 bg-gradient-to-b from-slate-50/80 to-white overflow-hidden flex items-center justify-center border-b border-slate-100 p-3">
                     <img
                       src={car.image}
                       alt={car.name}
                       className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500 drop-shadow-sm"
                     />
-                    <div className="absolute top-4 left-4 bg-[#081836]/90 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider">
+                    <div className="absolute top-3 left-3 bg-[#081836]/90 backdrop-blur-md text-white px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wider">
                       {car.category}
                     </div>
 
-                    <div className="absolute top-4 right-4 bg-sky-600 text-white px-3 py-1 rounded-full text-xs font-display font-bold tracking-wide shadow-xs">
+                    <div className="absolute top-3 right-3 bg-sky-600 text-white px-2.5 py-0.5 rounded-full text-[11px] font-display font-bold tracking-wide shadow-xs">
                       Mulai {car.priceDisplay}
                     </div>
                   </div>
 
-                  <div className="p-6 space-y-4 text-left">
+                  <div className="p-5 space-y-3.5 text-left">
                     <div>
-                      <h3 className="font-display font-black text-xl text-[#081836] tracking-tight group-hover:text-sky-600 transition-colors uppercase">
+                      <h3 className="font-display font-black text-lg text-[#081836] tracking-tight group-hover:text-sky-600 transition-colors uppercase">
                         {car.name}
                       </h3>
-                      <p className="font-sans text-xs text-slate-500 font-medium mt-1 leading-relaxed">
+                      <p className="font-sans text-xs text-slate-500 font-medium mt-1 leading-relaxed line-clamp-2">
                         {car.description}
                       </p>
                     </div>
 
                     <div className="flex items-center gap-2 text-xs font-bold text-slate-700 pt-2 border-t border-slate-100">
-                      <div className="flex items-center gap-1.5 bg-sky-50/80 px-3 py-1.5 rounded-lg text-sky-900 border border-sky-100/80">
-                        <Users className="w-4 h-4 text-sky-600" />
+                      <div className="flex items-center gap-1.5 bg-sky-50/80 px-2.5 py-1 rounded-lg text-sky-900 border border-sky-100/80 text-[11px]">
+                        <Users className="w-3.5 h-3.5 text-sky-600" />
                         <span>{car.seats} {isEN ? 'Seats' : 'Kursi'}</span>
                       </div>
-                      <div className="flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-lg">
-                        <Settings2 className="w-4 h-4 text-slate-600" />
+                      <div className="flex items-center gap-1.5 bg-slate-100 px-2.5 py-1 rounded-lg text-[11px]">
+                        <Settings2 className="w-3.5 h-3.5 text-slate-600" />
                         <span>{car.transmission}</span>
                       </div>
                     </div>
 
-                    <div className="space-y-1.5 pt-2">
+                    <div className="space-y-1 pt-1">
                       <span className="text-[10px] font-extrabold uppercase text-slate-400 tracking-wider">
-                        {isEN ? 'Key Amenities:' : 'Keunggulan Armada:'}
+                        {isEN ? 'Key Highlights:' : 'Keunggulan Armada:'}
                       </span>
                       <ul className="space-y-1">
-                        {car.includeList.map((inc, idx) => (
-                          <li key={idx} className="flex items-center gap-2 text-xs font-medium text-slate-700">
+                        {car.includeList.slice(0, 3).map((inc, idx) => (
+                          <li key={idx} className="flex items-center gap-1.5 text-[11px] font-medium text-slate-700">
                             <CheckCircle2 className="w-3.5 h-3.5 text-sky-500 shrink-0" />
-                            <span>{inc}</span>
+                            <span className="line-clamp-1">{inc}</span>
                           </li>
                         ))}
                       </ul>
@@ -163,15 +163,15 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
                   </div>
                 </div>
 
-                <div className="p-6 pt-0 space-y-2">
+                <div className="p-5 pt-0 space-y-2">
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       onSelectCar(car);
                     }}
-                    className="w-full bg-[#081836] hover:bg-[#0c2340] text-white font-display font-black text-xs uppercase py-3 rounded-2xl shadow-xs transition-all cursor-pointer flex items-center justify-center gap-2 tracking-wider"
+                    className="w-full bg-[#081836] hover:bg-[#0c2340] text-white font-display font-black text-xs uppercase py-2.5 rounded-xl shadow-xs transition-all cursor-pointer flex items-center justify-center gap-2 tracking-wider"
                   >
-                    <Sparkles className="w-4 h-4 text-sky-300" />
+                    <Sparkles className="w-3.5 h-3.5 text-sky-300" />
                     <span>{t.vehicles_btn_book}</span>
                   </button>
 
@@ -180,9 +180,9 @@ export default function TransportRentPage({ onSelectCar, lang, onNavigateHome }:
                       e.stopPropagation();
                       handleWhatsAppBooking(car);
                     }}
-                    className="w-full bg-sky-600 hover:bg-sky-500 text-white font-display font-black text-xs uppercase py-2.5 rounded-2xl shadow-xs transition-all cursor-pointer flex items-center justify-center gap-2 tracking-wider"
+                    className="w-full bg-sky-600 hover:bg-sky-500 text-white font-display font-black text-xs uppercase py-2 rounded-xl shadow-xs transition-all cursor-pointer flex items-center justify-center gap-2 tracking-wider"
                   >
-                    <MessageCircle className="w-4 h-4 fill-current" />
+                    <MessageCircle className="w-3.5 h-3.5 fill-current" />
                     <span>{t.vehicles_btn_wa}</span>
                   </button>
                 </div>

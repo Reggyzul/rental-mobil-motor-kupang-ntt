@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone, MessageCircle } from 'lucide-react';
+import { Menu, X, Phone, MessageCircle, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TRANSLATIONS } from '../utils/translations';
 
@@ -43,6 +43,7 @@ export default function Header({
   const navItems = [
     { id: 'home', label: t.nav_home },
     { id: 'cars', label: t.nav_vehicles },
+    { id: 'services', label: lang === 'EN' ? 'Routes & Tours' : 'Rute & Wisata' },
     { id: 'about-page', label: t.nav_about },
     { id: 'contact', label: t.nav_contact }
   ];
@@ -52,21 +53,38 @@ export default function Header({
       
       {/* 1. TOP SLIM BAR */}
       <div className="w-full bg-[#061226] text-white py-1.5 px-4 sm:px-6 lg:px-8 text-xs font-sans border-b border-white/5">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
           
-          {/* Left: Direct Phone/WhatsApp */}
-          <a
-            href="https://api.whatsapp.com/send?phone=6285264018698&text=Halo%20Rizal%20Transportasi%20Batam,%20saya%20ingin%20tanya%20rental%20mobil"
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-2 text-sky-300 hover:text-white font-bold transition-colors cursor-pointer"
-          >
-            <Phone className="w-3.5 h-3.5 text-sky-400 fill-current" />
-            <span>0852-6401-8698</span>
-          </a>
+          {/* Left: Contact Info (WhatsApp & TikTok & Address) */}
+          <div className="flex flex-wrap items-center gap-3 sm:gap-5 text-[11px] sm:text-xs">
+            <a
+              href="https://api.whatsapp.com/send?phone=6285270607796&text=Halo%20CV%20SRM%20MANDIRI,%20saya%20ingin%20tanya%20jasa%20transportasi%20dan%20rental%20mobil"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-1.5 text-sky-300 hover:text-white font-bold transition-colors cursor-pointer"
+            >
+              <Phone className="w-3.5 h-3.5 text-sky-400 fill-current" />
+              <span>0852-7060-7796 / 0812-6232-0086</span>
+            </a>
+
+            <a
+              href="https://www.tiktok.com/@hendry.manullang"
+              target="_blank"
+              rel="noreferrer"
+              className="hidden md:flex items-center gap-1.5 text-rose-300 hover:text-white font-semibold transition-colors cursor-pointer"
+            >
+              <span className="font-bold">TikTok:</span>
+              <span>@hendry.manullang</span>
+            </a>
+
+            <div className="hidden lg:flex items-center gap-1 text-slate-400">
+              <MapPin className="w-3 h-3 text-sky-400" />
+              <span>Simalingkar B, Medan</span>
+            </div>
+          </div>
 
           {/* Right: Language Switch */}
-          <div className="flex items-center gap-1 text-[11px] font-bold">
+          <div className="flex items-center gap-1 text-[11px] font-bold ml-auto">
             <button
               onClick={() => setLang('ID')}
               className={`px-1.5 py-0.5 rounded transition-colors cursor-pointer ${
@@ -100,7 +118,7 @@ export default function Header({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-4">
             
-            {/* Left: Brand Logo & Typography with crisp white background badge for maximum contrast */}
+            {/* Left: Brand Logo & Typography */}
             <div 
               onClick={() => handleItemClick('home')}
               className="flex items-center gap-3 cursor-pointer group shrink-0"
@@ -109,23 +127,23 @@ export default function Header({
               <div className="bg-white p-1 rounded-xl shadow-xs group-hover:scale-105 transition-transform duration-200 shrink-0 flex items-center justify-center">
                 <img
                   src="/logo.png"
-                  alt="Rizal Transportasi Batam Logo"
+                  alt="CV SRM MANDIRI Logo"
                   className="h-8 sm:h-9 w-auto object-contain"
                 />
               </div>
               
               <div className="flex flex-col leading-tight">
                 <span className="font-display font-black text-base sm:text-lg tracking-tight text-white uppercase">
-                  Rizal Transportasi <span className="text-sky-400">Batam</span>
+                  CV SRM <span className="text-sky-400">MANDIRI</span>
                 </span>
                 <span className="font-sans font-bold text-[9px] sm:text-[10px] text-slate-300 tracking-wider uppercase">
-                  Rental Mobil &amp; Transportasi
+                  Melayani Jasa Transportasi
                 </span>
               </div>
             </div>
 
             {/* Center/Right: Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center justify-end gap-8 text-xs uppercase tracking-wider font-sans font-extrabold text-slate-200" id="desktop-nav">
+            <nav className="hidden lg:flex items-center justify-end gap-7 text-xs uppercase tracking-wider font-sans font-extrabold text-slate-200" id="desktop-nav">
               {navItems.map((item) => {
                 const isActive = activeSection === item.id || (item.id === 'about-page' && (activeSection === 'about' || activeSection === 'about-page'));
                 return (
@@ -199,6 +217,20 @@ export default function Header({
                   </button>
                 );
               })}
+
+              <div className="pt-2 text-xs text-slate-300 space-y-1">
+                <a
+                  href="https://www.tiktok.com/@hendry.manullang"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block py-1 text-rose-300 hover:underline font-semibold"
+                >
+                  🎵 TikTok: @hendry.manullang
+                </a>
+                <p className="text-slate-400">
+                  📍 Simalingkar B, Medan
+                </p>
+              </div>
 
               {/* Mobile CTA */}
               <div className="pt-3">

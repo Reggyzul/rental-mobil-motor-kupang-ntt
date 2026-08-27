@@ -16,148 +16,119 @@ export interface TestimonialItem {
 }
 
 export const CARS: Car[] = [
-  // 1. TOYOTA HIACE
+  // 1. TOYOTA INNOVA
   {
-    id: 'toyota-hiace',
-    name: 'Toyota Hiace',
-    category: 'Minibus / Rombongan',
-    pricePerDay: 1200000,
-    priceDisplay: 'Rp1.200.000',
-    image: '/hiace_batam.png',
-    seats: 15,
-    transmission: 'Manual',
-    fuel: 'Diesel',
-    includeList: [
-      'Kapasitas Besar 14-15 Penumpang',
-      'AC Ducting Dingin Merata',
-      'Cocok Wisata & Acara Perusahaan',
-      'Kenyamanan Maksimal untuk Group',
-      'Unit Terawat, Bersih & Harum'
-    ],
-    description: 'Kendaraan berkapasitas besar yang sangat nyaman untuk perjalanan rombongan, wisata, acara keluarga, maupun kegiatan perusahaan di Batam.',
-    rating: 5.0,
-    reviewsCount: 168,
-    specifications: [
-      { label: 'Kapasitas', value: '14 - 15 Penumpang' },
-      { label: 'Transmisi', value: 'Manual' },
-      { label: 'Penggunaan', value: 'Rombongan, Tour Wisata & Gathering' },
-      { label: 'Area Layanan', value: 'Kota Batam dan Sekitarnya' }
-    ]
-  },
-
-  // 2. NEW AVANZA
-  {
-    id: 'new-avanza',
-    name: 'New Avanza',
-    category: 'Mobil Keluarga',
-    pricePerDay: 600000,
-    priceDisplay: 'Rp600.000',
-    image: '/avanza.avif',
-    seats: 7,
-    transmission: 'Manual / Matic',
-    fuel: 'Bensin (Irit)',
-    includeList: [
-      'Mobil Keluarga Nyaman & Bersih',
-      'AC Double Blower Dingin',
-      'Ekonomis & Irit Bahan Bakar',
-      'Lincah di Perkotaan Batam',
-      'Cocok untuk Keluarga & Dinas Bisnis'
-    ],
-    description: 'Pilihan mobil keluarga yang praktis, lincah, dan ekonomis untuk mobilitas harian, liburan keluarga, maupun perjalanan bisnis di Batam.',
-    rating: 4.9,
-    reviewsCount: 210,
-    specifications: [
-      { label: 'Kapasitas', value: '7 Penumpang' },
-      { label: 'Transmisi', value: 'Manual & Matic' },
-      { label: 'Karakter', value: 'Ekonomis, Praktis & Nyaman' },
-      { label: 'Area Layanan', value: 'Kota Batam & Sekitarnya' }
-    ]
-  },
-
-  // 3. TOYOTA INNOVA REBORN
-  {
-    id: 'innova-reborn',
-    name: 'Toyota Innova Reborn',
-    category: 'MPV Premium Keluarga',
-    pricePerDay: 800000,
-    priceDisplay: 'Rp800.000',
+    id: 'toyota-innova',
+    name: 'Toyota Innova',
+    category: 'MPV Premium & Tangguh',
+    pricePerDay: 700000,
+    priceDisplay: 'Rp700.000',
     image: '/innova_reborn.avif',
     seats: 7,
     transmission: 'Matic / Manual',
     fuel: 'Diesel / Bensin',
     includeList: [
-      'Kabin Luas & Nyaman Senyap',
-      'Suspensi Lembut & Performa Tangguh',
-      'Ruang Kaki & Bagasi Lega',
-      'Favorit Tamu Bisnis & Keluarga',
-      'Kondisi Bersih, Harum & Terawat'
+      'Kabin Luas, Senyap & Sangat Nyaman',
+      'Suspensi Lembut & Performa Mesin Handal',
+      'Sangat Nyaman untuk Rute Jauh & Antar Kota',
+      'AC Double Blower Dingin Merata',
+      'Unit Selalu Bersih, Harum & Terawat'
     ],
-    description: 'Mobil MPV favorit dengan kenyamanan kabin ekstra, suspensi empuk, dan performa handal untuk perjalanan bisnis maupun liburan keluarga di Batam.',
+    description: 'Pilihan MPV premium andalan dengan kenyamanan kabin superior, suspensi empuk, dan mesin tangguh untuk rute antar kota (Medan, Dumai, Duri, Pekanbaru, Kerinci, Jambi) maupun wisata Berastagi dan Danau Toba.',
     rating: 5.0,
-    reviewsCount: 195,
+    reviewsCount: 245,
     specifications: [
       { label: 'Kapasitas', value: '7 Penumpang' },
       { label: 'Transmisi', value: 'Matic / Manual' },
       { label: 'Kenyamanan', value: 'Kabin Luas & Suspensi Lembut' },
-      { label: 'Layanan', value: 'Pribadi, Wisata & Bisnis' }
+      { label: 'Rute Layanan', value: 'Medan, Riau, Jambi & Wisata Sumut' }
     ]
   },
 
-  // 4. TOYOTA ZENIX
+  // 2. TOYOTA AVANZA
   {
-    id: 'toyota-zenix',
-    name: 'Toyota Zenix',
-    category: 'Luxury MPV Modern',
-    pricePerDay: 1000000,
-    priceDisplay: 'Rp1.000.000',
-    image: '/zenix.jpg',
+    id: 'toyota-avanza',
+    name: 'Toyota Avanza',
+    category: 'Mobil Keluarga Favorit',
+    pricePerDay: 500000,
+    priceDisplay: 'Rp500.000',
+    image: '/avanza.avif',
     seats: 7,
-    transmission: 'Matic (CVT)',
-    fuel: 'Bensin / Hybrid',
+    transmission: 'Manual / Matic',
+    fuel: 'Bensin (Irit)',
     includeList: [
-      'Desain Modern & Eksterior Mewah',
-      'Interior Modern Berkelas & Nyaman',
-      'Fitur Keselamatan & Kenyamanan Canggih',
-      'Cocok untuk Tamu VIP, Dinas & Bisnis',
-      'Pengalaman Berkendara Kelas Atas'
+      'Mobil Keluarga Praktis, Nyaman & Luas',
+      'AC Dingin Double Blower',
+      'Hemat Konsumsi Bahan Bakar',
+      'Lincah dan Tangguh di Berbagai Medan Jalan',
+      'Cocok untuk Liburan Keluarga & Dinas Kantor'
     ],
-    description: 'MPV generasi terbaru dengan desain mewah, kabin modern berteknologi tinggi, serta kenyamanan berkendara premium untuk aktivitas Anda di Batam.',
-    rating: 5.0,
-    reviewsCount: 142,
+    description: 'Mobil keluarga terfavorit yang praktis, ekonomis, dan handal. Sangat cocok untuk perjalanan keliling kota Medan, kunjungan wisata ke Berastagi dan Parapat, maupun perjalanan dinas antar kota.',
+    rating: 4.9,
+    reviewsCount: 310,
     specifications: [
       { label: 'Kapasitas', value: '7 Penumpang' },
-      { label: 'Transmisi', value: 'Matic' },
-      { label: 'Tipe', value: 'Luxury MPV Modern' },
-      { label: 'Kebutuhan', value: 'Bisnis, Tamu VIP & Acara Spesial' }
+      { label: 'Transmisi', value: 'Manual / Matic' },
+      { label: 'Karakter', value: 'Irit, Praktis & Handal' },
+      { label: 'Rute Layanan', value: 'Medan, Riau, Jambi & Sekitarnya' }
     ]
   },
 
-  // 5. MEDIUM BUS 33 SEAT
+  // 3. DAIHATSU SIGRA
   {
-    id: 'medium-bus',
-    name: 'Medium Bus 33 Seat',
-    category: 'Bus Transportasi Rombongan',
-    pricePerDay: 1500000,
-    priceDisplay: 'Rp1.500.000',
-    image: '/medium_bus_batam.jpg',
-    seats: 33,
-    transmission: 'Manual',
-    fuel: 'Diesel',
+    id: 'daihatsu-sigra',
+    name: 'Daihatsu Sigra',
+    category: 'Mobil Keluarga Ekonomis',
+    pricePerDay: 400000,
+    priceDisplay: 'Rp400.000',
+    image: '/sigra.avif',
+    seats: 7,
+    transmission: 'Manual / Matic',
+    fuel: 'Bensin (Super Irit)',
     includeList: [
-      'Kapasitas Besar 33 Kursi Penumpang',
-      'AC Super Dingin & Audio Karaoke',
-      'Bagasi Luas untuk Koper & Logistik',
-      'Ideal untuk Tour Wisata, Gathering & Event',
-      'Driver Berpengalaman, Ramah & Disiplin'
+      'Kapasitas 7 Kursi dengan Desain Kompak',
+      'Konsumsi BBM Sangat Efisien & Hemat',
+      'Tarif Rental Sangat Bersahabat',
+      'AC Dingin & Nyaman untuk Perjalanan',
+      'Unit Prima & Siap Jalan Jarak Jauh'
     ],
-    description: 'Armada bus berkapasitas besar 33 tempat duduk untuk memenuhi kebutuhan transportasi rombongan, study tour, gathering kantor, maupun acara keluarga di Batam.',
-    rating: 5.0,
-    reviewsCount: 128,
+    description: 'Pilihan mobil 7 penumpang yang sangat efisien dan ekonomis. Cocok untuk kebutuhan perjalanan hemat, antar jemput stasiun/bandara, keliling kota Medan, hingga carter luar kota.',
+    rating: 4.8,
+    reviewsCount: 185,
     specifications: [
-      { label: 'Kapasitas', value: '33 Penumpang' },
-      { label: 'Transmisi', value: 'Manual' },
-      { label: 'Fasilitas', value: 'AC Dingin, Audio Karaoke & Bagasi Luas' },
-      { label: 'Penggunaan', value: 'Rombongan Wisata, Event & Gathering' }
+      { label: 'Kapasitas', value: '7 Penumpang' },
+      { label: 'Transmisi', value: 'Manual / Matic' },
+      { label: 'Kelebihan', value: 'Super Irit & Tarif Terjangkau' },
+      { label: 'Rute Layanan', value: 'Medan & Rute Antar Kota' }
+    ]
+  },
+
+  // 4. TOYOTA CALYA
+  {
+    id: 'toyota-calya',
+    name: 'Toyota Calya',
+    category: 'MPV Kompak & Efisien',
+    pricePerDay: 400000,
+    priceDisplay: 'Rp400.000',
+    image: '/calya.avif',
+    seats: 7,
+    transmission: 'Manual / Matic',
+    fuel: 'Bensin (Super Irit)',
+    includeList: [
+      'Mobil 7 Penumpang Nyaman & Modern',
+      'Sangat Irit Konsumsi Bahan Bakar',
+      'Lincah bermanuver di perkotaan & jalan lintas',
+      'Kondisi Bersih, Wangi & Mesin Prima',
+      'Harga Sewa Terjangkau & Bersahabat'
+    ],
+    description: 'Kendaraan MPV kompak 7 tempat duduk dengan efisiensi bahan bakar terbaik dan kenyamanan optimal untuk perjalanan keluarga, tugas operasional, maupun carter perjalanan di Sumatera.',
+    rating: 4.9,
+    reviewsCount: 205,
+    specifications: [
+      { label: 'Kapasitas', value: '7 Penumpang' },
+      { label: 'Transmisi', value: 'Manual / Matic' },
+      { label: 'Efisiensi', value: 'Hemat BBM & Performa Andal' },
+      { label: 'Rute Layanan', value: 'Medan, Riau, Jambi & Sekitarnya' }
     ]
   }
 ];
@@ -165,43 +136,43 @@ export const CARS: Car[] = [
 export const TESTIMONIALS: TestimonialItem[] = [
   {
     id: 'testi-1',
-    name: 'Bpk. Hendra Gunawan',
-    roleEN: 'Corporate Manager - Jakarta',
-    roleID: 'Perjalanan Bisnis - Jakarta',
-    textEN: 'Excellent service from Rizal Transportasi Batam! Rented Toyota Innova Reborn and Toyota Zenix for corporate visits in Batam Center and Nagoya. Punctual, cars in pristine condition, and very responsive booking via WhatsApp.',
-    textID: 'Pelayanan Rizal Transportasi Batam sangat memuaskan! Sewa Innova Reborn dan Zenix untuk kunjungan dinas di Batam Center & Nagoya. Unit bersih, wangi, sopir profesional, dan proses booking WhatsApp sangat cepat.',
+    name: 'Bpk. Hendra Manullang & Rekan',
+    roleEN: 'Business Trip - Pekanbaru to Medan',
+    roleID: 'Perjalanan Carter - Pekanbaru ke Medan',
+    textEN: 'Outstanding service from CV SRM MANDIRI! We chartered Toyota Innova for a multi-city business trip covering Pekanbaru, Duri, Dumai, and back to Medan. Driver was polite, on-time, and unit was very clean.',
+    textID: 'Pelayanan CV SRM MANDIRI sangat memuaskan dan profesional! Kami sewa Toyota Innova untuk perjalanan carter Pekanbaru, Duri, Dumai sampai ke Medan. Mobilnya bersih, AC dingin, dan supir sangat berpengalaman di jalan lintas.',
     rating: 5,
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200',
-    carModelEN: 'Toyota Innova Reborn',
-    carModelID: 'Toyota Innova Reborn',
+    carModelEN: 'Toyota Innova',
+    carModelID: 'Toyota Innova',
     dateEN: 'August 2026',
     dateID: 'Agustus 2026'
   },
   {
     id: 'testi-2',
-    name: 'Ibu Ratna & Keluarga',
-    roleEN: 'Family Vacation - Medan',
-    roleID: 'Liburan Keluarga - Medan',
-    textEN: 'Rented Toyota Hiace for our big family trip exploring Batam landmarks like Barelang Bridge and Nongsa. Very spacious, cool AC throughout, and comfortable for all of us. Truly trusted transport in Batam!',
-    textID: 'Sewa Toyota Hiace untuk liburan keluarga besar keliling Jembatan Barelang dan Nongsa. Mobil sangat lega, AC dingin merata, dan pelayanannya sangat ramah. Rekomendasi rental mobil terbaik di Batam!',
+    name: 'Ibu Mariana & Keluarga Besar',
+    roleEN: 'Family Tour - Berastagi & Lake Toba Samosir',
+    roleID: 'Wisata Keluarga - Berastagi & Samosir',
+    textEN: 'We booked Toyota Avanza for our family holiday exploring Berastagi, Parapat, and Samosir Island. Super comfortable journey, smooth driving in mountain areas, and the admin response on WhatsApp was super fast!',
+    textID: 'Liburan keluarga ke Berastagi, Danau Toba Parapat, dan Pulau Samosir jadi seru dan nyaman dengan Toyota Avanza dari CV SRM MANDIRI. Perjalanan nanjak pegunungan lancar, supir ramah, dan harga sewanya sangat terjangkau.',
     rating: 5,
     image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=200',
-    carModelEN: 'Toyota Hiace',
-    carModelID: 'Toyota Hiace',
+    carModelEN: 'Toyota Avanza',
+    carModelID: 'Toyota Avanza',
     dateEN: 'Juli 2026',
     dateID: 'Juli 2026'
   },
   {
     id: 'testi-3',
-    name: 'Bp. Randy Syahputra',
-    roleEN: 'Event Committee - Pekanbaru',
-    roleID: 'Panitia Gathering Perusahaan',
-    textEN: 'We booked the Medium Bus 33 Seat for our company gathering in Batam. The bus was in top condition, audio and AC worked great, and our trip from Hang Nadim Airport to the resort went seamlessly.',
-    textID: 'Booking Medium Bus 33 Seat untuk event gathering perusahaan di Batam. Busnya sangat nyaman, AC dingin, audio oke, dan penjemputan dari Bandara Hang Nadim sangat tepat waktu. Terima kasih Rizal Transportasi!',
+    name: 'Bpk. Siregar',
+    roleEN: 'Intercity Travel - Medan to Jambi & Kerinci',
+    roleID: 'Carter Antar Kota - Medan ke Jambi & Kerinci',
+    textEN: 'Rented Toyota Calya for travel to Jambi and Kerinci. Fuel consumption was super economical, car was in top condition, and pickup from Simalingkar B was very punctual. Highly recommended!',
+    textID: 'Sewa mobil di CV SRM MANDIRI dari Simalingkar B untuk rute Medan ke Jambi dan Kerinci. Mobil Calya sangat irit BBM, mesin prima, dan komunikasi via WhatsApp sangat ramah dan transparan. Terima kasih CV SRM MANDIRI!',
     rating: 5,
     image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200',
-    carModelEN: 'Medium Bus 33 Seat',
-    carModelID: 'Medium Bus 33 Seat',
+    carModelEN: 'Toyota Calya',
+    carModelID: 'Toyota Calya',
     dateEN: 'Juni 2026',
     dateID: 'Juni 2026'
   }

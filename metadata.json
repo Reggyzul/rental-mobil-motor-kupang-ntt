@@ -1,6 +1,6 @@
 {
-  "name": "Sawaq fi Indonesia",
-  "description": "سواق في اندونيسيا - Professional Car Rental with Driver service specializing in Puncak, Bogor, and Jakarta tourist routes with Arabic and English speaking drivers.",
+  "name": "CV SRM MANDIRI",
+  "description": "Website resmi CV SRM MANDIRI - Jasa Transportasi, Rental Mobil (Innova, Avanza, Sigra, Calya), Carter Antar Kota (Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi) & Wisata Berastagi, Parapat, Samosir. Alamat: Simalingkar B. WhatsApp: 0852-7060-7796 / 0812-6232-0086.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": []
 }

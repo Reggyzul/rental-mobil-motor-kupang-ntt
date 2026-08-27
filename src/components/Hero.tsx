@@ -9,43 +9,52 @@ interface HeroProps {
   onBookingClick?: () => void;
 }
 
-export default function Hero({ onExploreClick, lang }: HeroProps) {
+export default function Hero({ onExploreClick, lang, onBookingClick }: HeroProps) {
   const t = TRANSLATIONS[lang];
   const isEN = lang === 'EN';
 
   return (
     <section id="home" className="relative bg-[#061226] text-slate-900 overflow-hidden text-left">
       
-      {/* 1. PANORAMIC HERO PHOTO BANNER (Full, Grand & Spacious ~75% visible) */}
-      <div className="relative w-full h-[500px] sm:h-[560px] md:h-[620px] pt-24 sm:pt-28 bg-[#061226] text-white overflow-hidden flex flex-col justify-between">
+      {/* 1. PANORAMIC HERO PHOTO BANNER */}
+      <div className="relative w-full h-[520px] sm:h-[580px] md:h-[640px] pt-24 sm:pt-28 bg-[#061226] text-white overflow-hidden flex flex-col justify-between">
         
-        {/* Background Batam Barelang Sunset Photo */}
+        {/* Background Danau Toba / Sumatra Scenic Photo */}
         <div 
           className="absolute inset-0 bg-cover bg-center transform scale-100 transition-transform duration-1000"
           style={{
-            backgroundImage: `url('/hero_batam.jpg')`
+            backgroundImage: `url('/dest_toba.avif')`
           }}
         />
 
-        {/* Subtle Dark Gradient Overlay for optimal contrast */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#061226]/80 via-transparent to-[#061226]/85" />
+        {/* Dark Gradient Overlay for optimal readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#061226]/85 via-[#061226]/50 to-[#061226]/90" />
 
-        {/* Location Pill in Top Banner */}
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 w-full flex items-center justify-start">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/50 border border-white/20 text-white text-xs font-semibold backdrop-blur-md shadow-xs">
+        {/* Location Pill & TikTok in Top Banner */}
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 w-full flex flex-wrap items-center justify-between gap-2">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/60 border border-white/20 text-white text-xs font-semibold backdrop-blur-md shadow-xs">
             <MapPin className="w-3.5 h-3.5 text-sky-400" />
-            <span>Kota Batam dan Sekitarnya</span>
+            <span>Simalingkar B, Medan • Sumatera Utara</span>
           </div>
+
+          <a
+            href="https://www.tiktok.com/@hendry.manullang"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/60 hover:bg-black/80 border border-white/20 text-rose-300 hover:text-white text-xs font-semibold backdrop-blur-md shadow-xs transition-colors"
+          >
+            <span>🎵 TikTok: <b>@hendry.manullang</b></span>
+          </a>
         </div>
 
-        {/* Vertical Spacer to keep 75% photo view open and prominent */}
+        {/* Vertical Spacer */}
         <div className="h-12" />
 
       </div>
 
-      {/* 2. WHITE CONTENT CARD (Overlapping precisely 25% onto the bottom of the hero banner) */}
+      {/* 2. WHITE CONTENT CARD (Overlapping onto the hero banner) */}
       <div className="bg-slate-50 relative pb-10">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-20 -mt-28 sm:-mt-36 md:-mt-40">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-20 -mt-32 sm:-mt-40 md:-mt-44">
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
@@ -54,56 +63,72 @@ export default function Hero({ onExploreClick, lang }: HeroProps) {
           >
             
             {/* Breadcrumb Navigation Line */}
-            <div className="flex items-center justify-center gap-2 text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-widest">
-              <span className="text-sky-600 font-black">Rizal Transportasi Batam</span>
+            <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-widest">
+              <span className="text-sky-600 font-black">CV SRM MANDIRI</span>
               <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-              <span className="text-slate-500">
-                {isEN ? 'Car & Passenger Transport Services' : 'Rental Mobil & Transportasi'}
+              <span className="text-slate-600">
+                {isEN ? 'Transportation & Car Rental' : 'Jasa Transportasi & Rental Mobil'}
               </span>
+              <ChevronRight className="w-3.5 h-3.5 text-slate-400 hidden sm:inline" />
+              <span className="text-slate-400 hidden sm:inline">Simalingkar B, Medan</span>
             </div>
 
             {/* Main Title */}
-            <h1 className="font-display font-black text-2xl sm:text-4xl md:text-[40px] text-[#081836] tracking-tight leading-snug sm:leading-tight uppercase">
+            <h1 className="font-display font-black text-2xl sm:text-4xl md:text-[38px] text-[#081836] tracking-tight leading-snug sm:leading-tight uppercase">
               {isEN ? (
-                <>Batam Car Rental — <span className="text-sky-600">Best Fleets for Your Journey</span></>
+                <>CV SRM MANDIRI — <span className="text-sky-600">Reliable Transportation &amp; Car Rental</span></>
               ) : (
-                <>Sewa Mobil Batam — <span className="text-sky-600">Armada Terbaik untuk Perjalanan Anda</span></>
+                <>CV SRM MANDIRI — <span className="text-sky-600">Melayani Jasa Transportasi Terpercaya</span></>
               )}
             </h1>
 
-            {/* Minimalist Subtext */}
-            <p className="font-sans text-xs sm:text-sm md:text-[15px] text-slate-600 font-medium max-w-2xl mx-auto leading-relaxed text-center">
+            {/* Subtext */}
+            <p className="font-sans text-xs sm:text-sm md:text-[15px] text-slate-600 font-medium max-w-3xl mx-auto leading-relaxed text-center">
               {isEN
-                ? "Enjoy trusted car and passenger transport services in Batam. Offering clean, well-maintained fleets from family cars to 33-seat buses for your sightseeing, business trips, or group travels with comfort and peace of mind."
-                : "Nikmati layanan rental mobil dan transportasi terpercaya di Kota Batam dan sekitarnya. Kami menyediakan pilihan armada bersih, nyaman, dan terawat mulai dari mobil keluarga hingga bus kapasitas besar untuk kenyamanan perjalanan wisata maupun dinas bisnis Anda."}
+                ? "CV SRM MANDIRI provides quality transportation services with dependable fleets: Innova, Avanza, Sigra, and Calya. Serving intercity travel routes (Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi) and popular vacation tours to Berastagi, Parapat, and Samosir Island."
+                : "CV SRM MANDIRI melayani jasa transportasi profesional dengan pilihan armada terawat: Innova, Avanza, Sigra, dan Calya. Melayani carter travel rute Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi, serta paket wisata Berastagi, Parapat, dan Pulau Samosir."}
             </p>
 
             {/* Value Badges */}
             <div className="flex flex-wrap items-center justify-center gap-2.5 pt-1 text-xs font-bold text-slate-700">
               <div className="flex items-center gap-1.5 bg-slate-50 px-3.5 py-1.5 rounded-full border border-slate-200 shadow-2xs">
                 <CheckCircle2 className="w-4 h-4 text-sky-600" />
-                <span>Unit Bersih &amp; Terawat</span>
+                <span>Armada: Innova, Avanza, Sigra, Calya</span>
               </div>
               <div className="flex items-center gap-1.5 bg-slate-50 px-3.5 py-1.5 rounded-full border border-slate-200 shadow-2xs">
                 <CheckCircle2 className="w-4 h-4 text-sky-600" />
-                <span>Tarif Kompetitif</span>
+                <span>Rute Antar Kota &amp; Provinsi</span>
               </div>
               <div className="flex items-center gap-1.5 bg-slate-50 px-3.5 py-1.5 rounded-full border border-slate-200 shadow-2xs">
                 <CheckCircle2 className="w-4 h-4 text-sky-600" />
-                <span>Mobil Keluarga s/d Bus 33 Seat</span>
+                <span>Wisata Berastagi, Parapat &amp; Samosir</span>
+              </div>
+              <div className="flex items-center gap-1.5 bg-slate-50 px-3.5 py-1.5 rounded-full border border-slate-200 shadow-2xs">
+                <CheckCircle2 className="w-4 h-4 text-sky-600" />
+                <span>Alamat: Simalingkar B</span>
               </div>
             </div>
 
             {/* Quick CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
               <a
-                href="https://api.whatsapp.com/send?phone=6285264018698&text=Halo%20Rizal%20Transportasi%20Batam,%20saya%20ingin%20konsultasi%20dan%20booking%20rental%20mobil%20transportasi"
+                href="https://api.whatsapp.com/send?phone=6285270607796&text=Halo%20CV%20SRM%20MANDIRI,%20saya%20ingin%20konsultasi%20dan%20booking%20jasa%20transportasi%20rental%20mobil"
                 target="_blank"
                 rel="noreferrer"
-                className="w-full sm:w-auto bg-sky-600 hover:bg-sky-500 text-white font-display font-black text-xs uppercase px-8 py-3.5 rounded-xl shadow-md hover:shadow-sky-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5"
+                className="w-full sm:w-auto bg-sky-600 hover:bg-sky-500 text-white font-display font-black text-xs uppercase px-7 py-3.5 rounded-xl shadow-md hover:shadow-sky-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5"
               >
                 <MessageCircle className="w-4 h-4 fill-current" />
-                <span>Chat WhatsApp Admin</span>
+                <span>WhatsApp 1: 0852-7060-7796</span>
+              </a>
+
+              <a
+                href="https://api.whatsapp.com/send?phone=6281262320086&text=Halo%20CV%20SRM%20MANDIRI,%20saya%20ingin%20konsultasi%20dan%20booking%20jasa%20transportasi%20rental%20mobil"
+                target="_blank"
+                rel="noreferrer"
+                className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-display font-black text-xs uppercase px-7 py-3.5 rounded-xl shadow-md hover:shadow-emerald-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5"
+              >
+                <MessageCircle className="w-4 h-4 fill-current" />
+                <span>WhatsApp 2: 0812-6232-0086</span>
               </a>
 
               <button

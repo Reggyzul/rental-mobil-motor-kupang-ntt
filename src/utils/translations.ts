@@ -8,6 +8,8 @@ export interface TranslationSchema {
   nav_about: string;
   nav_services: string;
   nav_vehicles: string;
+  nav_routes: string;
+  nav_tours: string;
   nav_why_us: string;
   nav_area: string;
   nav_steps: string;
@@ -20,6 +22,7 @@ export interface TranslationSchema {
   brand_tagline_alt: string;
   topbar_address: string;
   topbar_whatsapp: string;
+  topbar_tiktok: string;
   topbar_service: string;
 
   // Hero Section
@@ -60,6 +63,17 @@ export interface TranslationSchema {
   service_6_title: string;
   service_6_desc: string;
 
+  // Routes Section
+  routes_tag: string;
+  routes_title: string;
+  routes_desc: string;
+  routes_btn_wa: string;
+
+  // Tours / Destinations Section
+  tours_tag: string;
+  tours_title: string;
+  tours_desc: string;
+
   // Vehicles Section
   vehicles_tag: string;
   vehicles_title: string;
@@ -68,9 +82,9 @@ export interface TranslationSchema {
   vehicles_btn_book: string;
   vehicles_btn_wa: string;
   vehicles_filter_all: string;
-  vehicles_filter_family: string;
-  vehicles_filter_group: string;
-  vehicles_filter_luxury: string;
+  vehicles_filter_innova: string;
+  vehicles_filter_avanza: string;
+  vehicles_filter_sigra_calya: string;
 
   // Why Choose Us Section
   why_tag: string;
@@ -130,6 +144,7 @@ export interface TranslationSchema {
   modal_field_duration: string;
   modal_field_address: string;
   modal_field_notes: string;
+  modal_field_wa_target: string;
   modal_btn_submit: string;
 
   // Footer & Contact
@@ -140,6 +155,8 @@ export interface TranslationSchema {
   footer_address_text: string;
   footer_wa_title: string;
   footer_wa_text: string;
+  footer_tiktok_title: string;
+  footer_tiktok_text: string;
   footer_socmed_title: string;
   footer_socmed_text: string;
   footer_quick_links: string;
@@ -149,296 +166,330 @@ export interface TranslationSchema {
 export const TRANSLATIONS: Record<'EN' | 'ID', TranslationSchema> = {
   ID: {
     // SEO & Head Metadata
-    seo_title: "Rizal Transportasi Batam | Solusi Transportasi Nyaman dan Terpercaya di Batam",
-    seo_description: "Rizal Transportasi Batam menyediakan rental mobil dan transportasi terpercaya di Batam. Pilihan armada lengkap mulai dari Avanza, Innova Reborn, Zenix, Hiace, hingga Medium Bus 33 Seat. WhatsApp: +62 852-6401-8698.",
+    seo_title: "CV SRM MANDIRI | Jasa Transportasi & Rental Mobil Medan - Sumatera",
+    seo_description: "CV SRM MANDIRI melayani jasa transportasi terpercaya, rental mobil (Innova, Avanza, Sigra, Calya), carter travel antar kota (Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi) & wisata Berastagi, Parapat, Pulau Samosir. Alamat: Simalingkar B. WhatsApp: 0852-7060-7796 / 0812-6232-0086.",
 
     // Navigation
     nav_home: "Beranda",
     nav_about: "Tentang Kami",
-    nav_services: "Layanan Kami",
-    nav_vehicles: "Armada",
+    nav_services: "Layanan",
+    nav_vehicles: "Armada Mobil",
+    nav_routes: "Rute Layanan",
+    nav_tours: "Tempat Wisata",
     nav_why_us: "Keunggulan",
-    nav_area: "Rute & Area Layanan",
+    nav_area: "Area Layanan",
     nav_steps: "Alur Pemesanan",
-    nav_contact: "Hubungi Kami",
-    nav_book_btn: "BOOKING VIA WHATSAPP",
+    nav_contact: "Kontak",
+    nav_book_btn: "BOOKING WHATSAPP",
 
     // Top Bar & Branding
-    brand_name: "Rizal Transportasi Batam",
-    brand_tagline: "Solusi Transportasi Nyaman dan Terpercaya di Batam",
-    brand_tagline_alt: "Nyaman Perjalanannya, Mudah Pesannya.",
-    topbar_address: "📍 Perumahan Buana Vista Indah 2, Blok A No. 67, Botania, Batam",
-    topbar_whatsapp: "📱 WhatsApp: +62 852-6401-8698",
-    topbar_service: "Rental Mobil & Transportasi di Batam",
+    brand_name: "CV SRM MANDIRI",
+    brand_tagline: "Melayani Jasa Transportasi Nyaman, Aman, & Terpercaya",
+    brand_tagline_alt: "Rental Mobil & Travel Antar Kota Medan - Sumatera",
+    topbar_address: "📍 Simalingkar B, Medan, Sumatera Utara",
+    topbar_whatsapp: "📱 WA: 0852-7060-7796 / 0812-6232-0086",
+    topbar_tiktok: "🎵 TikTok: @hendry.manullang",
+    topbar_service: "Jasa Transportasi, Rental Mobil & Wisata",
 
     // Hero Section
-    hero_title: "Rizal Transportasi Batam",
-    hero_tagline: "“Solusi Transportasi Nyaman dan Terpercaya di Batam”",
-    hero_description: "Rizal Transportasi Batam merupakan layanan rental mobil dan transportasi yang melayani kebutuhan perjalanan di wilayah Kota Batam dan sekitarnya. Kami menyediakan berbagai pilihan kendaraan, mulai dari mobil keluarga hingga kendaraan berkapasitas besar untuk kebutuhan perjalanan bersama.",
-    hero_cta_wa: "Chat WhatsApp Admin",
-    hero_cta_vehicles: "Lihat Armada & Harga",
-    search_vehicle_label: "Pilih Jenis Kendaraan",
-    search_travel_date: "Tanggal & Durasi Rental",
-    search_btn: "KONSULTASI BOOKING",
+    hero_title: "CV SRM MANDIRI",
+    hero_tagline: "“Melayani Jasa Transportasi Terpercaya di Medan & Antar Kota Sumatera”",
+    hero_description: "CV SRM MANDIRI melayani jasa transportasi profesional dengan armada pilihan: Innova, Avanza, Sigra, dan Calya. Melayani rute Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi, serta paket wisata favorit Berastagi, Parapat, dan Pulau Samosir.",
+    hero_cta_wa: "Hubungi WhatsApp Admin",
+    hero_cta_vehicles: "Pilihan Armada & Rute",
+    search_vehicle_label: "Pilihan Kendaraan",
+    search_travel_date: "Tanggal & Rute Perjalanan",
+    search_btn: "KONSULTASI SEKARANG",
 
     // Vision & Mission
     vision_title: "Visi Kami",
-    vision_text: "Menjadi penyedia layanan rental mobil dan transportasi terpercaya di Batam dengan mengutamakan kenyamanan, keamanan, pelayanan yang ramah, serta kemudahan bagi setiap pelanggan.",
+    vision_text: "Menjadi penyedia jasa transportasi dan rental mobil terdepan yang melayani masyarakat dengan mengutamakan keselamatan, kenyamanan, kejujuran, dan kepuasan pelanggan di setiap perjalanan.",
     mission_title: "Misi Kami",
-    mission_1: "Menyediakan kendaraan yang nyaman dan sesuai dengan kebutuhan pelanggan.",
-    mission_2: "Memberikan pelayanan transportasi yang ramah, profesional, dan responsif.",
-    mission_3: "Mengutamakan kenyamanan dan keamanan pelanggan selama perjalanan.",
-    mission_4: "Menawarkan pilihan armada yang beragam dengan harga yang kompetitif.",
-    mission_5: "Memberikan kemudahan dalam proses pemesanan kendaraan.",
-    mission_6: "Membangun hubungan jangka panjang dengan pelanggan melalui pelayanan yang terpercaya.",
+    mission_1: "Melayani jasa transportasi dan rental mobil berkualitas tinggi dengan armada prima dan terawat.",
+    mission_2: "Menyediakan pilihan armada handal: Toyota Innova, Toyota Avanza, Daihatsu Sigra, dan Toyota Calya.",
+    mission_3: "Melayani rute antar kota dan provinsi (Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi) secara tepat waktu.",
+    mission_4: "Menyediakan layanan tour wisata terbaik ke Berastagi, Parapat, Pulau Samosir, dan Danau Toba.",
+    mission_5: "Memberikan tarif sewa yang kompetitif, transparan, dan terjangkau untuk seluruh lapisan masyarakat.",
+    mission_6: "Memberikan pelayanan yang ramah, sopan, responsif, dan siap melayani konsultasi 24 jam via WhatsApp.",
 
     // Services Section
     services_tag: "LAYANAN UTAMA",
-    services_title: "Layanan Transportasi di Batam",
-    services_desc: "Solusi transportasi terpadu untuk perjalanan pribadi, keluarga, rombongan, dinas kantor, maupun wisata di seluruh wilayah Kota Batam.",
-    service_1_title: "Rental Mobil",
-    service_1_desc: "Menyediakan berbagai pilihan kendaraan untuk kebutuhan perjalanan di Batam, baik untuk perjalanan pribadi, keluarga, bisnis, maupun rombongan.",
-    service_2_title: "Transportasi Rombongan",
-    service_2_desc: "Tersedia kendaraan dengan kapasitas besar untuk perjalanan bersama, kegiatan perusahaan, wisata, acara keluarga, maupun kebutuhan rombongan lainnya.",
-    service_3_title: "Perjalanan Dalam Kota Batam",
-    service_3_desc: "Melayani kebutuhan transportasi di berbagai wilayah Kota Batam dengan pilihan kendaraan yang dapat disesuaikan dengan jumlah penumpang dan kebutuhan perjalanan.",
-    service_4_title: "Antar-Jemput Bandara & Pelabuhan",
-    service_4_desc: "Layanan antar-jemput tepat waktu di Bandara Hang Nadim serta Pelabuhan Ferry Batam Center, Harbour Bay, Sekupang, dan Telaga Punggur.",
-    service_5_title: "Wisata & City Tour Batam",
-    service_5_desc: "Paket perjalanan santai mengunjungi spot populer seperti Jembatan Barelang, Nagoya, Pantai Nongsa, dan pusat belanja kuliner.",
-    service_6_title: "Transportasi Bisnis & Tamu VIP",
-    service_6_desc: "Pilihan unit premium dan berkelas untuk menunjang kegiatan operasional kantor, instansi, meeting penting, dan tamu kehormatan.",
+    services_title: "Layanan Jasa Transportasi CV SRM MANDIRI",
+    services_desc: "Kami melayani berbagai kebutuhan transportasi darat mulai dari rental mobil harian, carter travel antar kota, hingga paket wisata keluarga dan rombongan.",
+    service_1_title: "Rental Mobil Harian & Mingguan",
+    service_1_desc: "Menyediakan armada Innova, Avanza, Sigra, dan Calya dalam kondisi bersih, harum, dan prima untuk perjalanan dalam maupun luar kota.",
+    service_2_title: "Travel & Carter Antar Kota",
+    service_2_desc: "Layanan carter dan drop-off rute Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi dengan perjalanan yang aman dan nyaman.",
+    service_3_title: "Paket Wisata Sumatera Utara",
+    service_3_desc: "Paket liburan dan tour keluarga ke destinasi ikonik Berastagi, Danau Toba Parapat, dan Pulau Samosir.",
+    service_4_title: "Antar-Jemput Bandara & Stasiun",
+    service_4_desc: "Layanan pick-up & drop-off tepat waktu di Bandara Internasional Kualanamu (KNO), stasiun kereta, terminal bus, dan hotel.",
+    service_5_title: "Perjalanan Dinas & Operasional Kantor",
+    service_5_desc: "Menunjang kegiatan dinas kantor, instansi, survey proyek lapangan, dan tamu bisnis dengan sopir berpengalaman.",
+    service_6_title: "Transportasi Acara Keluarga & Carter Khusus",
+    service_6_desc: "Layanan transportasi untuk acara pernikahan, ziarah, mudik, reuni, dan perjalanan rombongan khusus.",
+
+    // Routes Section
+    routes_tag: "RUTE ANTAR KOTA",
+    routes_title: "Rute Layanan Transportasi & Travel",
+    routes_desc: "Melayani perjalanan antar kota dan antar provinsi se-Sumatera dengan driver berpengalaman, nyaman dan selamat sampai tujuan.",
+    routes_btn_wa: "Pesan Tiket / Carter Rute Ini",
+
+    // Tours / Destinations Section
+    tours_tag: "DESTINASI WISATA FAVORIT",
+    tours_title: "Paket Wisata Berastagi, Parapat & Pulau Samosir",
+    tours_desc: "Nikmati keindahan alam Sumatera Utara bersama CV SRM MANDIRI dengan pengalaman perjalanan yang menyenangkan dan tak terlupakan.",
 
     // Vehicles Section
-    vehicles_tag: "ARMADA & HARGA",
-    vehicles_title: "Pilihan Armada & Tarif Rental",
-    vehicles_desc: "Tersedia pilihan armada mobil keluarga hingga kendaraan berkapasitas besar dengan performa prima, bersih, dan nyaman.",
-    vehicles_price_note: "Catatan: Harga dapat disesuaikan berdasarkan durasi rental, kebutuhan perjalanan, rute, serta layanan yang dipilih. Detail harga dan ketentuan rental dapat dikonfirmasi langsung melalui WhatsApp.",
+    vehicles_tag: "PILIHAN ARMADA",
+    vehicles_title: "Armada Mobil CV SRM MANDIRI",
+    vehicles_desc: "Tersedia pilihan armada Toyota Innova, Toyota Avanza, Daihatsu Sigra, dan Toyota Calya. Semua unit dalam kondisi terawat, bersih, dan AC dingin.",
+    vehicles_price_note: "Catatan: Tarif rental dan carter dapat disesuaikan dengan rute tujuan (Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi), durasi sewa, serta kebutuhan include driver/BBM. Hubungi WhatsApp Admin untuk penawaran terbaik.",
     vehicles_btn_book: "Pesan Sekarang",
     vehicles_btn_wa: "Chat WhatsApp",
     vehicles_filter_all: "Semua Armada",
-    vehicles_filter_family: "Mobil Keluarga",
-    vehicles_filter_group: "Minibus & Bus Rombongan",
-    vehicles_filter_luxury: "Luxury MPV",
+    vehicles_filter_innova: "Toyota Innova",
+    vehicles_filter_avanza: "Toyota Avanza",
+    vehicles_filter_sigra_calya: "Sigra & Calya",
 
     // Why Choose Us Section
     why_tag: "KEUNGGULAN KAMI",
-    why_title: "Keunggulan Rizal Transportasi Batam",
-    why_desc: "Komitmen kami adalah memberikan kenyamanan, keamanan, pelayanan ramah, dan kemudahan bagi setiap perjalanan Anda di Batam.",
-    why_1_title: "Pilihan Armada Beragam",
-    why_1_desc: "Tersedia berbagai jenis kendaraan, mulai dari mobil keluarga hingga kendaraan berkapasitas besar.",
-    why_2_title: "Nyaman untuk Berbagai Kebutuhan",
-    why_2_desc: "Armada dapat digunakan untuk perjalanan pribadi, keluarga, bisnis, wisata, maupun rombongan.",
-    why_3_title: "Harga Kompetitif",
-    why_3_desc: "Pilihan harga disesuaikan dengan jenis kendaraan dan kebutuhan perjalanan pelanggan.",
-    why_4_title: "Area Layanan Batam",
-    why_4_desc: "Melayani kebutuhan transportasi di wilayah Kota Batam dan sekitarnya.",
-    why_5_title: "Reservasi Mudah",
-    why_5_desc: "Pelanggan dapat melakukan konsultasi dan pemesanan kendaraan dengan mudah melalui WhatsApp.",
+    why_title: "Mengapa Memilih CV SRM MANDIRI?",
+    why_desc: "Komitmen kami adalah memberikan pelayanan transportasi terbaik dengan armada berkualitas dan jaminan kenyamanan perjalanan Anda.",
+    why_1_title: "Pilihan Armada Populer & Handal",
+    why_1_desc: "Menyediakan Innova, Avanza, Sigra, dan Calya yang selalu dalam kondisi prima, bersih, wangi, dan terawat berkala.",
+    why_2_title: "Rute Luas Lintas Sumatera",
+    why_2_desc: "Melayani rute Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi dan kota-kota sekitarnya.",
+    why_3_title: "Spesialis Wisata Berastagi & Samosir",
+    why_3_desc: "Driver kami sangat hafal rute wisata Berastagi, Parapat Danau Toba, dan Pulau Samosir.",
+    why_4_title: "Harga Bersahabat & Transparan",
+    why_4_desc: "Tarif sewa mobil dan carter sangat kompetitif tanpa biaya tersembunyi.",
+    why_5_title: "Respon Cepat 24 Jam",
+    why_5_desc: "Admin responsif siap melayani konsultasi dan reservasi kapan saja via 2 nomor WhatsApp resmi.",
 
     // Area Layanan Section
-    area_tag: "RUTE & AREA LAYANAN",
-    area_title: "Area Layanan Kota Batam & Sekitarnya",
-    area_desc: "Kami melayani kebutuhan transportasi di seluruh kawasan Kota Batam (Botania, Batam Center, Nagoya, Nongsa, Sekupang, Batu Aji, Piayu, Bandara & Pelabuhan).",
-    area_note: "Untuk rute khusus atau perjalanan di luar area layanan utama, pelanggan dapat menghubungi admin terlebih dahulu untuk mengecek ketersediaan dan harga.",
+    area_tag: "LOKASI & JANGKAUAN",
+    area_title: "Alamat Kantor & Wilayah Layanan",
+    area_desc: "Kantor CV SRM MANDIRI berlokasi di Simalingkar B, Medan. Kami melayani transportasi di Kota Medan, seluruh Sumatera Utara, Riau, Jambi, hingga Garut Jawa Barat.",
+    area_note: "Untuk permintaan rute khusus luar kota atau carter rombongan, silakan konsultasikan langsung dengan admin kami via WhatsApp.",
     area_btn_consult: "Konsultasi Rute via WhatsApp",
 
     // Target Customers Section
-    target_tag: "SIAPA YANG KAMI LAYANI",
-    target_title: "Target Pelanggan Rizal Transportasi Batam",
-    target_desc: "Kami siap melayani berbagai segmen pelanggan dengan standar pelayanan ramah dan profesional:",
+    target_tag: "PELANGGAN KAMI",
+    target_title: "Siapa Saja yang Kami Layani?",
+    target_desc: "CV SRM MANDIRI siap menjadi mitra perjalanan terpercaya bagi:",
 
     // Booking Steps Section (5 Steps)
-    steps_tag: "ALUR PEMESANAN",
-    steps_title: "Alur Pemesanan Mudah (5 Langkah)",
-    steps_desc: "Proses cepat, transparan, dan mudah langsung melalui kontak WhatsApp kami.",
-    step_1_title: "1. Hubungi Kami",
-    step_1_desc: "Klik tombol “Pesan Sekarang” atau “Chat WhatsApp” pada website untuk terhubung langsung dengan admin kami.",
-    step_2_title: "2. Tentukan Kendaraan",
-    step_2_desc: "Pilih kendaraan sesuai jumlah penumpang dan kebutuhan perjalanan (Avanza, Innova Reborn, Zenix, Hiace, atau Medium Bus).",
-    step_3_title: "3. Informasikan Detail Perjalanan",
-    step_3_desc: "Sampaikan tanggal, durasi rental, kebutuhan perjalanan, serta lokasi penjemputan jika diperlukan.",
-    step_4_title: "4. Konfirmasi Harga & Ketersediaan",
-    step_4_desc: "Admin akan memberikan informasi mengenai ketersediaan kendaraan, harga, dan ketentuan rental.",
-    step_5_title: "5. Booking",
-    step_5_desc: "Setelah detail perjalanan disepakati, pelanggan dapat melakukan reservasi sesuai ketentuan yang berlaku.",
+    steps_tag: "CARA PEMESANAN",
+    steps_title: "5 Langkah Mudah Booking Kendaraan",
+    steps_desc: "Proses reservasi cepat, praktis, dan langsung terhubung dengan admin kami via WhatsApp.",
+    step_1_title: "1. Hubungi WhatsApp Kami",
+    step_1_desc: "Klik tombol WhatsApp di website (0852-7060-7796 / 0812-6232-0086) untuk langsung terhubung dengan admin CV SRM MANDIRI.",
+    step_2_title: "2. Pilih Mobil & Layanan",
+    step_2_desc: "Tentukan jenis mobil yang dibutuhkan (Innova, Avanza, Sigra, atau Calya) sesuai kapasitas dan kebutuhan.",
+    step_3_title: "3. Tentukan Rute & Tanggal",
+    step_3_desc: "Sampaikan tanggal pemakaian, rute perjalanan (Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi, atau Wisata Berastagi/Parapat/Samosir).",
+    step_4_title: "4. Dapatkan Penawaran Harga",
+    step_4_desc: "Admin akan memberikan penawaran harga terbaik dan konfirmasi ketersediaan unit yang dipilih.",
+    step_5_title: "5. Siap Berangkat",
+    step_5_desc: "Mobil siap dijemput di Simalingkar B / lokasi Anda atau diantar ke bandara/alamat sesuai kesepakatan.",
 
     // Testimonials
     testi_tag: "ULASAN PELANGGAN",
-    testi_title: "Kepuasan Pelanggan di Batam",
-    testi_desc: "Pengalaman nyata dari wisatawan, keluarga, dan instansi yang mempercayakan transportasinya kepada Rizal Transportasi Batam.",
+    testi_title: "Pengalaman Bersama CV SRM MANDIRI",
+    testi_desc: "Apa kata pelanggan yang telah mempercayakan perjalanan mereka kepada CV SRM MANDIRI.",
     testi_rented_label: "Armada Disewa:",
 
     // Booking Modal
     modal_title: "FORMULIR PEMESANAN KENDARAAN",
-    modal_desc: "Isi data pemesanan di bawah ini untuk terhubung langsung dengan WhatsApp Admin Rizal Transportasi Batam.",
+    modal_desc: "Isi data pemesanan di bawah ini untuk terhubung langsung dengan WhatsApp Admin CV SRM MANDIRI.",
     modal_field_name: "Nama Lengkap",
     modal_field_phone: "Nomor WhatsApp",
     modal_field_vehicle: "Pilihan Armada",
     modal_field_date: "Tanggal Pemakaian",
-    modal_field_duration: "Lama / Durasi Rental",
-    modal_field_address: "Lokasi Penjemputan di Batam (Bandara / Hotel / Alamat)",
-    modal_field_notes: "Catatan Tambahan / Kebutuhan Rute",
+    modal_field_duration: "Lama / Durasi Sewa",
+    modal_field_address: "Lokasi Penjemputan (Medan / Bandara / Alamat)",
+    modal_field_notes: "Rute Tujuan / Catatan Tambahan",
+    modal_field_wa_target: "Kirim ke Nomor WhatsApp Admin:",
     modal_btn_submit: "Kirim Pemesanan ke WhatsApp ➔",
 
     // Footer & Contact
-    footer_cta_heading: "Butuh kendaraan untuk perjalanan di Batam?",
-    footer_cta_sub: "Hubungi kami sekarang dan pilih kendaraan yang sesuai dengan kebutuhan Anda.",
-    footer_cta_btn: "Chat WhatsApp: +62 852-6401-8698",
+    footer_cta_heading: "Butuh Layanan Transportasi di Medan & Antar Kota?",
+    footer_cta_sub: "Hubungi CV SRM MANDIRI sekarang! Kami siap melayani perjalanan rental mobil, carter antar kota, dan wisata Anda dengan aman dan nyaman.",
+    footer_cta_btn: "Chat WhatsApp: 0852-7060-7796",
     footer_address_title: "Alamat Kantor:",
-    footer_address_text: "Perumahan Buana Vista Indah 2, Blok A No. 67, Botania, Batam",
+    footer_address_text: "Simalingkar B, Medan, Sumatera Utara",
     footer_wa_title: "WhatsApp Official:",
-    footer_wa_text: "+62 852-6401-8698",
-    footer_socmed_title: "Sosial Media:",
-    footer_socmed_text: "Facebook – Rizal Transportasi Batam",
+    footer_wa_text: "0852-7060-7796 / 0812-6232-0086",
+    footer_tiktok_title: "TikTok Official:",
+    footer_tiktok_text: "@hendry.manullang",
+    footer_socmed_title: "Media Sosial:",
+    footer_socmed_text: "TikTok: @hendry.manullang",
     footer_quick_links: "Menu Navigasi",
     footer_rights: "All Rights Reserved."
   },
   EN: {
     // SEO & Head Metadata
-    seo_title: "Rizal Transportasi Batam | Trusted Car & Group Transport in Batam",
-    seo_description: "Rizal Transportasi Batam provides reliable car rental and group transportation in Batam. Fleet options: Avanza, Innova Reborn, Zenix, Hiace, and Medium Bus 33 Seat. WhatsApp: +62 852-6401-8698.",
+    seo_title: "CV SRM MANDIRI | Transportation & Car Rental Services Medan - Sumatra",
+    seo_description: "CV SRM MANDIRI provides reliable transportation services, car rentals (Innova, Avanza, Sigra, Calya), intercity charters (Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi) & tour trips to Berastagi, Parapat, Samosir Island. Address: Simalingkar B. WhatsApp: 0852-7060-7796 / 0812-6232-0086.",
 
     // Navigation
     nav_home: "Home",
     nav_about: "About Us",
-    nav_services: "Our Services",
-    nav_vehicles: "Fleet",
-    nav_why_us: "Advantages",
+    nav_services: "Services",
+    nav_vehicles: "Vehicle Fleet",
+    nav_routes: "Routes",
+    nav_tours: "Tourist Spots",
+    nav_why_us: "Why Choose Us",
     nav_area: "Service Area",
-    nav_steps: "How to Book",
-    nav_contact: "Contact Us",
+    nav_steps: "Booking Flow",
+    nav_contact: "Contact",
     nav_book_btn: "BOOK VIA WHATSAPP",
 
     // Top Bar & Branding
-    brand_name: "Rizal Transportasi Batam",
-    brand_tagline: "Comfortable and Trusted Transportation Solution in Batam",
-    brand_tagline_alt: "Comfortable Journey, Easy Booking.",
-    topbar_address: "📍 Perumahan Buana Vista Indah 2, Blok A No. 67, Botania, Batam",
-    topbar_whatsapp: "📱 WhatsApp: +62 852-6401-8698",
-    topbar_service: "Car & Transport Rental in Batam",
+    brand_name: "CV SRM MANDIRI",
+    brand_tagline: "Reliable, Safe, & Comfortable Transportation Services",
+    brand_tagline_alt: "Car Rental & Intercity Travel Medan - Sumatra",
+    topbar_address: "📍 Simalingkar B, Medan, North Sumatra",
+    topbar_whatsapp: "📱 WA: 0852-7060-7796 / 0812-6232-0086",
+    topbar_tiktok: "🎵 TikTok: @hendry.manullang",
+    topbar_service: "Transportation, Car Rental & Tour Services",
 
     // Hero Section
-    hero_title: "Rizal Transportasi Batam",
-    hero_tagline: "“Comfortable and Trusted Transportation Solution in Batam”",
-    hero_description: "Rizal Transportasi Batam is a premier car rental and transportation service catering to travel needs throughout Batam City and surrounding areas. We provide a diverse selection of vehicles, from family cars to large-capacity buses.",
-    hero_cta_wa: "Chat Admin on WhatsApp",
-    hero_cta_vehicles: "Explore Fleet & Rates",
-    search_vehicle_label: "Select Vehicle Type",
-    search_travel_date: "Rental Date & Duration",
-    search_btn: "CONSULT BOOKING",
+    hero_title: "CV SRM MANDIRI",
+    hero_tagline: "“Serving Reliable Transportation in Medan & Across Sumatra”",
+    hero_description: "CV SRM MANDIRI provides professional transportation services with choice fleets: Innova, Avanza, Sigra, and Calya. Serving routes Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi, and favorite tour packages to Berastagi, Parapat, and Samosir Island.",
+    hero_cta_wa: "Contact Admin on WhatsApp",
+    hero_cta_vehicles: "Explore Fleet & Routes",
+    search_vehicle_label: "Select Vehicle",
+    search_travel_date: "Travel Date & Route",
+    search_btn: "CONSULT NOW",
 
     // Vision & Mission
     vision_title: "Our Vision",
-    vision_text: "To become the most trusted car rental and transportation provider in Batam by prioritizing comfort, safety, friendly service, and effortless booking for every customer.",
+    vision_text: "To become a leading transportation and car rental provider prioritizing safety, comfort, integrity, and total customer satisfaction in every journey across Sumatra.",
     mission_title: "Our Mission",
-    mission_1: "Provide comfortable vehicles tailored to customer needs.",
-    mission_2: "Deliver friendly, professional, and responsive transportation services.",
-    mission_3: "Prioritize customer safety and comfort throughout the journey.",
-    mission_4: "Offer a diverse fleet at competitive rates.",
-    mission_5: "Ensure a simple and seamless vehicle booking process.",
-    mission_6: "Build long-term customer relationships through trustworthy service.",
+    mission_1: "Deliver high-quality transportation and car rental services with clean, well-maintained vehicles.",
+    mission_2: "Provide proven reliable fleets: Toyota Innova, Toyota Avanza, Daihatsu Sigra, and Toyota Calya.",
+    mission_3: "Serve intercity and interstate travel routes (Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi) punctually.",
+    mission_4: "Provide top-notch vacation and sightseeing trips to Berastagi, Parapat, Samosir Island, and Lake Toba.",
+    mission_5: "Offer competitive, transparent, and affordable rental rates for all customers.",
+    mission_6: "Ensure friendly, respectful, and responsive service available 24 hours via WhatsApp.",
 
     // Services Section
-    services_tag: "MAIN SERVICES",
-    services_title: "Transportation Services in Batam",
-    services_desc: "Comprehensive transportation solutions for personal trips, families, corporate events, and tours across Batam City.",
-    service_1_title: "Car Rental",
-    service_1_desc: "Providing a wide choice of vehicles for travel needs in Batam, suitable for personal, family, business, or group trips.",
-    service_2_title: "Group Transportation",
-    service_2_desc: "Large-capacity vehicles available for company events, sightseeing tours, family functions, and group gatherings.",
-    service_3_title: "Batam Inner City Travel",
-    service_3_desc: "Serving transportation across all districts of Batam with vehicles customized to your passenger count and schedule.",
-    service_4_title: "Airport & Ferry Transfers",
-    service_4_desc: "Punctual pick-up and drop-off at Hang Nadim International Airport and Batam Ferry Terminals (Batam Center, Harbour Bay, Sekupang, Telaga Punggur).",
-    service_5_title: "Batam City Tours & Sightseeing",
-    service_5_desc: "Leisure sightseeing trips to iconic destinations including Barelang Bridge, Nagoya, Nongsa Beach, and shopping districts.",
-    service_6_title: "Corporate & VIP Transportation",
-    service_6_desc: "Executive vehicles and premium service tailored for corporate assignments, official duties, and distinguished guests.",
+    services_tag: "OUR SERVICES",
+    services_title: "CV SRM MANDIRI Transportation Services",
+    services_desc: "We serve a wide spectrum of ground transportation needs, ranging from daily car rentals to intercity travel charters and family tour packages.",
+    service_1_title: "Daily & Weekly Car Rental",
+    service_1_desc: "Providing Innova, Avanza, Sigra, and Calya units in clean, comfortable, and top running condition for city and intercity travel.",
+    service_2_title: "Intercity Travel & Charter",
+    service_2_desc: "Charter and drop-off services across Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, and Jambi with utmost safety.",
+    service_3_title: "North Sumatra Tour Packages",
+    service_3_desc: "Exciting family holiday tours to iconic North Sumatra gems: Berastagi highlands, Lake Toba Parapat, and Samosir Island.",
+    service_4_title: "Airport & Station Transfers",
+    service_4_desc: "Punctual pick-up and drop-off at Kualanamu International Airport (KNO), train stations, bus terminals, and hotels.",
+    service_5_title: "Corporate & Official Duties",
+    service_5_desc: "Supporting office operations, business trips, field surveys, and corporate guests with experienced drivers.",
+    service_6_title: "Family Events & Special Occasions",
+    service_6_desc: "Dedicated transport for weddings, pilgrimages, reunions, and private group gatherings.",
+
+    // Routes Section
+    routes_tag: "INTERCITY ROUTES",
+    routes_title: "Transportation & Travel Routes",
+    routes_desc: "Serving intercity and interstate journeys across Sumatra with professional drivers, ensuring comfort and peace of mind.",
+    routes_btn_wa: "Book / Charter This Route",
+
+    // Tours / Destinations Section
+    tours_tag: "POPULAR TOURIST SPOTS",
+    tours_title: "Tours to Berastagi, Parapat & Samosir Island",
+    tours_desc: "Experience the mesmerizing landscapes of North Sumatra with CV SRM MANDIRI for a truly memorable journey.",
 
     // Vehicles Section
-    vehicles_tag: "FLEET & RATES",
-    vehicles_title: "Our Vehicle Fleet & Starting Rates",
-    vehicles_desc: "From compact family MPVs to spacious 33-seat buses, all units are maintained in pristine condition.",
-    vehicles_price_note: "Note: Rates can be adjusted based on rental duration, travel requirements, routes, and selected service packages. Full details can be confirmed directly via WhatsApp.",
+    vehicles_tag: "VEHICLE FLEET",
+    vehicles_title: "CV SRM MANDIRI Vehicle Fleet",
+    vehicles_desc: "Available choices of Toyota Innova, Toyota Avanza, Daihatsu Sigra, and Toyota Calya. All units well-maintained, clean, and cool AC.",
+    vehicles_price_note: "Note: Rental and charter rates can be customized based on destination (Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi), duration, and driver/fuel inclusions. Contact WhatsApp Admin for best quotes.",
     vehicles_btn_book: "Book Now",
     vehicles_btn_wa: "Chat on WhatsApp",
     vehicles_filter_all: "All Fleets",
-    vehicles_filter_family: "Family Cars",
-    vehicles_filter_group: "Minibus & Buses",
-    vehicles_filter_luxury: "Luxury MPV",
+    vehicles_filter_innova: "Toyota Innova",
+    vehicles_filter_avanza: "Toyota Avanza",
+    vehicles_filter_sigra_calya: "Sigra & Calya",
 
     // Why Choose Us Section
     why_tag: "OUR ADVANTAGES",
-    why_title: "Why Choose Rizal Transportasi Batam?",
-    why_desc: "We are committed to delivering ease, comfort, safety, and quick response for every customer in Batam.",
-    why_1_title: "Diverse Fleet Options",
-    why_1_desc: "Wide range of vehicles available, from family cars to high-capacity group transport.",
-    why_2_title: "Comfortable for All Occasions",
-    why_2_desc: "Ideal for personal trips, families, corporate travel, tourism, and community events.",
-    why_3_title: "Competitive Pricing",
-    why_3_desc: "Transparent and fair pricing tailored to vehicle category and travel itinerary.",
-    why_4_title: "Batam Coverage Area",
-    why_4_desc: "Serving all districts across Batam City and surrounding areas.",
-    why_5_title: "Easy Reservation",
-    why_5_desc: "Fast consultations and seamless reservations handled directly via WhatsApp.",
+    why_title: "Why Choose CV SRM MANDIRI?",
+    why_desc: "Our commitment is delivering top-quality transportation service with dependable fleets and guaranteed travel comfort.",
+    why_1_title: "Reliable & Popular Fleets",
+    why_1_desc: "Offering Innova, Avanza, Sigra, and Calya maintained in pristine, fresh, and mechanically sound condition.",
+    why_2_title: "Extensive Sumatra Routes",
+    why_2_desc: "Serving Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi and surrounding regions.",
+    why_3_title: "Berastagi & Samosir Tour Specialist",
+    why_3_desc: "Our experienced drivers know every scenic route across Berastagi, Lake Toba Parapat, and Samosir Island.",
+    why_4_title: "Fair & Transparent Pricing",
+    why_4_desc: "Affordable and competitive rental and charter rates without hidden fees.",
+    why_5_title: "24/7 Fast Response",
+    why_5_desc: "Responsive customer service ready to assist your bookings anytime via 2 official WhatsApp numbers.",
 
     // Area Layanan Section
-    area_tag: "ROUTES & SERVICE AREA",
-    area_title: "Batam City Service Coverage",
-    area_desc: "We serve transportation across all Batam regions (Botania, Batam Center, Nagoya, Nongsa, Sekupang, Batu Aji, Hang Nadim Airport & Ferry Terminals).",
-    area_note: "For custom routes or destinations outside the primary service area, please contact our admin in advance to check availability and rates.",
+    area_tag: "LOCATION & COVERAGE",
+    area_title: "Office Address & Service Coverage",
+    area_desc: "CV SRM MANDIRI is located in Simalingkar B, Medan. We serve Medan City, North Sumatra, Riau, Jambi, and West Java (Garut).",
+    area_note: "For custom long-distance routes or group charters, please consult directly with our admin via WhatsApp.",
     area_btn_consult: "Consult Routes via WhatsApp",
 
     // Target Customers Section
-    target_tag: "WHO WE SERVE",
-    target_title: "Target Customers of Rizal Transportasi Batam",
-    target_desc: "We proudly cater to various customer segments with high hospitality standards:",
+    target_tag: "OUR CLIENTS",
+    target_title: "Who We Serve",
+    target_desc: "CV SRM MANDIRI is proud to be a trusted travel partner for:",
 
     // Booking Steps Section (5 Steps)
     steps_tag: "HOW TO BOOK",
-    steps_title: "Simple 5-Step Booking Flow",
-    steps_desc: "Fast, transparent, and direct reservation process via WhatsApp.",
-    step_1_title: "1. Contact Us",
-    step_1_desc: "Click 'Book Now' or 'Chat WhatsApp' on our website to directly reach our admin team.",
-    step_2_title: "2. Choose Your Vehicle",
-    step_2_desc: "Select the right vehicle based on passenger count and travel purpose (Avanza, Innova Reborn, Zenix, Hiace, or Medium Bus).",
-    step_3_title: "3. Share Travel Details",
-    step_3_desc: "Provide your date, rental duration, itinerary, and pickup location in Batam.",
-    step_4_title: "4. Rate & Availability Confirmation",
-    step_4_desc: "Our team will confirm unit availability, provide clear quotes, and outline rental terms.",
-    step_5_title: "5. Booking",
-    step_5_desc: "Once travel details are agreed upon, complete the reservation according to applicable terms.",
+    steps_title: "5 Simple Steps to Book a Vehicle",
+    steps_desc: "Fast and easy reservation process directly connected with our team via WhatsApp.",
+    step_1_title: "1. Contact Our WhatsApp",
+    step_1_desc: "Click the WhatsApp button on our site (0852-7060-7796 / 0812-6232-0086) to connect with CV SRM MANDIRI admin.",
+    step_2_title: "2. Choose Vehicle & Service",
+    step_2_desc: "Select the vehicle matching your group size (Innova, Avanza, Sigra, or Calya) and required service.",
+    step_3_title: "3. Specify Dates & Route",
+    step_3_desc: "Share your schedule and travel route (Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi, or Tour Berastagi/Parapat/Samosir).",
+    step_4_title: "4. Receive Best Quote",
+    step_4_desc: "Our admin will promptly provide our best price offer and confirm unit availability.",
+    step_5_title: "5. Ready for Departure",
+    step_5_desc: "Your vehicle is ready for pickup at Simalingkar B / your address or airport transfer on schedule.",
 
     // Testimonials
-    testi_tag: "CLIENT TESTIMONIALS",
-    testi_title: "Customer Experiences in Batam",
-    testi_desc: "Real feedback from tourists, families, and corporate clients who rely on Rizal Transportasi Batam.",
-    testi_rented_label: "Rented Vehicle:",
+    testi_tag: "CUSTOMER TESTIMONIALS",
+    testi_title: "Experiences with CV SRM MANDIRI",
+    testi_desc: "What our valued customers say about their journeys with CV SRM MANDIRI.",
+    testi_rented_label: "Rented Fleet:",
 
     // Booking Modal
     modal_title: "VEHICLE RESERVATION FORM",
-    modal_desc: "Fill in the details below to connect directly with the official WhatsApp admin of Rizal Transportasi Batam.",
+    modal_desc: "Fill in the details below to connect directly with CV SRM MANDIRI official WhatsApp admin.",
     modal_field_name: "Full Name",
     modal_field_phone: "WhatsApp Number",
-    modal_field_vehicle: "Selected Fleet",
-    modal_field_date: "Usage Date",
+    modal_field_vehicle: "Vehicle Selection",
+    modal_field_date: "Rental Date",
     modal_field_duration: "Rental Duration",
-    modal_field_address: "Pickup Location in Batam (Airport / Hotel / Address)",
-    modal_field_notes: "Additional Notes / Route Needs",
+    modal_field_address: "Pickup Location (Medan / Airport / Address)",
+    modal_field_notes: "Destination Route / Extra Notes",
+    modal_field_wa_target: "Send to Admin WhatsApp Number:",
     modal_btn_submit: "Send Reservation to WhatsApp ➔",
 
     // Footer & Contact
-    footer_cta_heading: "Need reliable transport for your trip in Batam?",
-    footer_cta_sub: "Contact us now and select the ideal vehicle tailored to your journey.",
-    footer_cta_btn: "Chat WhatsApp: +62 852-6401-8698",
+    footer_cta_heading: "Need Reliable Transportation in Medan & Intercity?",
+    footer_cta_sub: "Contact CV SRM MANDIRI now! We are ready to serve your car rental, intercity charter, and tour travels safely and comfortably.",
+    footer_cta_btn: "Chat WhatsApp: 0852-7060-7796",
     footer_address_title: "Office Address:",
-    footer_address_text: "Perumahan Buana Vista Indah 2, Blok A No. 67, Botania, Batam",
+    footer_address_text: "Simalingkar B, Medan, North Sumatra",
     footer_wa_title: "Official WhatsApp:",
-    footer_wa_text: "+62 852-6401-8698",
+    footer_wa_text: "0852-7060-7796 / 0812-6232-0086",
+    footer_tiktok_title: "Official TikTok:",
+    footer_tiktok_text: "@hendry.manullang",
     footer_socmed_title: "Social Media:",
-    footer_socmed_text: "Facebook – Rizal Transportasi Batam",
-    footer_quick_links: "Quick Links",
+    footer_socmed_text: "TikTok: @hendry.manullang",
+    footer_quick_links: "Quick Navigation",
     footer_rights: "All Rights Reserved."
   }
 };

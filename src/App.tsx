@@ -3,6 +3,8 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import CarList from './components/CarList';
 import Services from './components/Services';
+import BookingSteps from './components/BookingSteps';
+import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import BookingModal from './components/BookingModal';
 import AboutPage from './components/AboutPage';
@@ -19,7 +21,7 @@ export default function App() {
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [lang, setLang] = useState<'EN' | 'ID'>(() => {
-    const saved = localStorage.getItem('rizal_batam_lang');
+    const saved = localStorage.getItem('srm_mandiri_lang');
     return (saved === 'ID' || saved === 'EN') ? saved : 'ID';
   });
 
@@ -27,7 +29,7 @@ export default function App() {
 
   const handleSetLang = (newLang: 'EN' | 'ID') => {
     setLang(newLang);
-    localStorage.setItem('rizal_batam_lang', newLang);
+    localStorage.setItem('srm_mandiri_lang', newLang);
   };
 
   useEffect(() => {
@@ -53,7 +55,7 @@ export default function App() {
       }
 
       if (currentPage === 'home') {
-        const sections = ['home', 'cars', 'contact'];
+        const sections = ['home', 'cars', 'services', 'steps', 'testimonials', 'contact'];
         const scrollPosition = window.scrollY + 250;
 
         for (const section of sections) {
@@ -129,12 +131,24 @@ export default function App() {
               onBookingClick={() => setSelectedCar(CARS[0])} 
             />
 
-            {/* 2. ARMADA (Fleet list) */}
+            {/* 2. ARMADA (Fleet list: Innova, Avanza, Sigra, Calya) */}
             <CarList 
               onSelectCar={handleSelectCar} 
               lang={lang} 
               onViewAllCars={() => handleNavClick('cars')}
             />
+
+            {/* 3. LAYANAN, RUTE ANTAR KOTA & DESTINASI WISATA */}
+            <Services 
+              lang={lang} 
+              onViewAllDestinations={() => handleNavClick('services')}
+            />
+
+            {/* 4. ALUR CARA PEMESANAN (5 LANGKAH) */}
+            <BookingSteps lang={lang} />
+
+            {/* 5. TESTIMONIALS */}
+            <Testimonials lang={lang} />
           </>
         ) : currentPage === 'about' ? (
           <AboutPage lang={lang} onNavigateHome={() => handleNavClick('home')} />
@@ -174,11 +188,11 @@ export default function App() {
         <motion.a
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          href="https://api.whatsapp.com/send?phone=6285264018698&text=Halo%20Rizal%20Transportasi%20Batam,%20saya%20ingin%20konsultasi%20dan%20booking%20rental%20mobil%20transportasi"
+          href="https://api.whatsapp.com/send?phone=6285270607796&text=Halo%20CV%20SRM%20MANDIRI,%20saya%20ingin%20konsultasi%20dan%20booking%20jasa%20transportasi%20rental%20mobil"
           target="_blank"
           rel="noreferrer"
           className="relative group flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-2xl hover:scale-110 transition-transform duration-300 border-2 border-white cursor-pointer"
-          title="Chat WhatsApp: +62 852-6401-8698"
+          title="Chat WhatsApp CV SRM MANDIRI: 0852-7060-7796 / 0812-6232-0086"
         >
           {/* Authentic WhatsApp Logo SVG */}
           <svg className="w-8 h-8 fill-current" viewBox="0 0 24 24">

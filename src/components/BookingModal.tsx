@@ -13,13 +13,14 @@ interface BookingModalProps {
 }
 
 export default function BookingModal({ car, onClose, lang, onCarChange }: BookingModalProps) {
-  const [selectedCarId, setSelectedCarId] = useState<string>(car?.id || 'new-avanza');
+  const [selectedCarId, setSelectedCarId] = useState<string>(car?.id || 'toyota-innova');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [rentalDate, setRentalDate] = useState('');
   const [duration, setDuration] = useState(lang === 'EN' ? '1 Day' : '1 Hari');
   const [pickupAddress, setPickupAddress] = useState('');
   const [notes, setNotes] = useState('');
+  const [waTarget, setWaTarget] = useState<'wa1' | 'wa2'>('wa1');
   const [isBooked, setIsBooked] = useState(false);
 
   const t = TRANSLATIONS[lang];
@@ -48,42 +49,42 @@ export default function BookingModal({ car, onClose, lang, onCarChange }: Bookin
       return;
     }
 
-    const waNumber = '6285264018698';
+    const targetNumber = waTarget === 'wa1' ? '6285270607796' : '6281262320086';
 
     const textTemplate = isEN
-      ? `Hello Rizal Transportasi Batam, I would like to book a vehicle:
+      ? `Hello CV SRM MANDIRI, I would like to book/charter a vehicle:
 
-📋 *BOOKING DETAILS:*
+📋 *RESERVATION DETAILS:*
 • Selected Fleet: *${currentSelectedCar.name}* (${currentSelectedCar.category})
 • Starting Rate: *${currentSelectedCar.priceDisplay}*
 • Date of Use: *${rentalDate}*
 • Duration: *${duration}*
 
 👤 *CUSTOMER INFORMATION:*
-• Name: *${name}*
+• Full Name: *${name}*
 • WhatsApp: *${phone}*
-• Pickup Location in Batam: *${pickupAddress}*
-• Notes / Itinerary: *${notes || '-'}*
+• Pickup Location: *${pickupAddress}*
+• Route / Notes: *${notes || '-'}*
 
-Please confirm availability and rate quote. Thank you!`
-      : `Halo Rizal Transportasi Batam, saya ingin melakukan pemesanan rental kendaraan:
+Please confirm unit availability and rate quotation. Thank you!`
+      : `Halo CV SRM MANDIRI, saya ingin melakukan pemesanan rental/carter kendaraan:
 
 📋 *DETAIL PEMESANAN:*
 • Pilihan Armada: *${currentSelectedCar.name}* (${currentSelectedCar.category})
 • Tarif Mulai: *${currentSelectedCar.priceDisplay}*
 • Tanggal Pemakaian: *${rentalDate}*
-• Lama Pemakaian: *${duration}*
+• Durasi / Lama Sewa: *${duration}*
 
 👤 *DATA PEMESAN:*
 • Nama Lengkap: *${name}*
 • No. WhatsApp: *${phone}*
-• Lokasi Penjemputan di Batam: *${pickupAddress}*
-• Catatan / Keperluan Rute: *${notes || '-'}*
+• Lokasi Penjemputan: *${pickupAddress}*
+• Rute Tujuan / Catatan: *${notes || '-'}*
 
-Mohon konfirmasi ketersediaan armada dan penawaran harga terbaik. Terima kasih!`;
+Mohon informasi ketersediaan armada dan penawaran harga terbaik. Terima kasih!`;
 
     const encodedText = encodeURIComponent(textTemplate);
-    const waUrl = `https://api.whatsapp.com/send?phone=${waNumber}&text=${encodedText}`;
+    const waUrl = `https://api.whatsapp.com/send?phone=${targetNumber}&text=${encodedText}`;
     
     window.open(waUrl, '_blank', 'noreferrer');
     setIsBooked(true);
@@ -117,7 +118,7 @@ Mohon konfirmasi ketersediaan armada dan penawaran harga terbaik. Terima kasih!`
               
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/20 border border-sky-400/30 text-sky-300 text-[10px] font-extrabold uppercase tracking-widest">
                 <Sparkles className="w-3.5 h-3.5 text-sky-400" />
-                <span>Rizal Transportasi Batam</span>
+                <span>CV SRM MANDIRI</span>
               </div>
 
               <div>
@@ -154,8 +155,8 @@ Mohon konfirmasi ketersediaan armada dan penawaran harga terbaik. Terima kasih!`
                   <span className="font-semibold text-sky-400">{currentSelectedCar.seats} {isEN ? 'Seats' : 'Kursi/Orang'}</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-white/5">
-                  <span className="text-slate-400">Area Layanan:</span>
-                  <span className="font-semibold text-sky-200">Kota Batam &amp; Sekitarnya</span>
+                  <span className="text-slate-400">Rute Populer:</span>
+                  <span className="font-semibold text-sky-200">Medan, Riau, Jambi &amp; Wisata</span>
                 </div>
               </div>
 
@@ -168,7 +169,7 @@ Mohon konfirmasi ketersediaan armada dan penawaran harga terbaik. Terima kasih!`
 
             <div className="pt-4 border-t border-white/10 mt-4 text-[11px] text-slate-300 font-medium flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0" />
-              <span>Respon Cepat via WhatsApp Official</span>
+              <span>Alamat: Simalingkar B, Medan</span>
             </div>
           </div>
 
@@ -197,7 +198,41 @@ Mohon konfirmasi ketersediaan armada dan penawaran harga terbaik. Terima kasih!`
                   </p>
                 </div>
 
-                {/* 1. Pilih Kendaraan Selector */}
+                {/* 1. Pilih Admin WhatsApp Tujuan */}
+                <div className="space-y-1.5 bg-slate-50 p-3 rounded-2xl border border-slate-200">
+                  <label className="text-xs font-bold text-slate-700 block">
+                    {t.modal_field_wa_target}
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setWaTarget('wa1')}
+                      className={`p-2.5 rounded-xl border text-left text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
+                        waTarget === 'wa1'
+                          ? 'bg-sky-600 text-white border-sky-600 shadow-sm'
+                          : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-100'
+                      }`}
+                    >
+                      <Phone className="w-3.5 h-3.5 shrink-0" />
+                      <span>Admin 1: 0852-7060-7796</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setWaTarget('wa2')}
+                      className={`p-2.5 rounded-xl border text-left text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
+                        waTarget === 'wa2'
+                          ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                          : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-100'
+                      }`}
+                    >
+                      <Phone className="w-3.5 h-3.5 shrink-0" />
+                      <span>Admin 2: 0812-6232-0086</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* 2. Pilih Kendaraan Selector */}
                 <div className="space-y-1.5">
                   <label className="text-xs font-bold text-slate-700 block">
                     {t.modal_field_vehicle} *
@@ -219,7 +254,7 @@ Mohon konfirmasi ketersediaan armada dan penawaran harga terbaik. Terima kasih!`
                   </select>
                 </div>
 
-                {/* 2. Customer Form Fields */}
+                {/* 3. Customer Form Fields */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
                   <div className="space-y-1">
                     <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
@@ -274,7 +309,7 @@ Mohon konfirmasi ketersediaan armada dan penawaran harga terbaik. Terima kasih!`
                       type="text"
                       value={duration}
                       onChange={(e) => setDuration(e.target.value)}
-                      placeholder={isEN ? "e.g., 1 Day / 3 Days" : "Contoh: 1 Hari / 3 Hari / 1 Minggu"}
+                      placeholder={isEN ? "e.g., 1 Day / 3 Days" : "Contoh: 1 Hari / Carter Drop Off"}
                       className="w-full text-xs font-semibold px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500 bg-slate-50"
                     />
                   </div>
@@ -289,7 +324,7 @@ Mohon konfirmasi ketersediaan armada dan penawaran harga terbaik. Terima kasih!`
                       required
                       value={pickupAddress}
                       onChange={(e) => setPickupAddress(e.target.value)}
-                      placeholder={isEN ? "Pickup location in Batam (e.g. Hang Nadim Airport, Hotel, Botania...)" : "Lokasi penjemputan di Batam (Contoh: Bandara Hang Nadim / Pelabuhan / Hotel / Alamat Rumah)..."}
+                      placeholder={isEN ? "Pickup location in Medan (e.g. Simalingkar B, KNO Airport, Hotel...)" : "Lokasi penjemputan (Contoh: Simalingkar B / Bandara Kualanamu / Hotel / Alamat Rumah)..."}
                       className="w-full text-xs font-semibold px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500 bg-slate-50"
                     />
                   </div>
@@ -302,7 +337,7 @@ Mohon konfirmasi ketersediaan armada dan penawaran harga terbaik. Terima kasih!`
                       rows={2}
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
-                      placeholder={isEN ? "Additional notes or itinerary requirements..." : "Catatan kebutuhan perjalanan / rute khusus (opsional)..."}
+                      placeholder={isEN ? "Destination route (Medan, Dumai, Duri, Pekanbaru, Kerinci, Jambi, Berastagi, Samosir...)" : "Rute tujuan (Contoh: Medan - Pekanbaru / Wisata Berastagi & Samosir)..."}
                       className="w-full text-xs font-semibold px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500 bg-slate-50 resize-none"
                     />
                   </div>
@@ -329,7 +364,7 @@ Mohon konfirmasi ketersediaan armada dan penawaran harga terbaik. Terima kasih!`
                   {isEN ? 'Reservation Sent to WhatsApp!' : 'Formulir Pemesanan Terkirim!'}
                 </h4>
                 <p className="font-sans text-xs text-slate-600 leading-relaxed font-medium max-w-md mx-auto">
-                  {isEN ? 'Thank you! You have been redirected to WhatsApp. Our admin in Batam will assist you shortly.' : 'Terima kasih! Anda telah terhubung langsung dengan WhatsApp Admin Rizal Transportasi Batam (+62 852-6401-8698).'}
+                  {isEN ? 'Thank you! You have been redirected to WhatsApp. CV SRM MANDIRI admin will assist you shortly.' : 'Terima kasih! Anda telah terhubung langsung dengan WhatsApp Admin CV SRM MANDIRI.'}
                 </p>
                 <button
                   onClick={onClose}

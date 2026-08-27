@@ -1,15 +1,15 @@
 export interface TourTier {
-  busType: string;
+  carType: string;
   capacity: string;
   pricePerPerson: string;
-  hotelDetails: string;
+  details: string;
   notes: string;
 }
 
 export interface TourPackage {
   id: string;
   title: string;
-  categoryKey: 'domestik' | 'internasional';
+  location: string;
   duration: string;
   route: string[];
   routeDisplay: string;
@@ -23,216 +23,151 @@ export interface TourPackage {
 }
 
 export const TOUR_PACKAGES: TourPackage[] = [
-  // 1. TAMAN NASIONAL BUNAKEN
+  // 1. WISATA BERASTAGI
   {
-    id: 'tour-bunaken',
-    title: 'PAKET WISATA TAMAN NASIONAL BUNAKEN',
-    categoryKey: 'domestik',
+    id: 'tour-berastagi',
+    title: 'PAKET WISATA BERASTAGI HIGHLANDS',
+    location: 'Kabupaten Karo, Sumatera Utara',
     duration: 'Full Day / 2D1N',
-    route: ['Dermaga Manado', 'Taman Nasional Bunaken', 'Spot Snorkeling & Diving', 'Island Hopping', 'Kuliner Khas Manado'],
-    routeDisplay: 'Manado - Pulau Bunaken - Spot Snorkeling',
-    image: '/dest_bunaken.avif',
-    badge: 'Wisata Bahari',
-    minPrice: 'Hubungi Kami',
+    route: ['Medan / Simalingkar B', 'Taman Hutan Raya Sibolangit', 'Bukit Gundaling', 'Pasar Buah Berastagi', 'Pagoda Taman Alam Lumbini', 'Pemandian Air Panas Sidebuk-debuk', 'Air Terjun Sipiso-piso'],
+    routeDisplay: 'Medan - Berastagi - Bukit Gundaling - Sipiso-piso',
+    image: '/gallery_sipisopiso.avif',
+    badge: 'Wisata Pegunungan & Alam',
+    minPrice: 'Konsultasikan via WA',
     tiers: [
       {
-        busType: 'Avanza / Hiace + Perahu Katamaran / Speedboat',
-        capacity: '2 - 15 Orang',
-        pricePerPerson: 'Konsultasikan via WA',
-        hotelDetails: 'Akomodasi Hotel Bintang 3/4 di Manado + Makan',
-        notes: 'Termasuk Peralatan Snorkeling & Tiket Masuk Taman Nasional'
-      }
-    ],
-    highlights: [
-      'Menikmati keindahan dunia bawah laut Taman Nasional Bunaken',
-      'Snorkeling & Diving mengamati terumbu karang & ikan tropis',
-      'Island hopping & foto-foto dengan panorama laut jernih',
-      'Sangat cocok untuk keluarga, pasangan, wisatawan lokal maupun mancanegara'
-    ],
-    includes: [
-      'Transportasi Darat AC (Transfer Bandara & Dermaga)',
-      'Sewa Perahu / Speedboat PP Bunaken',
-      'Peralatan Snorkeling & Life Jacket',
-      'Makan Siang Khas Pesisir',
-      'Driver & Guide Pengalaman'
-    ],
-    excludes: [
-      'Pengeluaran Pribadi & Tipping Guide'
-    ]
-  },
-
-  // 2. TOMOHON HIGHLAND
-  {
-    id: 'tour-tomohon',
-    title: 'PAKET WISATA TOMOHON HIGHLAND',
-    categoryKey: 'domestik',
-    duration: 'Full Day / 2D1N',
-    route: ['Danau Linow', 'Gunung Mahawu', 'Bukit Doa', 'Pagoda Ekayana', 'Tomohon Extreme Market'],
-    routeDisplay: 'Manado - Tomohon - Danau Linow - Mahawu',
-    image: '/dest_tomohon.avif',
-    badge: 'Wisata Alam & Pegunungan',
-    minPrice: 'Hubungi Kami',
-    tiers: [
-      {
-        busType: 'Avanza / Innova / Hiace Premio',
-        capacity: '2 - 15 Orang',
-        pricePerPerson: 'Konsultasikan via WA',
-        hotelDetails: 'Pilihan Resort Tomohon / Hotel Manado',
+        carType: 'Innova / Avanza / Calya / Sigra',
+        capacity: '4 - 7 Orang',
+        pricePerPerson: 'Hubungi WhatsApp Admin',
+        details: 'Mobil AC Bersih + Driver Berpengalaman + BBM',
         notes: 'Udara Sejuk Pegunungan & Spot Foto Instagramable'
       }
     ],
     highlights: [
-      'Menikmati Danau Linow dengan warna air yang dapat berubah-ubah',
-      'Panorama pegunungan Gunung Mahawu & perkebunan sejuk',
-      'Kunjungan budaya ke Bukit Doa & Pagoda Ekayana',
-      'Eksplorasi keunikan Tomohon Extreme Market'
+      'Panorama memukau Gunung Sibayak & Gunung Sinabung dari Bukit Gundaling',
+      'Belanja buah segar, stroberi, dan sayuran di Pasar Buah Berastagi',
+      'Kemegahan Pagoda Emas Taman Alam Lumbini terbesar di Indonesia',
+      'Pemandangan spektakuler Air Terjun Sipiso-piso di bibir Danau Toba'
     ],
     includes: [
-      'Mobil AC + Driver BBM',
-      'Tiket Masuk Semua Objek Wisata Tomohon',
-      'Makan Siang di Tepi Danau Linow'
+      'Mobil AC Terawat (Innova / Avanza / Sigra / Calya)',
+      'Sopir Berpengalaman & Ramah',
+      'Bahan Bakar Minyak (BBM)',
+      'Penjemputan dari Medan / Simalingkar B / Bandara KNO'
     ],
     excludes: [
-      'Pengeluaran Pribadi'
+      'Tiket Masuk Wahana Tambahan & Pengeluaran Pribadi'
     ]
   },
 
-  // 3. LIKUPANG BAHARI
+  // 2. WISATA PARAPAT DANAU TOBA
   {
-    id: 'tour-likupang',
-    title: 'PAKET WISATA EXOTIC LIKUPANG',
-    categoryKey: 'domestik',
+    id: 'tour-parapat',
+    title: 'PAKET WISATA PARAPAT DANAU TOBA',
+    location: 'Danau Toba, Simalungun, Sumatera Utara',
     duration: 'Full Day / 2D1N',
-    route: ['Pantai Paal Likupang', 'Pantai Pulisan', 'Bukit Pulisan', 'Spot Snorkeling Likupang'],
-    routeDisplay: 'Manado - Likupang - Pantai Paal & Pulisan',
-    image: '/dest_likupang.avif',
-    badge: 'Destinasi Super Prioritas',
-    minPrice: 'Hubungi Kami',
+    route: ['Medan', 'Tebing Tinggi', 'Pematang Siantar', 'Parapat', 'Pantai Bebas Parapat', 'Bukit Senyum Danau Toba'],
+    routeDisplay: 'Medan - Siantar - Parapat Danau Toba',
+    image: '/dest_toba.avif',
+    badge: 'Ikon Danau Toba',
+    minPrice: 'Konsultasikan via WA',
     tiers: [
       {
-        busType: 'Fortuner / Pajero / Hiace / Avanza',
-        capacity: '2 - 15 Orang',
-        pricePerPerson: 'Konsultasikan via WA',
-        hotelDetails: 'Resort Pantai / Hotel Manado',
-        notes: 'Wisata Bahari Super Prioritas Indonesia'
+        carType: 'Innova / Avanza / Calya / Sigra',
+        capacity: '4 - 7 Orang',
+        pricePerPerson: 'Hubungi WhatsApp Admin',
+        details: 'Transportasi Nyaman Pulang Pergi + Driver',
+        notes: 'Pintu Gerbang Utama Menikmati Keindahan Danau Toba'
       }
     ],
     highlights: [
-      'Pantai pasir putih eksotis dengan air laut jernih kristal',
-      'Snorkeling & island hopping di kawasan Likupang',
-      'Trekking ringan ke Bukit Pulisan dengan keindahan panorama pesisir',
-      'Bersantai & menikmati suasana pantai yang tenang'
+      'Menikmati keagungan pemandangan danau vulkanik terbesar di dunia',
+      'Santai sore di Pantai Bebas Parapat dengan panorama perbukitan hijau',
+      'Singgah mencicipi kuliner khas Roti Ganda & Selai di Pematang Siantar',
+      'Wisata kuliner ikan mas/nila bakar khas tepi Danau Toba'
     ],
     includes: [
-      'Transportasi AC + Driver BBM',
-      'Tiket Masuk Destinasi Likupang',
-      'Makan Siang Kuliner Laut'
+      'Armada Mobil Prima Full AC',
+      'Driver Profesional Menguasai Rute Lintas Sumatera',
+      'BBM & Biaya Operasional Kendaraan',
+      'Fleksibilitas Spot Kunjungan & Istirahat'
     ],
     excludes: [
-      'Pengeluaran Pribadi'
+      'Akomodasi Hotel & Pengeluaran Pribadi'
     ]
   },
 
-  // 4. MANADO CITY TOUR
+  // 3. WISATA PULAU SAMOSIR
   {
-    id: 'tour-manado-city',
-    title: 'MANADO CITY TOUR & HERITAGE',
-    categoryKey: 'domestik',
-    duration: 'Full Day',
-    route: ['Manado Boulevard', 'Kawasan Megamas', 'Jembatan Soekarno', 'Klenteng Ban Hin Kiong', 'Zero Point Manado', 'Malalayang Beach Walk', 'Monumen Yesus Memberkati', 'Pusat Oleh-Oleh Manado'],
-    routeDisplay: 'Jembatan Soekarno - Megamas - Malalayang - Yesus Memberkati',
-    image: '/dest_manado_city.avif',
-    badge: 'City Tour',
-    minPrice: 'Hubungi Kami',
+    id: 'tour-samosir',
+    title: 'PAKET WISATA EKSOTIS PULAU SAMOSIR',
+    location: 'Pulau Samosir, Danau Toba, Sumatera Utara',
+    duration: '2D1N / 3D2N',
+    route: ['Parapat / Pelabuhan Ajibata', 'Ferry Penyeberangan Tomok', 'Desa Wisata Tomok', 'Tuk-Tuk Siadong', 'Batu Kursi Raja Siallagan', 'Bukit Holbung', 'Pusuk Buhit'],
+    routeDisplay: 'Parapat - Penyeberangan Ferry - Tomok - Tuk-Tuk Samosir',
+    image: '/dest_toba.jpg',
+    badge: 'Budaya & Panorama Samosir',
+    minPrice: 'Konsultasikan via WA',
     tiers: [
       {
-        busType: 'Avanza / Xenia / Fortuner / Hiace',
-        capacity: '2 - 15 Orang',
-        pricePerPerson: 'Konsultasikan via WA',
-        hotelDetails: 'Tanpa Menginap (Full Day)',
-        notes: 'Fleksibel & Nyaman Keliling Kota Manado'
+        carType: 'Innova / Avanza / Calya / Sigra',
+        capacity: '4 - 7 Orang',
+        pricePerPerson: 'Hubungi WhatsApp Admin',
+        details: 'Unit Mobil Ikut Menyeberang ke Pulau Samosir',
+        notes: 'Eksplorasi Budaya Batak & Panorama Sabana Samosir'
       }
     ],
     highlights: [
-      'Ikon landmark Jembatan Soekarno & Monumen Yesus Memberkati',
-      'Santai sore di Malalayang Beach Walk & Kawasan Megamas',
-      'Sejarah Klenteng tertua Ban Hin Kiong & Zero Point Manado',
-      'Belanja oleh-oleh khas Manado (Klapertaart, Halua Kenari, Sambal Roa)'
+      'Mengenal sejarah Batak di Makam Raja Sidabutar & Tarian Sigale-Gale Tomok',
+      'Kunjungan bersejarah ke Perkampungan Kuno Batu Kursi Raja Siallagan Ambarita',
+      'Menikmati suasana tenang danau di kawasan resort tepi air Tuk-Tuk Siadong',
+      'Spot foto perbukitan sabana Bukit Holbung "Bukit Teletubbies" Samosir'
     ],
     includes: [
-      'Mobil AC + Driver BBM Full Day',
-      'Parkir & Retribusi Destinasi'
+      'Mobil AC Selama di Medan & Pulau Samosir',
+      'Driver Pendamping Wisata',
+      'BBM Kendaraan',
+      'Penjemputan & Pengantaran Kembali ke Medan / Simalingkar B'
     ],
     excludes: [
-      'Makan & Pengeluaran Pribadi'
+      'Tiket Kapal Ferry Penyeberangan Mobil & Pribadi'
     ]
   },
 
-  // 5. TONDANO & MINAHASA
+  // 4. PAKET KOMBINASI SUPER LENGKAP: MEDAN - BERASTAGI - PARAPAT - SAMOSIR
   {
-    id: 'tour-tondano',
-    title: 'EXPLORE DANAU TONDANO & MINAHASA',
-    categoryKey: 'domestik',
-    duration: 'Full Day',
-    route: ['Danau Tondano', 'Restoran Terapung Tondano', 'Perkebunan Minahasa', 'Bentengan'],
-    routeDisplay: 'Manado - Tondano - Perkebunan Minahasa',
-    image: '/dest_tondano.avif',
-    badge: 'Wisata Danau & Alam',
-    minPrice: 'Hubungi Kami',
+    id: 'tour-super-toba',
+    title: 'PAKET TOUR LENGKAP: MEDAN - BERASTAGI - PARAPAT - SAMOSIR',
+    location: 'Sumatera Utara Grand Tour',
+    duration: '3D2N / 4D3N',
+    route: ['Medan (Simalingkar B / Bandara KNO)', 'Berastagi', 'Sipiso-piso', 'Simarjarunjung', 'Parapat', 'Pulau Samosir', 'Medan'],
+    routeDisplay: 'Medan - Berastagi - Simarjarunjung - Parapat - Samosir',
+    image: '/gallery_sipisopiso.avif',
+    badge: 'Paket Terfavorit',
+    minPrice: 'Konsultasikan via WA',
     tiers: [
       {
-        busType: 'Avanza / Innova / Hiace',
-        capacity: '2 - 15 Orang',
-        pricePerPerson: 'Konsultasikan via WA',
-        hotelDetails: 'Tanpa Menginap (Full Day)',
-        notes: 'Menikmati kuliner gurame & mujair bakar Tondano'
+        carType: 'Toyota Innova / Avanza / Calya / Sigra',
+        capacity: '4 - 7 Orang',
+        pricePerPerson: 'Hubungi WhatsApp Admin',
+        details: 'Private Tour Khusus Keluarga / Rombongan Anda',
+        notes: 'Eksplorasi Seluruh Destinasi Terbaik Sumatera Utara'
       }
     ],
     highlights: [
-      'Pemandangan membentang Danau Tondano dikelilingi pegunungan',
-      'Nikmati santap siang khas di restoran terapung di atas danau',
-      'Perjalanan melintasi pedesaan & perkebunan Minahasa yang asri'
+      'Menggabungkan keindahan pegunungan Berastagi dan pesona Danau Toba & Samosir',
+      'Singgah menikmati teh jahe & pisang goreng di Bukit Simarjarunjung',
+      'Eksplorasi budaya leluhur Batak di Pulau Samosir',
+      'Jadwal santai, fleksibel, ramah keluarga & didampingi supir berpengalaman'
     ],
     includes: [
-      'Mobil AC + Driver BBM',
-      'Makan Siang Resto Terapung Tondano'
+      'Mobil Pribadi Full AC (Bebas Gabung Orang Lain)',
+      'Driver Berpengalaman Sekaligus Pemandu Perjalanan',
+      'Bahan Bakar Minyak (BBM)',
+      'Penjemputan & Pengantaran Tepat Waktu'
     ],
     excludes: [
-      'Pengeluaran Pribadi'
-    ]
-  },
-
-  // 6. BITUNG & TAMAN NASIONAL TANGKOKO
-  {
-    id: 'tour-tangkoko',
-    title: 'BITUNG & SAFARI WILDLIFE TANGKOKO',
-    categoryKey: 'domestik',
-    duration: 'Full Day',
-    route: ['Kota Bitung', 'Taman Nasional Tangkoko', 'Hutan Tropis Endemik', 'Pantai Batu Putih'],
-    routeDisplay: 'Manado - Bitung - Taman Nasional Tangkoko',
-    image: '/dest_tangkoko.avif',
-    badge: 'Wisata Satwa & Hutan Tropis',
-    minPrice: 'Hubungi Kami',
-    tiers: [
-      {
-        busType: 'Fortuner / Pajero / Hiace / Avanza',
-        capacity: '2 - 15 Orang',
-        pricePerPerson: 'Konsultasikan via WA',
-        hotelDetails: 'Tanpa Menginap (Full Day)',
-        notes: 'Trekking Hutan Tropis Melihat Tarsius'
-      }
-    ],
-    highlights: [
-      'Trekking di Taman Nasional Tangkoko mengamati satwa endemik Tarsius & Monyet Hitam (Yaki)',
-      'Eksplorasi keasrian hutan tropis Sulawesi Utara',
-      'Pemandangan pesisir pantai pasir hitam Batu Putih Bitung'
-    ],
-    includes: [
-      'Mobil AC + Driver BBM',
-      'Tiket Masuk Tangkoko & Ranger / Guide Lokal'
-    ],
-    excludes: [
-      'Pengeluaran Pribadi'
+      'Hotel Penginapan & Konsumsi Pribadi'
     ]
   }
 ];
