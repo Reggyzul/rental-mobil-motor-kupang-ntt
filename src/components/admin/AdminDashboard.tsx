@@ -213,7 +213,7 @@ function ImageUploader({
       onUploaded(uploadedUrl);
       setPreview(uploadedUrl);
     } else {
-      setError('Gagal upload. Pastikan bucket "srm-images" sudah dibuat di Supabase Storage.');
+      setError('Gagal memproses gambar. Silakan coba lagi.');
       setPreview(currentUrl);
     }
     setUploading(false);
