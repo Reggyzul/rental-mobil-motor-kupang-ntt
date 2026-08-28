@@ -49,13 +49,14 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
   ];
 
   const routesList = [
-    'Medan', 'Dumai', 'Duri', 'Kandis', 'Garut', 'Pekanbaru', 'Kerinci', 'Jambi'
+    'Medan - Dumai (PP)', 'Medan - Duri (PP)', 'Medan - Kandis (PP)', 'Medan - Garut (PP)', 
+    'Medan - Pekanbaru (PP)', 'Medan - Kerinci (PP)', 'Medan - Jambi (PP)', 'Medan & Sekitarnya (PP)'
   ];
 
   const tourList = [
-    'Wisata Berastagi Highlands & Sipiso-piso',
-    'Wisata Parapat Danau Toba',
-    'Wisata Budaya & Alam Pulau Samosir'
+    'Wisata Berastagi Highlands & Sipiso-piso (PP)',
+    'Wisata Parapat Danau Toba (PP)',
+    'Wisata Budaya & Alam Pulau Samosir (PP)'
   ];
 
   return (
@@ -271,12 +272,12 @@ export default function AboutPage({ lang, onNavigateHome }: AboutPageProps) {
                 <span className="text-white font-medium">{t.footer_address_text}</span>
               </div>
               <div className="space-y-1">
-                <span className="text-slate-400 font-bold block uppercase">WhatsApp Resmi:</span>
+                <span className="text-slate-400 font-bold block uppercase">Kontak Resmi:</span>
                 <a href="https://api.whatsapp.com/send?phone=6285270607796" target="_blank" rel="noreferrer" className="text-emerald-400 font-bold hover:underline block">
-                  0852-7060-7796
+                  📱 0852-7060-7796 (Admin 1 - WA)
                 </a>
-                <a href="https://api.whatsapp.com/send?phone=6281262320086" target="_blank" rel="noreferrer" className="text-emerald-400 font-bold hover:underline block">
-                  0812-6232-0086
+                <a href="tel:081262320086" className="text-sky-300 font-bold hover:underline block">
+                  📞 0812-6232-0086 (Admin 2 - Telp Biasa)
                 </a>
               </div>
               <div className="space-y-1">

@@ -27,19 +27,19 @@ export const TOUR_PACKAGES: TourPackage[] = [
   {
     id: 'tour-berastagi',
     title: 'Berastagi',
-    location: 'Kabupaten Karo, Sumatera Utara',
-    duration: 'Full Day / 2D1N',
-    route: ['Medan / Simalingkar B', 'Taman Hutan Raya Sibolangit', 'Bukit Gundaling', 'Pasar Buah Berastagi', 'Pagoda Taman Alam Lumbini', 'Pemandian Air Panas Sidebuk-debuk', 'Air Terjun Sipiso-piso'],
-    routeDisplay: 'Medan - Berastagi - Bukit Gundaling - Sipiso-piso',
+    location: 'Kabupaten Karo, Sumatera Utara (PP)',
+    duration: 'Full Day / 2D1N (PP)',
+    route: ['Medan / Simalingkar B', 'Taman Hutan Raya Sibolangit', 'Bukit Gundaling', 'Pasar Buah Berastagi', 'Pagoda Taman Alam Lumbini', 'Pemandian Air Panas Sidebuk-debuk', 'Air Terjun Sipiso-piso', 'Kembali ke Medan (PP)'],
+    routeDisplay: 'Medan - Berastagi - Bukit Gundaling - Sipiso-piso (PP)',
     image: '/tour_berastagi.jpg',
-    badge: 'Wisata Pegunungan & Alam',
+    badge: 'Wisata Alam & Pegunungan (PP)',
     minPrice: 'Konsultasikan via WA',
     tiers: [
       {
         carType: 'Innova / Avanza / Calya / Sigra',
         capacity: '4 - 7 Orang',
         pricePerPerson: 'Hubungi WhatsApp Admin',
-        details: 'Mobil AC Bersih + Driver Berpengalaman + BBM',
+        details: 'Mobil AC Bersih + Driver Berpengalaman + BBM Pulang Pergi (PP)',
         notes: 'Udara Sejuk Pegunungan & Spot Foto Instagramable'
       }
     ],
@@ -50,10 +50,10 @@ export const TOUR_PACKAGES: TourPackage[] = [
       'Pemandangan spektakuler Air Terjun Sipiso-piso di bibir Danau Toba'
     ],
     includes: [
-      'Mobil AC Terawat (Innova / Avanza / Sigra / Calya)',
+      'Mobil AC Terawat Pulang Pergi (Innova / Avanza / Sigra / Calya)',
       'Sopir Berpengalaman & Ramah',
-      'Bahan Bakar Minyak (BBM)',
-      'Penjemputan dari Medan / Simalingkar B / Bandara KNO'
+      'Bahan Bakar Minyak (BBM) PP',
+      'Penjemputan & Pengantaran Kembali ke Medan / Simalingkar B / Bandara KNO'
     ],
     excludes: [
       'Tiket Masuk Wahana Tambahan & Pengeluaran Pribadi'
@@ -64,19 +64,19 @@ export const TOUR_PACKAGES: TourPackage[] = [
   {
     id: 'tour-parapat',
     title: 'Parapat',
-    location: 'Danau Toba, Simalungun, Sumatera Utara',
-    duration: 'Full Day / 2D1N',
-    route: ['Medan', 'Tebing Tinggi', 'Pematang Siantar', 'Parapat', 'Pantai Bebas Parapat', 'Bukit Senyum Danau Toba'],
-    routeDisplay: 'Medan - Siantar - Parapat Danau Toba',
+    location: 'Danau Toba, Simalungun, Sumatera Utara (PP)',
+    duration: 'Full Day / 2D1N (PP)',
+    route: ['Medan', 'Tebing Tinggi', 'Pematang Siantar', 'Parapat', 'Pantai Bebas Parapat', 'Bukit Senyum Danau Toba', 'Kembali ke Medan (PP)'],
+    routeDisplay: 'Medan - Siantar - Parapat Danau Toba (PP)',
     image: '/tour_parapat.jpg',
-    badge: 'Ikon Danau Toba',
+    badge: 'Ikon Danau Toba (PP)',
     minPrice: 'Konsultasikan via WA',
     tiers: [
       {
         carType: 'Innova / Avanza / Calya / Sigra',
         capacity: '4 - 7 Orang',
         pricePerPerson: 'Hubungi WhatsApp Admin',
-        details: 'Transportasi Nyaman Pulang Pergi + Driver',
+        details: 'Transportasi Nyaman Pulang Pergi (PP) + Driver',
         notes: 'Pintu Gerbang Utama Menikmati Keindahan Danau Toba'
       }
     ],
@@ -87,9 +87,9 @@ export const TOUR_PACKAGES: TourPackage[] = [
       'Wisata kuliner ikan mas/nila bakar khas tepi Danau Toba'
     ],
     includes: [
-      'Armada Mobil Prima Full AC',
+      'Armada Mobil Prima Full AC Pulang Pergi (PP)',
       'Driver Profesional Menguasai Rute Lintas Sumatera',
-      'BBM & Biaya Operasional Kendaraan',
+      'BBM & Biaya Operasional Kendaraan PP',
       'Fleksibilitas Spot Kunjungan & Istirahat'
     ],
     excludes: [
@@ -101,19 +101,19 @@ export const TOUR_PACKAGES: TourPackage[] = [
   {
     id: 'tour-samosir',
     title: 'Pulau Samosir',
-    location: 'Pulau Samosir, Danau Toba, Sumatera Utara',
-    duration: '2D1N / 3D2N',
-    route: ['Parapat / Pelabuhan Ajibata', 'Ferry Penyeberangan Tomok', 'Desa Wisata Tomok', 'Tuk-Tuk Siadong', 'Batu Kursi Raja Siallagan', 'Bukit Holbung', 'Pusuk Buhit'],
-    routeDisplay: 'Parapat - Penyeberangan Ferry - Tomok - Tuk-Tuk Samosir',
+    location: 'Pulau Samosir, Danau Toba, Sumatera Utara (PP)',
+    duration: '2D1N / 3D2N (PP)',
+    route: ['Parapat / Pelabuhan Ajibata', 'Ferry Penyeberangan Tomok', 'Desa Wisata Tomok', 'Tuk-Tuk Siadong', 'Batu Kursi Raja Siallagan', 'Bukit Holbung', 'Pusuk Buhit', 'Kembali ke Medan (PP)'],
+    routeDisplay: 'Medan - Parapat - Penyeberangan Tomok - Samosir (PP)',
     image: '/tour_samosir.jpg',
-    badge: 'Budaya & Panorama Samosir',
+    badge: 'Budaya & Panorama Samosir (PP)',
     minPrice: 'Konsultasikan via WA',
     tiers: [
       {
         carType: 'Innova / Avanza / Calya / Sigra',
         capacity: '4 - 7 Orang',
         pricePerPerson: 'Hubungi WhatsApp Admin',
-        details: 'Unit Mobil Ikut Menyeberang ke Pulau Samosir',
+        details: 'Unit Mobil Ikut Menyeberang ke Pulau Samosir (PP)',
         notes: 'Eksplorasi Budaya Batak & Panorama Sabana Samosir'
       }
     ],
@@ -124,9 +124,9 @@ export const TOUR_PACKAGES: TourPackage[] = [
       'Spot foto perbukitan sabana Bukit Holbung "Bukit Teletubbies" Samosir'
     ],
     includes: [
-      'Mobil AC Selama di Medan & Pulau Samosir',
+      'Mobil AC Selama di Medan & Pulau Samosir (PP)',
       'Driver Pendamping Wisata',
-      'BBM Kendaraan',
+      'BBM Kendaraan PP',
       'Penjemputan & Pengantaran Kembali ke Medan / Simalingkar B'
     ],
     excludes: [

@@ -1,17 +1,17 @@
 import React from 'react';
-import { MapPin, Phone, MessageCircle, ChevronRight } from 'lucide-react';
+import { MessageCircle, MapPin, Phone, PhoneCall } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 
 interface FooterProps {
-  lang: 'ID' | 'EN';
   onNavigateSection: (sectionId: string) => void;
+  lang: 'ID' | 'EN';
 }
 
-export default function Footer({ lang, onNavigateSection }: FooterProps) {
+export default function Footer({ onNavigateSection, lang }: FooterProps) {
   const t = TRANSLATIONS[lang];
 
   return (
-    <footer id="contact" className="bg-[#050f20] text-white pt-16 pb-12 overflow-hidden relative border-t border-slate-900 text-left">
+    <footer id="contact" className="bg-[#050f20] text-white pt-16 pb-12 relative overflow-hidden text-left border-t border-slate-800/80">
       
       {/* Background Decorative Accents */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-sky-600/10 rounded-full blur-3xl pointer-events-none" />
@@ -32,25 +32,23 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
               {t.footer_cta_sub}
             </p>
           </div>
-          <div className="md:col-span-4 flex flex-col sm:flex-row md:flex-col lg:flex-row gap-2 justify-start md:justify-end">
+          <div className="md:col-span-4 flex flex-col sm:flex-row md:flex-col lg:flex-row gap-2.5 justify-start md:justify-end">
             <a
-              href="https://api.whatsapp.com/send?phone=6285270607796&text=Halo%20CV%20SRM%20MANDIRI,%20saya%20ingin%20booking%20jasa%20transportasi%20rental%20mobil"
+              href="https://api.whatsapp.com/send?phone=6285270607796&text=Halo%20CV%20SRM%20MANDIRI,%20saya%20ingin%20booking%20jasa%20transportasi%20rental%20mobil%20PP"
               target="_blank"
               rel="noreferrer"
-              className="bg-sky-600 hover:bg-sky-500 text-white font-sans font-extrabold text-xs uppercase px-5 py-3.5 rounded-full shadow-lg hover:shadow-sky-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer transform hover:scale-105"
+              className="bg-emerald-600 hover:bg-emerald-500 text-white font-sans font-extrabold text-xs uppercase px-5 py-3.5 rounded-2xl shadow-lg hover:shadow-emerald-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer transform hover:scale-105"
             >
               <MessageCircle className="w-4 h-4 fill-current" />
               <span>WA 1: 0852-7060-7796</span>
             </a>
 
             <a
-              href="https://api.whatsapp.com/send?phone=6281262320086&text=Halo%20CV%20SRM%20MANDIRI,%20saya%20ingin%20booking%20jasa%20transportasi%20rental%20mobil"
-              target="_blank"
-              rel="noreferrer"
-              className="bg-emerald-600 hover:bg-emerald-500 text-white font-sans font-extrabold text-xs uppercase px-5 py-3.5 rounded-full shadow-lg hover:shadow-emerald-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer transform hover:scale-105"
+              href="tel:081262320086"
+              className="bg-sky-600 hover:bg-sky-500 text-white font-sans font-extrabold text-xs uppercase px-5 py-3.5 rounded-2xl shadow-lg hover:shadow-sky-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer transform hover:scale-105"
             >
-              <MessageCircle className="w-4 h-4 fill-current" />
-              <span>WA 2: 0812-6232-0086</span>
+              <PhoneCall className="w-4 h-4" />
+              <span>Telp 2: 0812-6232-0086</span>
             </a>
           </div>
         </div>
@@ -84,13 +82,13 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
 
             <div className="p-3.5 rounded-2xl bg-[#081836] border border-sky-950/60 space-y-1.5">
               <span className="text-[10px] font-extrabold text-sky-400 uppercase tracking-wider block">
-                RUTE &amp; DESTINASI LAYANAN:
+                RUTE &amp; DESTINASI LAYANAN (PP):
               </span>
               <p className="font-sans text-[11px] text-slate-300">
-                • <b>Rute Antar Kota:</b> Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi.
+                • <b>Rute Antar Kota (PP):</b> Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi.
               </p>
               <p className="font-sans text-[11px] text-slate-300">
-                • <b>Tempat Wisata:</b> Berastagi, Parapat, Pulau Samosir (Danau Toba).
+                • <b>Tempat Wisata (PP):</b> Berastagi, Parapat, Pulau Samosir (Danau Toba).
               </p>
             </div>
           </div>
@@ -113,27 +111,27 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
                 </div>
               </div>
 
-              {/* WhatsApp Numbers */}
+              {/* Contact Numbers: Admin 1 WA, Admin 2 Telp */}
               <div className="flex items-start gap-2.5">
                 <Phone className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-bold text-white block">{t.footer_wa_title}</span>
-                  <div className="space-y-0.5 pt-0.5">
+                  <span className="font-bold text-white block">Kontak Resmi:</span>
+                  <div className="space-y-1 pt-0.5">
                     <a
                       href="https://api.whatsapp.com/send?phone=6285270607796"
                       target="_blank"
                       rel="noreferrer"
-                      className="text-emerald-400 hover:underline font-bold block"
+                      className="text-emerald-400 hover:underline font-bold flex items-center gap-1.5"
                     >
-                      📱 0852-7060-7796 (Admin 1)
+                      <MessageCircle className="w-3.5 h-3.5 fill-current" />
+                      <span>0852-7060-7796 (Admin 1 - WA)</span>
                     </a>
                     <a
-                      href="https://api.whatsapp.com/send?phone=6281262320086"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-emerald-400 hover:underline font-bold block"
+                      href="tel:081262320086"
+                      className="text-sky-300 hover:underline font-bold flex items-center gap-1.5"
                     >
-                      📱 0812-6232-0086 (Admin 2)
+                      <PhoneCall className="w-3.5 h-3.5" />
+                      <span>0812-6232-0086 (Admin 2 - Telp Biasa)</span>
                     </a>
                   </div>
                 </div>
@@ -169,7 +167,7 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
                   onClick={() => onNavigateSection('home')}
                   className="hover:text-sky-400 transition-colors cursor-pointer flex items-center gap-1"
                 >
-                  <ChevronRight className="w-3.5 h-3.5 text-sky-400" />
+                  <span>➔</span>
                   <span>{t.nav_home}</span>
                 </button>
               </li>
@@ -178,7 +176,7 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
                   onClick={() => onNavigateSection('cars')}
                   className="hover:text-sky-400 transition-colors cursor-pointer flex items-center gap-1"
                 >
-                  <ChevronRight className="w-3.5 h-3.5 text-sky-400" />
+                  <span>➔</span>
                   <span>{t.nav_vehicles}</span>
                 </button>
               </li>
@@ -187,8 +185,8 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
                   onClick={() => onNavigateSection('services')}
                   className="hover:text-sky-400 transition-colors cursor-pointer flex items-center gap-1"
                 >
-                  <ChevronRight className="w-3.5 h-3.5 text-sky-400" />
-                  <span>{lang === 'EN' ? 'Routes & Tours' : 'Rute & Wisata'}</span>
+                  <span>➔</span>
+                  <span>{lang === 'EN' ? 'Routes & Tours (PP)' : 'Rute & Wisata (PP)'}</span>
                 </button>
               </li>
               <li>
@@ -196,7 +194,7 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
                   onClick={() => onNavigateSection('about-page')}
                   className="hover:text-sky-400 transition-colors cursor-pointer flex items-center gap-1"
                 >
-                  <ChevronRight className="w-3.5 h-3.5 text-sky-400" />
+                  <span>➔</span>
                   <span>{t.nav_about}</span>
                 </button>
               </li>
@@ -205,7 +203,7 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
                   onClick={() => onNavigateSection('contact')}
                   className="hover:text-sky-400 transition-colors cursor-pointer flex items-center gap-1"
                 >
-                  <ChevronRight className="w-3.5 h-3.5 text-sky-400" />
+                  <span>➔</span>
                   <span>{t.nav_contact}</span>
                 </button>
               </li>
@@ -214,14 +212,16 @@ export default function Footer({ lang, onNavigateSection }: FooterProps) {
 
         </div>
 
-        {/* Bottom Copyright Notice */}
-        <div className="pt-8 text-center text-xs text-slate-500 font-sans font-medium flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span>
-            © 2026 CV SRM MANDIRI. All Rights Reserved.
-          </span>
-          <span className="text-[11px] text-slate-400">
-            Simalingkar B, Medan • WhatsApp: 0852-7060-7796 / 0812-6232-0086 • TikTok: @hendry.manullang
-          </span>
+        {/* Bottom Copyright & Disclaimer */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-medium">
+          <p>© {new Date().getFullYear()} CV SRM MANDIRI. {t.footer_rights}</p>
+          <div className="flex items-center gap-3 text-[11px]">
+            <span>📍 Simalingkar B, Medan</span>
+            <span>•</span>
+            <a href="https://www.tiktok.com/@hendry.manullang" target="_blank" rel="noreferrer" className="text-rose-400 hover:underline">
+              TikTok: @hendry.manullang
+            </a>
+          </div>
         </div>
 
       </div>

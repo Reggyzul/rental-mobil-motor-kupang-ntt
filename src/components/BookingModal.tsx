@@ -198,37 +198,20 @@ Mohon informasi ketersediaan armada dan penawaran harga terbaik. Terima kasih!`;
                   </p>
                 </div>
 
-                {/* 1. Pilih Admin WhatsApp Tujuan */}
-                <div className="space-y-1.5 bg-slate-50 p-3 rounded-2xl border border-slate-200">
-                  <label className="text-xs font-bold text-slate-700 block">
-                    {t.modal_field_wa_target}
-                  </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setWaTarget('wa1')}
-                      className={`p-2.5 rounded-xl border text-left text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
-                        waTarget === 'wa1'
-                          ? 'bg-sky-600 text-white border-sky-600 shadow-sm'
-                          : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-100'
-                      }`}
+                {/* 1. Admin Kontak Informasi */}
+                <div className="space-y-2 bg-slate-50 p-3 rounded-2xl border border-slate-200">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+                    <div className="flex items-center gap-2 text-emerald-700 font-bold">
+                      <MessageCircle className="w-4 h-4 text-emerald-600 fill-current" />
+                      <span>Kirim ke WhatsApp Admin 1: <b>0852-7060-7796</b></span>
+                    </div>
+                    <a
+                      href="tel:081262320086"
+                      className="inline-flex items-center gap-1.5 text-sky-700 hover:text-sky-900 bg-sky-50 hover:bg-sky-100 px-2.5 py-1 rounded-lg border border-sky-200 font-bold transition-all"
                     >
-                      <Phone className="w-3.5 h-3.5 shrink-0" />
-                      <span>Admin 1: 0852-7060-7796</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setWaTarget('wa2')}
-                      className={`p-2.5 rounded-xl border text-left text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
-                        waTarget === 'wa2'
-                          ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
-                          : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-100'
-                      }`}
-                    >
-                      <Phone className="w-3.5 h-3.5 shrink-0" />
-                      <span>Admin 2: 0812-6232-0086</span>
-                    </button>
+                      <Phone className="w-3.5 h-3.5 text-sky-600" />
+                      <span>Telp Admin 2: 0812-6232-0086</span>
+                    </a>
                   </div>
                 </div>
 
@@ -337,7 +320,7 @@ Mohon informasi ketersediaan armada dan penawaran harga terbaik. Terima kasih!`;
                       rows={2}
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
-                      placeholder={isEN ? "Destination route (Medan, Dumai, Duri, Pekanbaru, Kerinci, Jambi, Berastagi, Samosir...)" : "Rute tujuan (Contoh: Medan - Pekanbaru / Wisata Berastagi & Samosir)..."}
+                      placeholder={isEN ? "Destination route (Medan, Dumai, Duri, Pekanbaru, Kerinci, Jambi, Berastagi, Samosir PP...)" : "Rute tujuan Pulang-Pergi (Contoh: Medan - Pekanbaru PP / Wisata Berastagi & Samosir PP)..."}
                       className="w-full text-xs font-semibold px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500 bg-slate-50 resize-none"
                     />
                   </div>

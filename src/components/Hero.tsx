@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ChevronRight, MessageCircle, Car, MapPin, CheckCircle2, Sparkles } from 'lucide-react';
+import { ChevronRight, MessageCircle, Car, MapPin, CheckCircle2, Sparkles, PhoneCall } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 
 interface HeroProps {
@@ -92,8 +92,8 @@ export default function Hero({ onExploreClick, lang, onBookingClick }: HeroProps
             {/* Subtext */}
             <p className="font-sans text-xs sm:text-sm md:text-[15px] text-slate-600 font-medium max-w-3xl mx-auto leading-relaxed text-center">
               {isEN
-                ? "CV SRM MANDIRI provides quality transportation services with dependable fleets: Innova, Avanza, Sigra, and Calya. Serving intercity travel routes (Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi) and popular vacation tours to Berastagi, Parapat, and Samosir Island."
-                : "CV SRM MANDIRI melayani jasa transportasi profesional dengan pilihan armada terawat: Innova, Avanza, Sigra, dan Calya. Melayani carter travel rute Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi, serta paket wisata Berastagi, Parapat, dan Pulau Samosir."}
+                ? "CV SRM MANDIRI provides quality transportation services with dependable fleets: Innova, Avanza, Sigra, and Calya. Serving round-trip (PP) travel routes (Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi) and popular vacation tours to Berastagi, Parapat, and Samosir Island (PP)."
+                : "CV SRM MANDIRI melayani jasa transportasi profesional dengan pilihan armada terawat: Innova, Avanza, Sigra, dan Calya. Melayani carter travel Pulang-Pergi (PP) rute Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi, serta wisata Berastagi, Parapat, dan Pulau Samosir (PP)."}
             </p>
 
             {/* Value Badges */}
@@ -104,11 +104,11 @@ export default function Hero({ onExploreClick, lang, onBookingClick }: HeroProps
               </div>
               <div className="flex items-center gap-1.5 bg-slate-50 px-3.5 py-1.5 rounded-full border border-slate-200 shadow-2xs">
                 <CheckCircle2 className="w-4 h-4 text-sky-600" />
-                <span>Rute Antar Kota &amp; Provinsi</span>
+                <span>Rute Antar Kota Pulang Pergi (PP)</span>
               </div>
               <div className="flex items-center gap-1.5 bg-slate-50 px-3.5 py-1.5 rounded-full border border-slate-200 shadow-2xs">
                 <CheckCircle2 className="w-4 h-4 text-sky-600" />
-                <span>Wisata Berastagi, Parapat &amp; Samosir</span>
+                <span>Wisata Berastagi, Parapat &amp; Samosir (PP)</span>
               </div>
               <div className="flex items-center gap-1.5 bg-slate-50 px-3.5 py-1.5 rounded-full border border-slate-200 shadow-2xs">
                 <CheckCircle2 className="w-4 h-4 text-sky-600" />
@@ -116,7 +116,7 @@ export default function Hero({ onExploreClick, lang, onBookingClick }: HeroProps
               </div>
             </div>
 
-            {/* Prominent Booking Sekarang Button + Quick WhatsApp Contacts */}
+            {/* Prominent Booking Sekarang Button + Direct WhatsApp & Phone Call */}
             <div className="pt-2 space-y-3">
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                 {/* Main "Booking Sekarang" Button */}
@@ -138,24 +138,24 @@ export default function Hero({ onExploreClick, lang, onBookingClick }: HeroProps
                 </button>
               </div>
 
-              {/* Direct WhatsApp Quick Links */}
-              <div className="flex flex-wrap items-center justify-center gap-2.5 pt-1 text-xs font-bold text-slate-600">
-                <span>Atau hubungi langsung:</span>
+              {/* Direct WhatsApp (Admin 1) & Phone Call (Admin 2) Links */}
+              <div className="flex flex-wrap items-center justify-center gap-3 pt-2 text-xs font-bold text-slate-600">
+                <span>Hubungi Kami:</span>
                 <a
-                  href="https://api.whatsapp.com/send?phone=6285270607796&text=Halo%20CV%20SRM%20MANDIRI,%20saya%20ingin%20booking%20jasa%20transportasi%20rental%20mobil"
+                  href="https://api.whatsapp.com/send?phone=6285270607796&text=Halo%20CV%20SRM%20MANDIRI,%20saya%20ingin%20booking%20jasa%20transportasi%20rental%20mobil%20PP"
                   target="_blank"
                   rel="noreferrer"
-                  className="text-sky-700 hover:underline flex items-center gap-1 bg-sky-50 px-2.5 py-1 rounded-lg border border-sky-200"
+                  className="text-emerald-700 hover:underline flex items-center gap-1.5 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200 shadow-2xs transition-all hover:bg-emerald-100"
                 >
-                  📱 WA 1: 0852-7060-7796
+                  <MessageCircle className="w-3.5 h-3.5 text-emerald-600 fill-current" />
+                  <span>WA Admin 1: 0852-7060-7796</span>
                 </a>
                 <a
-                  href="https://api.whatsapp.com/send?phone=6281262320086&text=Halo%20CV%20SRM%20MANDIRI,%20saya%20ingin%20booking%20jasa%20transportasi%20rental%20mobil"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-emerald-700 hover:underline flex items-center gap-1 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200"
+                  href="tel:081262320086"
+                  className="text-sky-700 hover:underline flex items-center gap-1.5 bg-sky-50 px-3 py-1.5 rounded-xl border border-sky-200 shadow-2xs transition-all hover:bg-sky-100"
                 >
-                  📱 WA 2: 0812-6232-0086
+                  <PhoneCall className="w-3.5 h-3.5 text-sky-600" />
+                  <span>Telp Admin 2: 0812-6232-0086</span>
                 </a>
               </div>
             </div>
