@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TRANSLATIONS } from '../utils/translations';
+import { useData } from '../context/DataContext';
 
 interface HeaderProps {
   activeSection: string;
@@ -21,6 +22,9 @@ export default function Header({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const t = TRANSLATIONS[lang];
+  const { getSiteValue } = useData();
+  const businessName = getSiteValue('business_name') || 'CV SRM MANDIRI';
+  const logoImage = getSiteValue('logo_image') || '/logo.png';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -68,15 +72,18 @@ export default function Header({
             >
               <div className="bg-white p-1.5 rounded-xl shadow-xs border border-sky-100 group-hover:scale-105 transition-transform duration-200 shrink-0 flex items-center justify-center">
                 <img
-                  src="/logo.png"
-                  alt="CV SRM MANDIRI Logo"
+                  src={logoImage}
+                  alt={`${businessName} Logo`}
                   className="h-8 sm:h-9 w-auto object-contain"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = '/logo.png';
+                  }}
                 />
               </div>
               
               <div className="flex flex-col leading-tight">
                 <span className="font-display font-black text-base sm:text-lg tracking-tight text-[#081836] uppercase">
-                  CV SRM <span className="text-sky-600">MANDIRI</span>
+                  {businessName}
                 </span>
                 <span className="font-sans font-bold text-[9px] sm:text-[10px] text-slate-600 tracking-wider uppercase">
                   Melayani Jasa Transportasi

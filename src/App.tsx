@@ -8,14 +8,21 @@ import Footer from './components/Footer';
 import BookingModal from './components/BookingModal';
 import AboutPage from './components/AboutPage';
 import TransportRentPage from './components/TransportRentPage';
+import AdminPage from './components/admin/AdminPage';
+import { DataProvider, useData } from './context/DataContext';
 import { Car } from './types';
 import { CARS } from './data/cars';
 import { ChevronUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TRANSLATIONS } from './utils/translations';
 
-export default function App() {
-  const [currentPage, setCurrentPage] = useState<'home' | 'about' | 'rentals'>('home');
+function MainApp() {
+  const [currentPage, setCurrentPage] = useState<'home' | 'about' | 'rentals' | 'admin'>(() => {
+    if (window.location.pathname === '/admin' || window.location.hash === '#admin') {
+      return 'admin';
+    }
+    return 'home';
+  });
   const [activeSection, setActiveSection] = useState('home');
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -25,6 +32,7 @@ export default function App() {
   });
 
   const t = TRANSLATIONS[lang];
+  const { getSiteValue } = useData();
 
   const handleSetLang = (newLang: 'EN' | 'ID') => {
     setLang(newLang);
@@ -32,9 +40,30 @@ export default function App() {
   };
 
   useEffect(() => {
+    const handlePopState = () => {
+      if (window.location.pathname === '/admin' || window.location.hash === '#admin') {
+        setCurrentPage('admin');
+      } else {
+        if (currentPage === 'admin') setCurrentPage('home');
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+    window.addEventListener('hashchange', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('hashchange', handlePopState);
+    };
+  }, [currentPage]);
+
+  useEffect(() => {
+    if (currentPage === 'admin') {
+      document.title = `Admin Dashboard | ${getSiteValue('business_name') || 'CV SRM MANDIRI'}`;
+      return;
+    }
+
     // Dynamic SEO Metadata Synchronization
     document.documentElement.lang = lang === 'EN' ? 'en' : 'id';
-    document.title = t.seo_title;
+    document.title = getSiteValue('seo_title') || t.seo_title;
     
     let metaDesc = document.querySelector('meta[name="description"]');
     if (!metaDesc) {
@@ -42,8 +71,8 @@ export default function App() {
       metaDesc.setAttribute('name', 'description');
       document.head.appendChild(metaDesc);
     }
-    metaDesc.setAttribute('content', t.seo_description);
-  }, [lang, t.seo_title, t.seo_description]);
+    metaDesc.setAttribute('content', getSiteValue('seo_description') || t.seo_description);
+  }, [lang, t.seo_title, t.seo_description, currentPage, getSiteValue]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -84,6 +113,10 @@ export default function App() {
       setCurrentPage('rentals');
       setActiveSection('cars');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (sectionId === 'admin') {
+      setCurrentPage('admin');
+      window.location.hash = 'admin';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       if (currentPage !== 'home') {
         setCurrentPage('home');
@@ -106,6 +139,10 @@ export default function App() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  if (currentPage === 'admin') {
+    return <AdminPage />;
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col justify-between font-sans antialiased selection:bg-sky-600 selection:text-white">
@@ -158,7 +195,11 @@ export default function App() {
       </main>
 
       {/* Footer Contact */}
-      <Footer onNavigateSection={handleNavClick} lang={lang} />
+      <Footer 
+        onNavigateSection={handleNavClick} 
+        lang={lang} 
+        onAdminClick={() => handleNavClick('admin')}
+      />
 
       {/* Booking Popup Modal */}
       <BookingModal car={selectedCar} onClose={() => setSelectedCar(null)} lang={lang} onCarChange={setSelectedCar} />
@@ -184,11 +225,11 @@ export default function App() {
         <motion.a
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          href="https://api.whatsapp.com/send?phone=6285270607796&text=Halo%20CV%20SRM%20MANDIRI,%20saya%20ingin%20konsultasi%20dan%20booking%20jasa%20transportasi%20rental%20mobil"
+          href={`https://api.whatsapp.com/send?phone=${(getSiteValue('contact_wa1') || '085270607796').replace(/\D/g, '').replace(/^0/, '62')}&text=Halo%20${encodeURIComponent(getSiteValue('business_name') || 'CV SRM MANDIRI')},%20saya%20ingin%20konsultasi%20dan%20booking%20jasa%20transportasi%20rental%20mobil`}
           target="_blank"
           rel="noreferrer"
           className="relative group flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-2xl hover:scale-110 transition-transform duration-300 border-2 border-white cursor-pointer"
-          title="Chat WhatsApp CV SRM MANDIRI: 0852-7060-7796 / 0812-6232-0086"
+          title="Chat WhatsApp CV SRM MANDIRI"
         >
           {/* Authentic WhatsApp Logo SVG */}
           <svg className="w-8 h-8 fill-current" viewBox="0 0 24 24">
@@ -204,5 +245,13 @@ export default function App() {
       </div>
 
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <DataProvider>
+      <MainApp />
+    </DataProvider>
   );
 }

@@ -1,0 +1,26 @@
+name: Supabase Keep-Alive Cron
+
+on:
+  schedule:
+    # Run every 2 days at 06:00 UTC (13:00 WIB)
+    - cron: '0 6 */2 * *'
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  ping-supabase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase REST Endpoint
+        run: |
+          echo "Sending keep-alive ping to Supabase REST API..."
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "apikey: ${{ secrets.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtcHRic2l1aXZ5eXNmZmNtdXlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc4Nzc1NDMsImV4cCI6MjEwMzQ1MzU0M30.0h0a3X-o69ZpJoV-KdR3brs_6CGSdvluFWmYOTC8lEY' }}" \
+            -H "Authorization: Bearer ${{ secrets.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtcHRic2l1aXZ5eXNmZmNtdXlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc4Nzc1NDMsImV4cCI6MjEwMzQ1MzU0M30.0h0a3X-o69ZpJoV-KdR3brs_6CGSdvluFWmYOTC8lEY' }}" \
+            "https://hmptbsiuivyysffcmuys.supabase.co/rest/v1/site_content?select=id&limit=1")
+          
+          echo "Response HTTP Status: $HTTP_STATUS"
+          if [ "$HTTP_STATUS" -eq 200 ] || [ "$HTTP_STATUS" -eq 404 ] || [ "$HTTP_STATUS" -eq 401 ]; then
+            echo "Supabase project is active and ping successful!"
+          else
+            echo "Ping sent (Status: $HTTP_STATUS)"
+          fi

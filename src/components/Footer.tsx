@@ -1,14 +1,30 @@
 import React from 'react';
-import { MessageCircle, MapPin, Phone, PhoneCall } from 'lucide-react';
+import { MessageCircle, MapPin, Phone, PhoneCall, Shield } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
+import { useData } from '../context/DataContext';
 
 interface FooterProps {
   onNavigateSection: (sectionId: string) => void;
   lang: 'ID' | 'EN';
+  onAdminClick?: () => void;
 }
 
-export default function Footer({ onNavigateSection, lang }: FooterProps) {
+export default function Footer({ onNavigateSection, lang, onAdminClick }: FooterProps) {
   const t = TRANSLATIONS[lang];
+  const { getSiteValue } = useData();
+
+  const businessName = getSiteValue('business_name') || 'CV SRM MANDIRI';
+  const logoImage = getSiteValue('logo_image') || '/logo.png';
+  const description = getSiteValue('business_description') || t.hero_description;
+  const wa1 = getSiteValue('contact_wa1') || '085270607796';
+  const phone2 = getSiteValue('contact_phone2') || '081262320086';
+  const tiktok = getSiteValue('contact_tiktok') || '@hendry.manullang';
+  const address = getSiteValue('contact_address') || 'Simalingkar B, Medan, Sumatera Utara';
+
+  const waClean = wa1.replace(/\D/g, '');
+  const waUrlNumber = waClean.startsWith('0') ? `62${waClean.slice(1)}` : waClean;
+  const phoneClean = phone2.replace(/\D/g, '');
+  const tiktokClean = tiktok.startsWith('@') ? tiktok.slice(1) : tiktok;
 
   return (
     <footer id="contact" className="bg-[#050f20] text-white pt-16 pb-12 relative overflow-hidden text-left border-t border-slate-800/80">
@@ -23,7 +39,7 @@ export default function Footer({ onNavigateSection, lang }: FooterProps) {
         <div className="bg-gradient-to-r from-[#081836] via-[#0c2340] to-[#081836] rounded-3xl p-8 sm:p-10 border border-sky-900/40 shadow-xl mb-14 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
           <div className="md:col-span-8 text-left space-y-2">
             <span className="text-[10px] font-black uppercase tracking-widest text-sky-400 bg-sky-950/80 px-3.5 py-1 rounded-full border border-sky-800/50 inline-block">
-              CV SRM MANDIRI • MEDAN
+              {businessName} • MEDAN
             </span>
             <h3 className="font-display font-black text-2xl sm:text-3xl text-white uppercase tracking-tight">
               {t.footer_cta_heading}
@@ -34,21 +50,21 @@ export default function Footer({ onNavigateSection, lang }: FooterProps) {
           </div>
           <div className="md:col-span-4 flex flex-col sm:flex-row md:flex-col lg:flex-row gap-2.5 justify-start md:justify-end">
             <a
-              href="https://api.whatsapp.com/send?phone=6285270607796&text=Halo%20CV%20SRM%20MANDIRI,%20saya%20ingin%20booking%20jasa%20transportasi%20rental%20mobil%20PP"
+              href={`https://api.whatsapp.com/send?phone=${waUrlNumber}&text=Halo%20${encodeURIComponent(businessName)},%20saya%20ingin%20booking%20jasa%20transportasi%20rental%20mobil%20PP`}
               target="_blank"
               rel="noreferrer"
               className="bg-emerald-600 hover:bg-emerald-500 text-white font-sans font-extrabold text-xs uppercase px-5 py-3.5 rounded-2xl shadow-lg hover:shadow-emerald-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer transform hover:scale-105"
             >
               <MessageCircle className="w-4 h-4 fill-current" />
-              <span>WA 1: 0852-7060-7796</span>
+              <span>WA 1: {wa1}</span>
             </a>
 
             <a
-              href="tel:081262320086"
+              href={`tel:${phoneClean}`}
               className="bg-sky-600 hover:bg-sky-500 text-white font-sans font-extrabold text-xs uppercase px-5 py-3.5 rounded-2xl shadow-lg hover:shadow-sky-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer transform hover:scale-105"
             >
               <PhoneCall className="w-4 h-4" />
-              <span>Telp 2: 0812-6232-0086</span>
+              <span>Telp 2: {phone2}</span>
             </a>
           </div>
         </div>
@@ -61,14 +77,17 @@ export default function Footer({ onNavigateSection, lang }: FooterProps) {
             <div className="flex items-center gap-3">
               <div className="bg-white p-1.5 rounded-2xl shadow-md shrink-0 flex items-center justify-center">
                 <img
-                  src="/logo.png"
-                  alt="CV SRM MANDIRI Logo"
+                  src={logoImage}
+                  alt={`${businessName} Logo`}
                   className="h-11 sm:h-12 w-auto object-contain"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = '/logo.png';
+                  }}
                 />
               </div>
               <div>
                 <span className="font-display font-black text-lg sm:text-xl tracking-tight text-white uppercase block">
-                  CV SRM <span className="text-sky-400">MANDIRI</span>
+                  {businessName}
                 </span>
                 <span className="font-sans text-[10px] font-bold text-slate-400 tracking-wider block uppercase">
                   Melayani Jasa Transportasi
@@ -77,7 +96,7 @@ export default function Footer({ onNavigateSection, lang }: FooterProps) {
             </div>
 
             <p className="font-sans text-xs text-slate-400 leading-relaxed max-w-md font-medium">
-              {t.hero_description}
+              {description}
             </p>
 
             <div className="p-3.5 rounded-2xl bg-[#081836] border border-sky-950/60 space-y-1.5">
@@ -106,7 +125,7 @@ export default function Footer({ onNavigateSection, lang }: FooterProps) {
                 <div>
                   <span className="font-bold text-white block">{t.footer_address_title}</span>
                   <span className="text-slate-300 leading-relaxed block">
-                    Simalingkar B, Medan, Sumatera Utara
+                    {address}
                   </span>
                 </div>
               </div>
@@ -118,20 +137,20 @@ export default function Footer({ onNavigateSection, lang }: FooterProps) {
                   <span className="font-bold text-white block">Kontak Resmi:</span>
                   <div className="space-y-1 pt-0.5">
                     <a
-                      href="https://api.whatsapp.com/send?phone=6285270607796"
+                      href={`https://api.whatsapp.com/send?phone=${waUrlNumber}`}
                       target="_blank"
                       rel="noreferrer"
                       className="text-emerald-400 hover:underline font-bold flex items-center gap-1.5"
                     >
                       <MessageCircle className="w-3.5 h-3.5 fill-current" />
-                      <span>0852-7060-7796 (Admin 1 - WA)</span>
+                      <span>{wa1} (Admin 1 - WA)</span>
                     </a>
                     <a
-                      href="tel:081262320086"
+                      href={`tel:${phoneClean}`}
                       className="text-sky-300 hover:underline font-bold flex items-center gap-1.5"
                     >
                       <PhoneCall className="w-3.5 h-3.5" />
-                      <span>0812-6232-0086 (Admin 2 - Telp Biasa)</span>
+                      <span>{phone2} (Admin 2 - Telp Biasa)</span>
                     </a>
                   </div>
                 </div>
@@ -143,12 +162,12 @@ export default function Footer({ onNavigateSection, lang }: FooterProps) {
                 <div>
                   <span className="font-bold text-white block">{t.footer_tiktok_title}</span>
                   <a
-                    href="https://www.tiktok.com/@hendry.manullang"
+                    href={`https://www.tiktok.com/@${tiktokClean}`}
                     target="_blank"
                     rel="noreferrer"
                     className="text-rose-300 hover:underline font-bold block pt-0.5"
                   >
-                    @hendry.manullang
+                    @{tiktokClean}
                   </a>
                 </div>
               </div>
@@ -207,6 +226,15 @@ export default function Footer({ onNavigateSection, lang }: FooterProps) {
                   <span>{t.nav_contact}</span>
                 </button>
               </li>
+              <li className="pt-2 border-t border-slate-800">
+                <button
+                  onClick={onAdminClick}
+                  className="text-sky-400 hover:text-white transition-colors cursor-pointer flex items-center gap-1.5 text-[11px]"
+                >
+                  <Shield className="w-3.5 h-3.5" />
+                  <span>Portal Admin (Login)</span>
+                </button>
+              </li>
             </ul>
           </div>
 
@@ -214,12 +242,12 @@ export default function Footer({ onNavigateSection, lang }: FooterProps) {
 
         {/* Bottom Copyright & Disclaimer */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-medium">
-          <p>© {new Date().getFullYear()} CV SRM MANDIRI. {t.footer_rights}</p>
+          <p>© {new Date().getFullYear()} {businessName}. {t.footer_rights}</p>
           <div className="flex items-center gap-3 text-[11px]">
-            <span>📍 Simalingkar B, Medan</span>
+            <span>📍 {address}</span>
             <span>•</span>
-            <a href="https://www.tiktok.com/@hendry.manullang" target="_blank" rel="noreferrer" className="text-rose-400 hover:underline">
-              TikTok: @hendry.manullang
+            <a href={`https://www.tiktok.com/@${tiktokClean}`} target="_blank" rel="noreferrer" className="text-rose-400 hover:underline">
+              TikTok: @{tiktokClean}
             </a>
           </div>
         </div>

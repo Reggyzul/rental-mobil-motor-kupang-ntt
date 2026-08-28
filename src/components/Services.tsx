@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { 
   Car, 
-  MapPin, 
   CheckCircle2, 
   MessageCircle, 
   Sparkles, 
@@ -14,8 +13,8 @@ import {
   Users,
   Camera
 } from 'lucide-react';
-import { TOUR_PACKAGES } from '../data/packages';
 import { TRANSLATIONS } from '../utils/translations';
+import { useData } from '../context/DataContext';
 
 interface ServicesProps {
   lang: 'ID' | 'EN';
@@ -25,6 +24,11 @@ interface ServicesProps {
 export default function Services({ lang }: ServicesProps) {
   const t = TRANSLATIONS[lang];
   const isEN = lang === 'EN';
+  const { routes, tours, getSiteValue } = useData();
+
+  const wa1 = getSiteValue('contact_wa1') || '085270607796';
+  const waClean = wa1.replace(/\D/g, '');
+  const waUrlNumber = waClean.startsWith('0') ? `62${waClean.slice(1)}` : waClean;
 
   const servicesList = [
     {
@@ -65,18 +69,6 @@ export default function Services({ lang }: ServicesProps) {
     }
   ];
 
-  // Specific routes requested by user, all configured as Pulang-Pergi (PP)
-  const routesList = [
-    { from: 'Medan', to: 'Dumai', title: 'Medan - Dumai (PP)', city: 'Dumai', region: 'Riau', note: 'Pelabuhan & Kawasan Industri' },
-    { from: 'Medan', to: 'Duri', title: 'Medan - Duri (PP)', city: 'Duri', region: 'Riau', note: 'Kawasan Migas & Perdagangan' },
-    { from: 'Medan', to: 'Kandis', title: 'Medan - Kandis (PP)', city: 'Kandis', region: 'Riau', note: 'Jalur Lintas Strategis' },
-    { from: 'Medan', to: 'Garut', title: 'Medan - Garut (PP)', city: 'Garut', region: 'Jawa Barat', note: 'Layanan Antar Pulau / Khusus' },
-    { from: 'Medan', to: 'Pekanbaru', title: 'Medan - Pekanbaru (PP)', city: 'Pekanbaru', region: 'Riau', note: 'Ibukota Provinsi Riau' },
-    { from: 'Medan', to: 'Kerinci', title: 'Medan - Kerinci (PP)', city: 'Kerinci', region: 'Jambi', note: 'Wisata Alam & Pegunungan Kerinci' },
-    { from: 'Medan', to: 'Jambi', title: 'Medan - Jambi (PP)', city: 'Jambi', region: 'Jambi', note: 'Pusat Kota & Kawasan Bisnis Jambi' },
-    { from: 'Medan', to: 'Medan & Sekitarnya', title: 'Medan & Sekitarnya (PP)', city: 'Medan', region: 'Sumatera Utara', note: 'City Tour, Operasional & Bandara KNO' }
-  ];
-
   const whyChooseUs = [
     {
       title: t.why_1_title,
@@ -106,27 +98,24 @@ export default function Services({ lang }: ServicesProps) {
   ];
 
   const handleConsultService = (serviceTitle: string) => {
-    const waNumber = '6285270607796';
     const message = isEN
       ? `Hello CV SRM MANDIRI, I would like to inquire about the service: ${serviceTitle}. Please inform price quotation, schedule, and unit availability. Thank you!`
       : `Halo CV SRM MANDIRI, saya ingin konsultasi mengenai layanan: ${serviceTitle}. Mohon informasi jadwal, penawaran harga & ketersediaan armada. Alamat penjemputan: Simalingkar B / Medan. Terima kasih!`;
-    window.open(`https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(message)}`, '_blank', 'noreferrer');
+    window.open(`https://api.whatsapp.com/send?phone=${waUrlNumber}&text=${encodeURIComponent(message)}`, '_blank', 'noreferrer');
   };
 
   const handleConsultRoute = (routeTitle: string) => {
-    const waNumber = '6285270607796';
     const message = isEN
       ? `Hello CV SRM MANDIRI, I would like to book a round-trip (PP) travel/charter for the route: ${routeTitle}. Please provide rates and schedule details. Thank you!`
       : `Halo CV SRM MANDIRI, saya ingin pesan travel / carter mobil Pulang-Pergi (PP) untuk rute: ${routeTitle}. Mohon info harga sewa dan ketersediaan armada. Terima kasih!`;
-    window.open(`https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(message)}`, '_blank', 'noreferrer');
+    window.open(`https://api.whatsapp.com/send?phone=${waUrlNumber}&text=${encodeURIComponent(message)}`, '_blank', 'noreferrer');
   };
 
   const handleConsultTour = (tourTitle: string) => {
-    const waNumber = '6285270607796';
     const message = isEN
       ? `Hello CV SRM MANDIRI, I am interested in the round-trip tour (PP): ${tourTitle}. Please share the itinerary and price details. Thank you!`
       : `Halo CV SRM MANDIRI, saya berminat dengan wisata Pulang-Pergi (PP): ${tourTitle}. Mohon informasi jadwal tour, rincian biaya dan fasilitas armada. Terima kasih!`;
-    window.open(`https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(message)}`, '_blank', 'noreferrer');
+    window.open(`https://api.whatsapp.com/send?phone=${waUrlNumber}&text=${encodeURIComponent(message)}`, '_blank', 'noreferrer');
   };
 
   return (
@@ -217,9 +206,9 @@ export default function Services({ lang }: ServicesProps) {
 
           {/* Routes Cards Grid (All PP) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {routesList.map((route, idx) => (
+            {routes.map((route, idx) => (
               <motion.div
-                key={idx}
+                key={route.id || idx}
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
@@ -281,7 +270,7 @@ export default function Services({ lang }: ServicesProps) {
 
           {/* Tour Packages Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-            {TOUR_PACKAGES.slice(0, 3).map((pkg) => (
+            {tours.map((pkg) => (
               <motion.div
                 key={pkg.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -295,6 +284,9 @@ export default function Services({ lang }: ServicesProps) {
                       src={pkg.image}
                       alt={pkg.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = 'https://placehold.co/400x250/e2e8f0/94a3b8?text=Destinasi+Wisata';
+                      }}
                     />
                     <div className="absolute top-3 left-3 bg-[#081836]/90 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider">
                       {pkg.badge}

@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { ChevronRight, MessageCircle, Car, MapPin, CheckCircle2, Sparkles, PhoneCall } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
+import { useData } from '../context/DataContext';
 
 interface HeroProps {
   onExploreClick: () => void;
@@ -12,6 +13,22 @@ interface HeroProps {
 export default function Hero({ onExploreClick, lang, onBookingClick }: HeroProps) {
   const t = TRANSLATIONS[lang];
   const isEN = lang === 'EN';
+  const { getSiteValue } = useData();
+
+  const businessName = getSiteValue('business_name') || 'CV SRM MANDIRI';
+  const heroImage = getSiteValue('hero_image') || '/hero_sumut.jpg';
+  const tagline = getSiteValue('business_tagline') || 'Melayani Perjalanan Anda Sepenuh Hati';
+  const description = getSiteValue('business_description') || t.hero_description;
+  const wa1 = getSiteValue('contact_wa1') || '085270607796';
+  const phone2 = getSiteValue('contact_phone2') || '081262320086';
+  const tiktok = getSiteValue('contact_tiktok') || '@hendry.manullang';
+  const address = getSiteValue('contact_address') || 'Simalingkar B, Medan • Sumatera Utara';
+
+  const waClean = wa1.replace(/\D/g, '');
+  const waUrlNumber = waClean.startsWith('0') ? `62${waClean.slice(1)}` : waClean;
+
+  const phoneClean = phone2.replace(/\D/g, '');
+  const tiktokClean = tiktok.startsWith('@') ? tiktok.slice(1) : tiktok;
 
   return (
     <section id="home" className="relative bg-[#061226] text-slate-900 overflow-hidden text-left">
@@ -19,11 +36,11 @@ export default function Hero({ onExploreClick, lang, onBookingClick }: HeroProps
       {/* 1. PANORAMIC HERO PHOTO BANNER */}
       <div className="relative w-full h-[520px] sm:h-[580px] md:h-[640px] pt-24 sm:pt-28 bg-[#061226] text-white overflow-hidden flex flex-col justify-between">
         
-        {/* Background Danau Toba / North Sumatra Generated Scenic Photo */}
+        {/* Background Dynamic Generated / Uploaded Scenic Photo */}
         <div 
           className="absolute inset-0 bg-cover bg-center transform scale-100 transition-transform duration-1000"
           style={{
-            backgroundImage: `url('/hero_sumut.jpg')`
+            backgroundImage: `url('${heroImage}')`
           }}
         />
 
@@ -34,16 +51,16 @@ export default function Hero({ onExploreClick, lang, onBookingClick }: HeroProps
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 w-full flex flex-wrap items-center justify-between gap-2">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/60 border border-white/20 text-white text-xs font-semibold backdrop-blur-md shadow-xs">
             <MapPin className="w-3.5 h-3.5 text-sky-400" />
-            <span>Simalingkar B, Medan • Sumatera Utara</span>
+            <span>{address}</span>
           </div>
 
           <a
-            href="https://www.tiktok.com/@hendry.manullang"
+            href={`https://www.tiktok.com/@${tiktokClean}`}
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/60 hover:bg-black/80 border border-white/20 text-rose-300 hover:text-white text-xs font-semibold backdrop-blur-md shadow-xs transition-colors"
           >
-            <span>🎵 TikTok: <b>@hendry.manullang</b></span>
+            <span>🎵 TikTok: <b>@{tiktokClean}</b></span>
           </a>
         </div>
 
@@ -64,36 +81,30 @@ export default function Hero({ onExploreClick, lang, onBookingClick }: HeroProps
             
             {/* Breadcrumb Navigation Line */}
             <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-widest">
-              <span className="text-sky-600 font-black">CV SRM MANDIRI</span>
+              <span className="text-sky-600 font-black">{businessName}</span>
               <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
               <span className="text-slate-600">
                 {isEN ? 'Transportation & Car Rental' : 'Jasa Transportasi & Rental Mobil'}
               </span>
               <ChevronRight className="w-3.5 h-3.5 text-slate-400 hidden sm:inline" />
-              <span className="text-slate-400 hidden sm:inline">Simalingkar B, Medan</span>
+              <span className="text-slate-400 hidden sm:inline">{address}</span>
             </div>
 
             {/* Main Headline as requested */}
             <div className="space-y-2">
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-bold uppercase tracking-wider border border-sky-100">
                 <Sparkles className="w-3.5 h-3.5 text-sky-600" />
-                <span>CV SRM MANDIRI</span>
+                <span>{businessName}</span>
               </span>
 
               <h1 className="font-display font-black text-2xl sm:text-4xl md:text-[42px] text-[#081836] tracking-tight leading-snug sm:leading-tight">
-                {isEN ? (
-                  <>Serving Your Journey <span className="text-sky-600">With All Our Heart</span></>
-                ) : (
-                  <>Melayani Perjalanan Anda <span className="text-sky-600">Sepenuh Hati</span></>
-                )}
+                {tagline}
               </h1>
             </div>
 
             {/* Subtext */}
             <p className="font-sans text-xs sm:text-sm md:text-[15px] text-slate-600 font-medium max-w-3xl mx-auto leading-relaxed text-center">
-              {isEN
-                ? "CV SRM MANDIRI provides quality transportation services with dependable fleets: Innova, Avanza, Sigra, and Calya. Serving round-trip (PP) travel routes (Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi) and popular vacation tours to Berastagi, Parapat, and Samosir Island (PP)."
-                : "CV SRM MANDIRI melayani jasa transportasi profesional dengan pilihan armada terawat: Innova, Avanza, Sigra, dan Calya. Melayani carter travel Pulang-Pergi (PP) rute Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi, serta wisata Berastagi, Parapat, dan Pulau Samosir (PP)."}
+              {description}
             </p>
 
             {/* Value Badges */}
@@ -142,20 +153,20 @@ export default function Hero({ onExploreClick, lang, onBookingClick }: HeroProps
               <div className="flex flex-wrap items-center justify-center gap-3 pt-2 text-xs font-bold text-slate-600">
                 <span>Hubungi Kami:</span>
                 <a
-                  href="https://api.whatsapp.com/send?phone=6285270607796&text=Halo%20CV%20SRM%20MANDIRI,%20saya%20ingin%20booking%20jasa%20transportasi%20rental%20mobil%20PP"
+                  href={`https://api.whatsapp.com/send?phone=${waUrlNumber}&text=Halo%20${encodeURIComponent(businessName)},%20saya%20ingin%20booking%20jasa%20transportasi%20rental%20mobil%20PP`}
                   target="_blank"
                   rel="noreferrer"
                   className="text-emerald-700 hover:underline flex items-center gap-1.5 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200 shadow-2xs transition-all hover:bg-emerald-100"
                 >
                   <MessageCircle className="w-3.5 h-3.5 text-emerald-600 fill-current" />
-                  <span>WA Admin 1: 0852-7060-7796</span>
+                  <span>WA Admin 1: {wa1}</span>
                 </a>
                 <a
-                  href="tel:081262320086"
+                  href={`tel:${phoneClean}`}
                   className="text-sky-700 hover:underline flex items-center gap-1.5 bg-sky-50 px-3 py-1.5 rounded-xl border border-sky-200 shadow-2xs transition-all hover:bg-sky-100"
                 >
                   <PhoneCall className="w-3.5 h-3.5 text-sky-600" />
-                  <span>Telp Admin 2: 0812-6232-0086</span>
+                  <span>Telp Admin 2: {phone2}</span>
                 </a>
               </div>
             </div>
