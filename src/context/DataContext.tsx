@@ -131,16 +131,16 @@ function mapToursFromDB(dbTours: TourRow[]): TourRow[] {
 export function DataProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
-  const [siteContent, setSiteContent] = useState<Record<string, string>>({});
-  const [cars, setCars] = useState<CarRow[]>([]);
-  const [routes, setRoutes] = useState<RouteRow[]>([]);
-  const [tours, setTours] = useState<TourRow[]>([]);
-  const [testimonials, setTestimonials] = useState<TestimonialRow[]>([]);
+  const [siteContent, setSiteContent] = useState<Record<string, string>>(FALLBACK_SITE_CONTENT);
+  const [cars, setCars] = useState<CarRow[]>(FALLBACK_CARS);
+  const [routes, setRoutes] = useState<RouteRow[]>(FALLBACK_ROUTES);
+  const [tours, setTours] = useState<TourRow[]>(FALLBACK_TOURS);
+  const [testimonials, setTestimonials] = useState<TestimonialRow[]>(FALLBACK_TESTIMONIALS);
   const [lastPing, setLastPing] = useState<string | null>(null);
 
   const fetchAllData = useCallback(async () => {
     try {
-      const [contentRes, carsRes, routesRes, toursRes, testiRes] = await Promise.all([
+      const fetchPromise = Promise.all([
         supabase.from('site_content').select('*').order('sort_order'),
         supabase.from('cars').select('*').eq('is_active', true).order('sort_order'),
         supabase.from('routes').select('*').eq('is_active', true).order('sort_order'),
@@ -148,16 +148,23 @@ export function DataProvider({ children }: { children: ReactNode }) {
         supabase.from('testimonials').select('*').eq('is_active', true).order('sort_order'),
       ]);
 
+      const timeoutPromise = new Promise<{ timeout: true }>((resolve) =>
+        setTimeout(() => resolve({ timeout: true }), 2500)
+      );
+
+      const result = await Promise.race([fetchPromise, timeoutPromise]);
+
+      if ('timeout' in result) {
+        // Timed out: gracefully continue with fallback
+        setIsConnected(false);
+        return false;
+      }
+
+      const [contentRes, carsRes, routesRes, toursRes, testiRes] = result;
       const hasError = contentRes.error || carsRes.error || routesRes.error || toursRes.error || testiRes.error;
 
       if (hasError) {
         setIsConnected(false);
-        // Fallback only when Supabase table/connection is not ready
-        setSiteContent(FALLBACK_SITE_CONTENT);
-        setCars(FALLBACK_CARS);
-        setRoutes(FALLBACK_ROUTES);
-        setTours(FALLBACK_TOURS);
-        setTestimonials(FALLBACK_TESTIMONIALS);
         return false;
       }
 

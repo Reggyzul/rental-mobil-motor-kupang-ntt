@@ -1,7 +1,10 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
+const defaultUrl = 'https://hmptbsiuivyysffcmuys.supabase.co';
+const defaultAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtcHRic2l1aXZ5eXNmZmNtdXlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc4Nzc1NDMsImV4cCI6MjEwMzQ1MzU0M30.0h0a3X-o69ZpJoV-KdR3brs_6CGSdvluFWmYOTC8lEY';
+
+const supabaseUrl = (import.meta.env.VITE_SUPABASE_URL as string) || defaultUrl;
+const supabaseAnonKey = (import.meta.env.VITE_SUPABASE_ANON_KEY as string) || defaultAnonKey;
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
@@ -82,20 +85,25 @@ export type TestimonialRow = {
 
 // Upload image to Supabase Storage
 export async function uploadImage(file: File, folder = 'general'): Promise<string | null> {
-  const fileExt = file.name.split('.').pop();
-  const fileName = `${folder}/${Date.now()}_${Math.random().toString(36).slice(2)}.${fileExt}`;
-  
-  const { data, error } = await supabase.storage
-    .from('srm-images')
-    .upload(fileName, file, { upsert: true, cacheControl: '3600' });
-  
-  if (error) {
-    console.error('Upload error:', error);
+  try {
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${folder}/${Date.now()}_${Math.random().toString(36).slice(2)}.${fileExt}`;
+    
+    const { data, error } = await supabase.storage
+      .from('srm-images')
+      .upload(fileName, file, { upsert: true, cacheControl: '3600' });
+    
+    if (error) {
+      console.error('Upload error:', error);
+      return null;
+    }
+    
+    const { data: publicData } = supabase.storage.from('srm-images').getPublicUrl(data.path);
+    return publicData.publicUrl;
+  } catch (err) {
+    console.error('Exception during upload:', err);
     return null;
   }
-  
-  const { data: publicData } = supabase.storage.from('srm-images').getPublicUrl(data.path);
-  return publicData.publicUrl;
 }
 
 // Keep-alive ping
