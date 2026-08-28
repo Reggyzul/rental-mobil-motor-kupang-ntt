@@ -2,13 +2,194 @@ import React, { useState, useRef, useCallback } from 'react';
 import {
   LayoutDashboard, Building2, Image, Car, MapPin, Palmtree, Star,
   LogOut, ChevronRight, Save, Plus, Trash2, Upload, X, Check,
-  Wifi, WifiOff, RefreshCw, Menu, Home, Eye, AlertCircle
+  Wifi, WifiOff, RefreshCw, Menu, Home, Eye, AlertCircle, Copy, ExternalLink
 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useData } from '../../context/DataContext';
 import type { CarRow, RouteRow, TourRow, TestimonialRow } from '../../lib/supabase';
 
 type Section = 'overview' | 'business' | 'hero' | 'cars' | 'routes' | 'tours' | 'testimonials' | 'setup';
+
+const FULL_SCHEMA_SQL = `-- ============================================================
+-- CV SRM MANDIRI - SUPABASE DATABASE SCHEMA
+-- ============================================================
+
+-- 1. SITE CONTENT
+CREATE TABLE IF NOT EXISTS site_content (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  key TEXT UNIQUE NOT NULL,
+  value TEXT,
+  value_type TEXT DEFAULT 'text',
+  label TEXT,
+  section TEXT,
+  sort_order INT DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 2. CARS
+CREATE TABLE IF NOT EXISTS cars (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  category TEXT,
+  price_per_day INT DEFAULT 0,
+  price_display TEXT,
+  image TEXT,
+  seats INT DEFAULT 7,
+  transmission TEXT DEFAULT 'Manual / Matic',
+  fuel TEXT DEFAULT 'Bensin',
+  include_list JSONB DEFAULT '[]',
+  description TEXT,
+  rating NUMERIC(3,1) DEFAULT 5.0,
+  reviews_count INT DEFAULT 0,
+  specifications JSONB DEFAULT '[]',
+  sort_order INT DEFAULT 0,
+  is_active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 3. ROUTES
+CREATE TABLE IF NOT EXISTS routes (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  title TEXT NOT NULL,
+  from_city TEXT DEFAULT 'Medan',
+  to_city TEXT NOT NULL,
+  region TEXT,
+  note TEXT,
+  sort_order INT DEFAULT 0,
+  is_active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 4. TOURS
+CREATE TABLE IF NOT EXISTS tours (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  location TEXT,
+  duration TEXT,
+  image TEXT,
+  badge TEXT,
+  route_display TEXT,
+  highlights JSONB DEFAULT '[]',
+  includes_list JSONB DEFAULT '[]',
+  excludes_list JSONB DEFAULT '[]',
+  sort_order INT DEFAULT 0,
+  is_active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 5. TESTIMONIALS
+CREATE TABLE IF NOT EXISTS testimonials (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  name TEXT NOT NULL,
+  role_id TEXT,
+  role_en TEXT,
+  text_id TEXT,
+  text_en TEXT,
+  rating INT DEFAULT 5,
+  image TEXT,
+  car_model TEXT,
+  date_label TEXT,
+  sort_order INT DEFAULT 0,
+  is_active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- RLS
+ALTER TABLE site_content ENABLE ROW LEVEL SECURITY;
+ALTER TABLE cars ENABLE ROW LEVEL SECURITY;
+ALTER TABLE routes ENABLE ROW LEVEL SECURITY;
+ALTER TABLE tours ENABLE ROW LEVEL SECURITY;
+ALTER TABLE testimonials ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Public read site_content" ON site_content FOR SELECT TO anon USING (true);
+CREATE POLICY "Public read cars" ON cars FOR SELECT TO anon USING (true);
+CREATE POLICY "Public read routes" ON routes FOR SELECT TO anon USING (true);
+CREATE POLICY "Public read tours" ON tours FOR SELECT TO anon USING (true);
+CREATE POLICY "Public read testimonials" ON testimonials FOR SELECT TO anon USING (true);
+
+CREATE POLICY "Auth full access site_content" ON site_content FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Auth full access cars" ON cars FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Auth full access routes" ON routes FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Auth full access tours" ON tours FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Auth full access testimonials" ON testimonials FOR ALL TO authenticated USING (true) WITH CHECK (true);
+
+-- STORAGE BUCKET
+INSERT INTO storage.buckets (id, name, public) VALUES ('srm-images', 'srm-images', true)
+ON CONFLICT (id) DO NOTHING;
+
+CREATE POLICY "Public read srm-images" ON storage.objects FOR SELECT TO anon USING (bucket_id = 'srm-images');
+CREATE POLICY "Auth upload srm-images" ON storage.objects FOR INSERT TO authenticated WITH CHECK (bucket_id = 'srm-images');
+CREATE POLICY "Auth update srm-images" ON storage.objects FOR UPDATE TO authenticated USING (bucket_id = 'srm-images');
+CREATE POLICY "Auth delete srm-images" ON storage.objects FOR DELETE TO authenticated USING (bucket_id = 'srm-images');
+
+-- SEED DATA
+INSERT INTO site_content (key, value, value_type, label, section, sort_order) VALUES
+('business_name', 'CV SRM MANDIRI', 'text', 'Nama Bisnis', 'business', 1),
+('business_tagline', 'Melayani Perjalanan Anda Sepenuh Hati', 'text', 'Tagline Hero', 'hero', 2),
+('business_description', 'CV SRM MANDIRI melayani jasa transportasi profesional dengan armada pilihan: Innova, Avanza, Sigra, dan Calya. Melayani rute Pulang-Pergi (PP) Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi, serta wisata favorit Berastagi, Parapat, dan Pulau Samosir (PP).', 'text', 'Deskripsi Bisnis', 'business', 3),
+('hero_image', '/hero_sumut.jpg', 'image_url', 'Foto Background Hero', 'hero', 4),
+('logo_image', '/logo.png', 'image_url', 'Logo Perusahaan', 'business', 5),
+('contact_wa1', '085270607796', 'text', 'WhatsApp Admin 1 (Tanpa Kode Negara)', 'contact', 6),
+('contact_phone2', '081262320086', 'text', 'Telepon Admin 2', 'contact', 7),
+('contact_tiktok', '@hendry.manullang', 'text', 'Akun TikTok', 'contact', 8),
+('contact_address', 'Simalingkar B, Medan, Sumatera Utara', 'text', 'Alamat Kantor', 'contact', 9),
+('seo_title', 'CV SRM MANDIRI | Jasa Transportasi & Rental Mobil Medan - Sumatera', 'text', 'Judul SEO (Tab Browser)', 'seo', 10),
+('seo_description', 'CV SRM MANDIRI melayani jasa transportasi terpercaya, rental mobil PP antar kota Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi & wisata Berastagi, Parapat, Pulau Samosir.', 'text', 'Meta Deskripsi SEO', 'seo', 11)
+ON CONFLICT (key) DO NOTHING;
+
+INSERT INTO cars (id, name, category, price_per_day, price_display, image, seats, transmission, fuel, include_list, description, rating, reviews_count, specifications, sort_order) VALUES
+('toyota-innova', 'Toyota Innova', 'MPV Premium & Tangguh', 700000, 'Rp700.000', '/innova_reborn.avif', 7, 'Matic / Manual', 'Diesel / Bensin',
+  '["Kabin Luas, Senyap & Sangat Nyaman","Suspensi Lembut & Performa Mesin Handal","Sangat Nyaman untuk Rute Jauh & Antar Kota","AC Double Blower Dingin Merata","Unit Selalu Bersih, Harum & Terawat"]',
+  'Pilihan MPV premium andalan dengan kenyamanan kabin superior, suspensi empuk, dan mesin tangguh untuk rute antar kota (Medan, Dumai, Duri, Pekanbaru, Kerinci, Jambi) maupun wisata Berastagi dan Danau Toba.',
+  5.0, 245, '[{"label":"Kapasitas","value":"7 Penumpang"},{"label":"Transmisi","value":"Matic / Manual"},{"label":"Kenyamanan","value":"Kabin Luas & Suspensi Lembut"},{"label":"Rute Layanan","value":"Medan, Riau, Jambi & Wisata Sumut"}]', 1),
+('toyota-avanza', 'Toyota Avanza', 'Mobil Keluarga Favorit', 500000, 'Rp500.000', '/avanza.avif', 7, 'Manual / Matic', 'Bensin (Irit)',
+  '["Mobil Keluarga Praktis, Nyaman & Luas","AC Dingin Double Blower","Hemat Konsumsi Bahan Bakar","Lincah dan Tangguh di Berbagai Medan Jalan","Cocok untuk Liburan Keluarga & Dinas Kantor"]',
+  'Mobil keluarga terfavorit yang praktis, ekonomis, dan handal. Sangat cocok untuk perjalanan keliling kota Medan, kunjungan wisata ke Berastagi dan Parapat, maupun perjalanan dinas antar kota.',
+  4.9, 310, '[{"label":"Kapasitas","value":"7 Penumpang"},{"label":"Transmisi","value":"Manual / Matic"},{"label":"Karakter","value":"Irit, Praktis & Handal"},{"label":"Rute Layanan","value":"Medan, Riau, Jambi & Sekitarnya"}]', 2),
+('daihatsu-sigra', 'Daihatsu Sigra', 'Mobil Keluarga Ekonomis', 400000, 'Rp400.000', '/sigra_new.png', 7, 'Manual / Matic', 'Bensin (Super Irit)',
+  '["Kapasitas 7 Kursi dengan Desain Kompak","Konsumsi BBM Sangat Efisien & Hemat","Tarif Rental Sangat Bersahabat","AC Dingin & Nyaman untuk Perjalanan","Unit Prima & Siap Jalan Jarak Jauh"]',
+  'Pilihan mobil 7 penumpang yang sangat efisien dan ekonomis. Cocok untuk kebutuhan perjalanan hemat, antar jemput stasiun/bandara, keliling kota Medan, hingga carter luar kota.',
+  4.8, 185, '[{"label":"Kapasitas","value":"7 Penumpang"},{"label":"Transmisi","value":"Manual / Matic"},{"label":"Kelebihan","value":"Super Irit & Tarif Terjangkau"},{"label":"Rute Layanan","value":"Medan & Rute Antar Kota"}]', 3),
+('toyota-calya', 'Toyota Calya', 'MPV Kompak & Efisien', 400000, 'Rp400.000', '/calya_new.png', 7, 'Manual / Matic', 'Bensin (Super Irit)',
+  '["Mobil 7 Penumpang Nyaman & Modern","Sangat Irit Konsumsi Bahan Bakar","Lincah bermanuver di perkotaan & jalan lintas","Kondisi Bersih, Wangi & Mesin Prima","Harga Sewa Terjangkau & Bersahabat"]',
+  'Kendaraan MPV kompak 7 tempat duduk dengan efisiensi bahan bakar terbaik dan kenyamanan optimal untuk perjalanan keluarga, tugas operasional, maupun carter perjalanan di Sumatera.',
+  4.9, 205, '[{"label":"Kapasitas","value":"7 Penumpang"},{"label":"Transmisi","value":"Manual / Matic"},{"label":"Efisiensi","value":"Hemat BBM & Performa Andal"},{"label":"Rute Layanan","value":"Medan, Riau, Jambi & Sekitarnya"}]', 4)
+ON CONFLICT (id) DO NOTHING;
+
+INSERT INTO routes (title, from_city, to_city, region, note, sort_order) VALUES
+('Medan - Dumai (PP)', 'Medan', 'Dumai', 'Riau', 'Pelabuhan & Kawasan Industri', 1),
+('Medan - Duri (PP)', 'Medan', 'Duri', 'Riau', 'Kawasan Migas & Perdagangan', 2),
+('Medan - Kandis (PP)', 'Medan', 'Kandis', 'Riau', 'Jalur Lintas Strategis', 3),
+('Medan - Garut (PP)', 'Medan', 'Garut', 'Jawa Barat', 'Layanan Antar Pulau / Khusus', 4),
+('Medan - Pekanbaru (PP)', 'Medan', 'Pekanbaru', 'Riau', 'Ibukota Provinsi Riau', 5),
+('Medan - Kerinci (PP)', 'Medan', 'Kerinci', 'Jambi', 'Wisata Alam & Pegunungan Kerinci', 6),
+('Medan - Jambi (PP)', 'Medan', 'Jambi', 'Jambi', 'Pusat Kota & Kawasan Bisnis Jambi', 7),
+('Medan & Sekitarnya (PP)', 'Medan', 'Medan', 'Sumatera Utara', 'City Tour, Operasional & Bandara KNO', 8);
+
+INSERT INTO tours (id, title, location, duration, image, badge, route_display, highlights, includes_list, excludes_list, sort_order) VALUES
+('tour-berastagi', 'Berastagi', 'Kabupaten Karo, Sumatera Utara (PP)', 'Full Day / 2D1N (PP)', '/tour_berastagi.jpg', 'Wisata Alam & Pegunungan (PP)', 'Medan - Berastagi - Bukit Gundaling - Sipiso-piso (PP)',
+  '["Panorama memukau Gunung Sibayak & Gunung Sinabung dari Bukit Gundaling","Belanja buah segar, stroberi, dan sayuran di Pasar Buah Berastagi","Kemegahan Pagoda Emas Taman Alam Lumbini terbesar di Indonesia","Pemandangan spektakuler Air Terjun Sipiso-piso di bibir Danau Toba"]',
+  '["Mobil AC Terawat Pulang Pergi (Innova / Avanza / Sigra / Calya)","Sopir Berpengalaman & Ramah","Bahan Bakar Minyak (BBM) PP","Penjemputan & Pengantaran Kembali ke Medan / Simalingkar B"]',
+  '["Tiket Masuk Wahana Tambahan & Pengeluaran Pribadi"]', 1),
+('tour-parapat', 'Parapat', 'Danau Toba, Simalungun, Sumatera Utara (PP)', 'Full Day / 2D1N (PP)', '/tour_parapat.jpg', 'Ikon Danau Toba (PP)', 'Medan - Siantar - Parapat Danau Toba (PP)',
+  '["Menikmati keagungan pemandangan danau vulkanik terbesar di dunia","Santai sore di Pantai Bebas Parapat dengan panorama perbukitan hijau","Singgah mencicipi kuliner khas Roti Ganda & Selai di Pematang Siantar","Wisata kuliner ikan mas/nila bakar khas tepi Danau Toba"]',
+  '["Armada Mobil Prima Full AC Pulang Pergi (PP)","Driver Profesional Menguasai Rute Lintas Sumatera","BBM & Biaya Operasional Kendaraan PP","Fleksibilitas Spot Kunjungan & Istirahat"]',
+  '["Akomodasi Hotel & Pengeluaran Pribadi"]', 2),
+('tour-samosir', 'Pulau Samosir', 'Pulau Samosir, Danau Toba, Sumatera Utara (PP)', '2D1N / 3D2N (PP)', '/tour_samosir.jpg', 'Budaya & Panorama Samosir (PP)', 'Medan - Parapat - Penyeberangan Tomok - Samosir (PP)',
+  '["Mengenal sejarah Batak di Makam Raja Sidabutar & Tarian Sigale-Gale Tomok","Kunjungan bersejarah ke Perkampungan Kuno Batu Kursi Raja Siallagan Ambarita","Menikmati suasana tenang danau di kawasan resort tepi air Tuk-Tuk Siadong","Spot foto perbukitan sabana Bukit Holbung Samosir"]',
+  '["Mobil AC Selama di Medan & Pulau Samosir (PP)","Driver Pendamping Wisata","BBM Kendaraan PP","Penjemputan & Pengantaran Kembali ke Medan / Simalingkar B"]',
+  '["Tiket Kapal Ferry Penyeberangan Mobil & Pribadi"]', 3)
+ON CONFLICT (id) DO NOTHING;
+
+INSERT INTO testimonials (name, role_id, role_en, text_id, text_en, rating, image, car_model, date_label, sort_order) VALUES
+('Bpk. Hendra Manullang & Rekan', 'Perjalanan Carter - Pekanbaru ke Medan', 'Business Trip - Pekanbaru to Medan', 'Pelayanan CV SRM MANDIRI sangat memuaskan dan profesional! Kami sewa Toyota Innova untuk perjalanan carter Pekanbaru, Duri, Dumai sampai ke Medan. Mobilnya bersih, AC dingin, dan supir sangat berpengalaman di jalan lintas.', 'Outstanding service from CV SRM MANDIRI! We chartered Toyota Innova for a multi-city business trip covering Pekanbaru, Duri, Dumai, and back to Medan. Driver was polite, on-time, and unit was very clean.', 5, 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200', 'Toyota Innova', 'Agustus 2026', 1),
+('Ibu Mariana & Keluarga Besar', 'Wisata Keluarga - Berastagi & Samosir', 'Family Tour - Berastagi & Lake Toba Samosir', 'Liburan keluarga ke Berastagi, Danau Toba Parapat, dan Pulau Samosir jadi seru dan nyaman dengan Toyota Avanza dari CV SRM MANDIRI. Perjalanan nanjak pegunungan lancar, supir ramah, dan harga sewanya sangat terjangkau.', 'We booked Toyota Avanza for our family holiday exploring Berastagi, Parapat, and Samosir Island. Super comfortable journey, smooth driving in mountain areas, and the admin response on WhatsApp was super fast!', 5, 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=200', 'Toyota Avanza', 'Juli 2026', 2),
+('Bpk. Siregar', 'Carter Antar Kota - Medan ke Jambi & Kerinci', 'Intercity Travel - Medan to Jambi & Kerinci', 'Sewa mobil di CV SRM MANDIRI dari Simalingkar B untuk rute Medan ke Jambi dan Kerinci. Mobil Calya sangat irit BBM, mesin prima, dan komunikasi via WhatsApp sangat ramah dan transparan. Terima kasih CV SRM MANDIRI!', 'Rented Toyota Calya for travel to Jambi and Kerinci. Fuel consumption was super economical, car was in top condition, and pickup from Simalingkar B was very punctual. Highly recommended!', 5, 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200', 'Toyota Calya', 'Juni 2026', 3);`;
 
 function ImageUploader({
   currentUrl, onUploaded, folder = 'general', label = 'Gambar'
@@ -112,8 +293,20 @@ function SaveButton({ onClick, saving }: { onClick: () => void; saving: boolean 
 
 // ─── SECTION PANELS ─────────────────────────────────────────────────────────
 
-function OverviewPanel() {
+function OverviewPanel({ onGoToSetup }: { onGoToSetup: () => void }) {
   const { cars, routes, tours, testimonials, isConnected, lastPing, refreshData, isLoading } = useData();
+  const [copySuccess, setCopySuccess] = useState(false);
+
+  const handleQuickCopySql = async () => {
+    try {
+      await navigator.clipboard.writeText(FULL_SCHEMA_SQL);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2500);
+    } catch {
+      onGoToSetup();
+    }
+  };
+
   const stats = [
     { label: 'Armada Mobil', value: cars.length, icon: Car, color: 'sky' },
     { label: 'Rute PP', value: routes.length, icon: MapPin, color: 'emerald' },
@@ -129,16 +322,51 @@ function OverviewPanel() {
       </div>
 
       {/* Connection Status */}
-      <div className={`flex items-center gap-3 px-4 py-3 rounded-2xl border ${isConnected ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-red-50 border-red-200 text-red-700'}`}>
-        {isConnected ? <Wifi className="w-4 h-4 shrink-0" /> : <WifiOff className="w-4 h-4 shrink-0" />}
-        <div className="flex-1">
-          <p className="text-sm font-bold">{isConnected ? '✅ Terhubung ke Supabase' : '⚠️ Belum terhubung ke Supabase'}</p>
-          {isConnected && <p className="text-xs font-medium opacity-80">Terakhir sync: {lastPing || 'baru saja'}</p>}
-          {!isConnected && <p className="text-xs font-medium opacity-80">Jalankan SQL schema di Supabase terlebih dahulu</p>}
+      <div className={`p-5 rounded-2xl border ${isConnected ? 'bg-emerald-50 border-emerald-200 text-emerald-800' : 'bg-rose-50 border-rose-200 text-rose-800'} space-y-3`}>
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            {isConnected ? <Wifi className="w-5 h-5 text-emerald-600 shrink-0" /> : <WifiOff className="w-5 h-5 text-rose-600 shrink-0" />}
+            <div>
+              <p className="text-sm font-black">{isConnected ? '✅ Terhubung ke Supabase' : '⚠️ Belum Terhubung ke Database Supabase'}</p>
+              {isConnected && <p className="text-xs font-medium opacity-80 mt-0.5">Terakhir sync: {lastPing || 'baru saja'}</p>}
+              {!isConnected && <p className="text-xs font-medium text-rose-600 mt-0.5">Tabel database di Supabase belum dibuat. Ikuti 2 langkah mudah di bawah:</p>}
+            </div>
+          </div>
+          <button onClick={refreshData} disabled={isLoading} className="bg-white hover:bg-slate-50 border px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-xs transition-colors">
+            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} /> Refresh
+          </button>
         </div>
-        <button onClick={refreshData} disabled={isLoading} className="bg-white/80 hover:bg-white border px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1 cursor-pointer transition-colors">
-          <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} /> Refresh
-        </button>
+
+        {!isConnected && (
+          <div className="bg-white/90 p-4 rounded-xl border border-rose-200/80 space-y-3">
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                onClick={handleQuickCopySql}
+                className="bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs px-4 py-2 rounded-xl shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
+              >
+                {copySuccess ? <><Check className="w-3.5 h-3.5" /> Berhasil Disalin!</> : <><Copy className="w-3.5 h-3.5" /> 1. Salin SQL Schema</>}
+              </button>
+              <a
+                href="https://supabase.com/dashboard/project/hmptbsiuivyysffcmuys/sql/new"
+                target="_blank"
+                rel="noreferrer"
+                className="bg-[#081836] hover:bg-slate-800 text-white font-bold text-xs px-4 py-2 rounded-xl shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
+              >
+                <ExternalLink className="w-3.5 h-3.5 text-sky-400" />
+                <span>2. Buka SQL Editor Supabase &amp; Run</span>
+              </a>
+              <button
+                onClick={onGoToSetup}
+                className="text-slate-600 hover:text-sky-600 text-xs font-bold underline px-2 py-2 cursor-pointer ml-auto"
+              >
+                Lihat Panduan Lengkap →
+              </button>
+            </div>
+            <p className="text-[11px] text-slate-500 font-medium">
+              💡 <b>Caranya:</b> Klik tombol <i>"1. Salin SQL Schema"</i> di atas, lalu klik <i>"2. Buka SQL Editor Supabase"</i>, Paste kode di sana dan klik tombol <b>Run</b>. Setelah itu klik tombol <b>Refresh</b>.
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Stats */}
@@ -163,7 +391,7 @@ function OverviewPanel() {
         <div className="text-sm text-sky-700 space-y-1.5 font-medium">
           <p>• Pilih menu di sebelah kiri untuk mengedit bagian yang ingin diubah</p>
           <p>• Foto dapat diunggah langsung dari komputer atau paste URL gambar</p>
-          <p>• Setiap perubahan tersimpan otomatis ke Supabase & langsung tampil di website</p>
+          <p>• Setiap perubahan tersimpan otomatis ke Supabase &amp; langsung tampil di website</p>
         </div>
       </div>
 
@@ -320,7 +548,7 @@ function HeroPanel() {
 }
 
 function CarsPanel() {
-  const { cars, saveCar, deleteCar } = useData();
+  const { cars, saveCar } = useData();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [editFields, setEditFields] = useState<Partial<CarRow>>({});
@@ -516,7 +744,7 @@ function RoutesPanel() {
 }
 
 function ToursPanel() {
-  const { tours, saveTour, deleteTour } = useData();
+  const { tours, saveTour } = useData();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editFields, setEditFields] = useState<Partial<TourRow>>({});
   const [saving, setSaving] = useState(false);
@@ -673,36 +901,34 @@ function SetupPanel() {
 
   const handleCopy = async () => {
     try {
-      const res = await fetch('/supabase_schema.sql');
-      const text = await res.text();
-      await navigator.clipboard.writeText(text);
+      await navigator.clipboard.writeText(FULL_SCHEMA_SQL);
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
     } catch {
-      window.open('https://supabase.com/dashboard', '_blank');
+      // fallback
     }
   };
 
   const steps = [
-    { n: 1, title: 'Buka Supabase Dashboard', desc: 'Kunjungi supabase.com/dashboard dan login ke proyek Anda' },
-    { n: 2, title: 'Buka SQL Editor', desc: 'Klik "SQL Editor" di sidebar kiri Supabase Dashboard' },
-    { n: 3, title: 'New Query & Paste SQL', desc: 'Klik "+ New Query", paste SQL yang telah disalin, lalu klik "Run"' },
-    { n: 4, title: 'Selesai! Refresh Dashboard', desc: 'Kembali ke sini dan klik "Refresh" di Overview untuk verifikasi' },
+    { n: 1, title: 'Salin SQL Schema', desc: 'Klik tombol biru "Salin SQL Schema (1 Klik)" di bawah' },
+    { n: 2, title: 'Buka Supabase SQL Editor', desc: 'Buka tautan https://supabase.com/dashboard/project/hmptbsiuivyysffcmuys/sql/new' },
+    { n: 3, title: 'Paste & Klik RUN', desc: 'Paste kode SQL yang telah disalin ke dalam kotak query, lalu klik tombol RUN berwarna hijau' },
+    { n: 4, title: 'Klik Refresh di Overview', desc: 'Kembali ke halaman Overview dashboard ini dan klik tombol Refresh untuk mulai mengedit' },
   ];
 
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-black text-slate-800">Setup Database</h2>
-        <p className="text-sm text-slate-500 font-medium mt-1">Panduan untuk mengaktifkan koneksi Supabase pertama kali</p>
+        <h2 className="text-xl font-black text-slate-800">Setup Database Supabase</h2>
+        <p className="text-sm text-slate-500 font-medium mt-1">Panduan 1-klik untuk mengaktifkan database Supabase pertama kali</p>
       </div>
 
       <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5">
         <div className="flex items-start gap-3">
           <AlertCircle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
           <div>
-            <h3 className="font-bold text-amber-800 text-sm">Diperlukan hanya sekali saja!</h3>
-            <p className="text-xs text-amber-700 font-medium mt-1">Jalankan SQL schema di Supabase untuk membuat tabel dan mengisi data awal. Setelah itu, semua konten bisa diedit dari dashboard ini tanpa coding.</p>
+            <h3 className="font-bold text-amber-800 text-sm">Diperlukan hanya 1 kali saja!</h3>
+            <p className="text-xs text-amber-700 font-medium mt-1">Jalankan SQL schema di Supabase untuk membuat tabel dan mengisi data awal. Setelah itu, semua konten bisa diedit langsung dari dashboard ini tanpa coding.</p>
           </div>
         </div>
       </div>
@@ -719,14 +945,27 @@ function SetupPanel() {
         ))}
       </div>
 
-      <div className="flex gap-3">
-        <button onClick={handleCopy} className="bg-sky-600 hover:bg-sky-500 text-white font-bold text-sm px-6 py-3 rounded-2xl flex items-center gap-2 cursor-pointer shadow-md">
-          {copied ? <><Check className="w-4 h-4" /> Disalin!</> : <><Upload className="w-4 h-4" /> Salin SQL Schema</>}
+      <div className="flex flex-wrap gap-3">
+        <button onClick={handleCopy} className="bg-sky-600 hover:bg-sky-500 text-white font-bold text-sm px-6 py-3.5 rounded-2xl flex items-center gap-2 cursor-pointer shadow-md">
+          {copied ? <><Check className="w-4 h-4" /> SQL Schema Berhasil Disalin!</> : <><Copy className="w-4 h-4" /> Salin SQL Schema (1 Klik)</>}
         </button>
-        <a href="https://supabase.com/dashboard" target="_blank" rel="noreferrer"
-          className="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold text-sm px-6 py-3 rounded-2xl flex items-center gap-2 cursor-pointer">
-          <Eye className="w-4 h-4" /> Buka Supabase
+        <a href="https://supabase.com/dashboard/project/hmptbsiuivyysffcmuys/sql/new" target="_blank" rel="noreferrer"
+          className="bg-[#081836] hover:bg-slate-800 text-white font-bold text-sm px-6 py-3.5 rounded-2xl flex items-center gap-2 cursor-pointer shadow-md">
+          <ExternalLink className="w-4 h-4 text-sky-400" /> Buka SQL Editor Supabase
         </a>
+      </div>
+
+      {/* SQL Preview Box */}
+      <div className="space-y-2 pt-2">
+        <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Preview Kode SQL Schema:</label>
+        <div className="relative">
+          <textarea
+            readOnly
+            value={FULL_SCHEMA_SQL}
+            rows={12}
+            className="w-full p-4 rounded-2xl bg-slate-900 text-emerald-400 font-mono text-xs border border-slate-800 focus:outline-none resize-none selection:bg-sky-600 selection:text-white"
+          />
+        </div>
       </div>
     </div>
   );
@@ -739,6 +978,8 @@ export default function AdminDashboard() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
+    window.location.hash = '';
+    window.location.pathname = '/';
     window.location.reload();
   };
 
@@ -789,10 +1030,17 @@ export default function AdminDashboard() {
 
         {/* Footer */}
         <div className="px-3 py-4 border-t border-slate-100 space-y-2">
-          <a href="/" target="_blank" rel="noreferrer" className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 cursor-pointer">
+          <button
+            onClick={() => {
+              window.location.hash = '';
+              window.location.pathname = '/';
+              window.location.reload();
+            }}
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 cursor-pointer"
+          >
             <Home className="w-4 h-4 shrink-0" />
             {sidebarOpen && <span>Lihat Website</span>}
-          </a>
+          </button>
           <button onClick={handleLogout} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-red-600 hover:bg-red-50 cursor-pointer">
             <LogOut className="w-4 h-4 shrink-0" />
             {sidebarOpen && <span>Keluar</span>}
@@ -812,9 +1060,16 @@ export default function AdminDashboard() {
               {navItems.find(n => n.id === section)?.label || 'Dashboard'}
             </h1>
           </div>
-          <a href="/" target="_blank" rel="noreferrer" className="hidden sm:flex items-center gap-1.5 text-xs font-bold text-sky-600 hover:underline">
+          <button
+            onClick={() => {
+              window.location.hash = '';
+              window.location.pathname = '/';
+              window.location.reload();
+            }}
+            className="hidden sm:flex items-center gap-1.5 text-xs font-bold text-sky-600 hover:underline cursor-pointer"
+          >
             <Eye className="w-3.5 h-3.5" /> Lihat Website
-          </a>
+          </button>
           <button onClick={handleLogout} className="bg-red-50 hover:bg-red-100 text-red-600 font-bold text-xs px-3 py-1.5 rounded-xl border border-red-200 cursor-pointer flex items-center gap-1">
             <LogOut className="w-3.5 h-3.5" /> Keluar
           </button>
@@ -823,7 +1078,7 @@ export default function AdminDashboard() {
         {/* Section Content */}
         <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
           <div className="max-w-4xl mx-auto">
-            {section === 'overview' && <OverviewPanel />}
+            {section === 'overview' && <OverviewPanel onGoToSetup={() => setSection('setup')} />}
             {section === 'business' && <BusinessPanel />}
             {section === 'hero' && <HeroPanel />}
             {section === 'cars' && <CarsPanel />}
