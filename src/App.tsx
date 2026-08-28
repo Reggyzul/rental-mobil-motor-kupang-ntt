@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component, ErrorInfo, ReactNode } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import CarList from './components/CarList';
@@ -16,10 +16,48 @@ import { ChevronUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TRANSLATIONS } from './utils/translations';
 
+// ─── Error Boundary ─────────────────────────────────────────────────────────
+class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
+  constructor(props: { children: ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(_: Error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error('App ErrorBoundary caught:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+          <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-xl max-w-md text-center space-y-4">
+            <h2 className="text-xl font-black text-[#081836]">CV SRM MANDIRI</h2>
+            <p className="text-xs text-slate-500 font-medium">Terjadi kendala saat memuat. Silakan muat ulang halaman.</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="bg-sky-600 text-white font-bold text-xs uppercase px-6 py-3 rounded-2xl cursor-pointer hover:bg-sky-500"
+            >
+              Muat Ulang Halaman
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 function MainApp() {
   const [currentPage, setCurrentPage] = useState<'home' | 'about' | 'rentals' | 'admin'>(() => {
-    if (window.location.pathname === '/admin' || window.location.hash === '#admin') {
-      return 'admin';
+    if (typeof window !== 'undefined') {
+      if (window.location.pathname === '/admin' || window.location.hash === '#admin') {
+        return 'admin';
+      }
     }
     return 'home';
   });
@@ -27,16 +65,21 @@ function MainApp() {
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [lang, setLang] = useState<'EN' | 'ID'>(() => {
-    const saved = localStorage.getItem('srm_mandiri_lang');
-    return (saved === 'ID' || saved === 'EN') ? saved : 'ID';
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('srm_mandiri_lang');
+      return (saved === 'ID' || saved === 'EN') ? saved : 'ID';
+    }
+    return 'ID';
   });
 
   const t = TRANSLATIONS[lang];
-  const { getSiteValue, isLoading, cars } = useData();
+  const { getSiteValue, cars } = useData();
 
   const handleSetLang = (newLang: 'EN' | 'ID') => {
     setLang(newLang);
-    localStorage.setItem('srm_mandiri_lang', newLang);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('srm_mandiri_lang', newLang);
+    }
   };
 
   useEffect(() => {
@@ -145,44 +188,7 @@ function MainApp() {
     return <AdminPage />;
   }
 
-  // Loading state until Supabase initial data is completely loaded
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-[#061226] text-white flex flex-col items-center justify-center p-4">
-        <div className="flex flex-col items-center space-y-5 text-center">
-          <div className="relative">
-            <div className="w-16 h-16 rounded-3xl bg-sky-600/20 border border-sky-500/30 flex items-center justify-center p-3">
-              <img
-                src="/logo.png"
-                alt="CV SRM MANDIRI Logo"
-                className="w-10 h-10 object-contain animate-pulse"
-                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-              />
-            </div>
-            <span className="absolute -top-1 -right-1 flex h-4 w-4">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-4 w-4 bg-sky-500"></span>
-            </span>
-          </div>
-
-          <div className="space-y-2">
-            <h2 className="font-display font-black text-xl tracking-tight uppercase text-white">
-              CV SRM <span className="text-sky-400">MANDIRI</span>
-            </h2>
-            <p className="font-sans text-xs text-slate-400 font-medium tracking-wide">
-              Memuat data layanan &amp; armada...
-            </p>
-          </div>
-
-          <div className="w-36 h-1 bg-slate-800 rounded-full overflow-hidden">
-            <div className="w-full h-full bg-sky-500 animate-pulse origin-left" />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  const defaultBookingCar: Car = cars.length > 0 ? {
+  const defaultBookingCar: Car = (cars && cars.length > 0) ? {
     id: cars[0].id,
     name: cars[0].name,
     category: cars[0].category,
@@ -192,11 +198,11 @@ function MainApp() {
     seats: cars[0].seats,
     transmission: cars[0].transmission,
     fuel: cars[0].fuel,
-    includeList: cars[0].include_list,
+    includeList: cars[0].include_list || [],
     description: cars[0].description,
-    rating: Number(cars[0].rating),
-    reviewsCount: cars[0].reviews_count,
-    specifications: cars[0].specifications
+    rating: Number(cars[0].rating) || 5.0,
+    reviewsCount: cars[0].reviews_count || 0,
+    specifications: cars[0].specifications || []
   } : CARS[0];
 
   return (
@@ -305,8 +311,10 @@ function MainApp() {
 
 export default function App() {
   return (
-    <DataProvider>
-      <MainApp />
-    </DataProvider>
+    <ErrorBoundary>
+      <DataProvider>
+        <MainApp />
+      </DataProvider>
+    </ErrorBoundary>
   );
 }
