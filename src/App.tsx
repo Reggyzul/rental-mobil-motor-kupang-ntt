@@ -74,7 +74,7 @@ function MainApp() {
   });
 
   const t = TRANSLATIONS[lang];
-  const { getSiteValue, cars } = useData();
+  const { getSiteValue, cars, isLoading } = useData();
 
   const handleSetLang = (newLang: 'EN' | 'ID') => {
     setLang(newLang);
@@ -187,6 +187,26 @@ function MainApp() {
   // If user requests admin route
   if (currentPage === 'admin') {
     return <AdminPage />;
+  }
+
+  // Prevent image flashing: display branded loading screen until Supabase data finishes loading
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-6 text-center">
+        <div className="relative mb-6">
+          <div className="w-20 h-20 rounded-3xl bg-white shadow-xl border border-sky-100 p-3 flex items-center justify-center">
+            <img src="/logo.png" alt="CV SRM MANDIRI" className="h-12 w-auto object-contain" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+          </div>
+          <div className="absolute -inset-2 border-2 border-sky-400/30 border-t-sky-600 rounded-3xl animate-spin" />
+        </div>
+        <h2 className="font-display font-black text-xl text-[#081836] tracking-tight uppercase">
+          CV SRM MANDIRI
+        </h2>
+        <p className="text-xs text-slate-500 font-bold tracking-wider uppercase mt-1.5 animate-pulse">
+          Memuat Data Layanan &amp; Armada...
+        </p>
+      </div>
+    );
   }
 
   const defaultBookingCar: Car = (cars && cars.length > 0) ? {

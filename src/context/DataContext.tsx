@@ -15,8 +15,8 @@ const FALLBACK_SITE_CONTENT: Record<string, string> = {
   contact_phone2: '081262320086',
   contact_tiktok: '@hendry.manullang',
   contact_address: 'Simalingkar B, Medan, Sumatera Utara',
-  seo_title: 'CV SRM MANDIRI | Jasa Transportasi & Rental Mobil Medan - Sumatera',
-  seo_description: 'CV SRM MANDIRI melayani jasa transportasi terpercaya, rental mobil PP antar kota Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi & wisata Berastagi, Parapat, Pulau Samosir.',
+  seo_title: 'CV SRM MANDIRI | Rental Mobil Medan & Jasa Transportasi Antar Kota PP Sumatera',
+  seo_description: 'CV SRM MANDIRI - Pusat rental mobil Medan murah & jasa transportasi carter antar kota Pulang-Pergi (PP): Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi. Sewa Innova, Avanza, Sigra, Calya & paket wisata Berastagi, Parapat, Danau Toba, Pulau Samosir. WhatsApp: 0852-7060-7796 / 0812-6232-0086. Alamat: Simalingkar B, Medan.',
 };
 
 const FALLBACK_ROUTES: RouteRow[] = [
@@ -131,11 +131,11 @@ function mapToursFromDB(dbTours: TourRow[]): TourRow[] {
 export function DataProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
-  const [siteContent, setSiteContent] = useState<Record<string, string>>(FALLBACK_SITE_CONTENT);
-  const [cars, setCars] = useState<CarRow[]>(FALLBACK_CARS);
-  const [routes, setRoutes] = useState<RouteRow[]>(FALLBACK_ROUTES);
-  const [tours, setTours] = useState<TourRow[]>(FALLBACK_TOURS);
-  const [testimonials, setTestimonials] = useState<TestimonialRow[]>(FALLBACK_TESTIMONIALS);
+  const [siteContent, setSiteContent] = useState<Record<string, string>>({});
+  const [cars, setCars] = useState<CarRow[]>([]);
+  const [routes, setRoutes] = useState<RouteRow[]>([]);
+  const [tours, setTours] = useState<TourRow[]>([]);
+  const [testimonials, setTestimonials] = useState<TestimonialRow[]>([]);
   const [lastPing, setLastPing] = useState<string | null>(null);
 
   const fetchAllData = useCallback(async () => {
@@ -155,8 +155,12 @@ export function DataProvider({ children }: { children: ReactNode }) {
       const result = await Promise.race([fetchPromise, timeoutPromise]);
 
       if ('timeout' in result) {
-        // Timed out: gracefully continue with fallback
         setIsConnected(false);
+        setSiteContent(FALLBACK_SITE_CONTENT);
+        setCars(FALLBACK_CARS);
+        setRoutes(FALLBACK_ROUTES);
+        setTours(FALLBACK_TOURS);
+        setTestimonials(FALLBACK_TESTIMONIALS);
         return false;
       }
 
@@ -165,6 +169,11 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
       if (hasError) {
         setIsConnected(false);
+        setSiteContent(FALLBACK_SITE_CONTENT);
+        setCars(FALLBACK_CARS);
+        setRoutes(FALLBACK_ROUTES);
+        setTours(FALLBACK_TOURS);
+        setTestimonials(FALLBACK_TESTIMONIALS);
         return false;
       }
 
