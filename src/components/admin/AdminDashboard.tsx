@@ -548,10 +548,63 @@ function HeroPanel() {
 }
 
 function CarsPanel() {
-  const { cars, saveCar } = useData();
+  const { cars, saveCar, deleteCar } = useData();
+  const [showAdd, setShowAdd] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [editFields, setEditFields] = useState<Partial<CarRow>>({});
+  const [newCar, setNewCar] = useState({
+    name: '',
+    category: '',
+    price_display: 'Rp500.000',
+    price_per_day: 500000,
+    image: '',
+    seats: 7,
+    transmission: 'Matic / Manual',
+    fuel: 'Bensin',
+    description: '',
+  });
+
+  const handleAdd = async () => {
+    if (!newCar.name) return;
+    setSaving(true);
+    const carId = newCar.name.toLowerCase().replace(/[^a-z0-9]/g, '-') + '-' + Date.now().toString().slice(-4);
+    await saveCar({
+      id: carId,
+      name: newCar.name,
+      category: newCar.category || 'Mobil Penumpang',
+      price_display: newCar.price_display,
+      price_per_day: Number(newCar.price_per_day) || 500000,
+      image: newCar.image || '/innova_reborn.avif',
+      seats: Number(newCar.seats) || 7,
+      transmission: newCar.transmission || 'Matic / Manual',
+      fuel: newCar.fuel || 'Bensin',
+      description: newCar.description || `${newCar.name} siap melayani perjalanan rental mobil dalam kota Medan maupun rute luar kota.`,
+      include_list: ['Mobil Nyaman & Bersih', 'AC Dingin Merata', 'Unit Terawat Prima'],
+      rating: 5.0,
+      reviews_count: 50,
+      specifications: [
+        { label: 'Kapasitas', value: `${newCar.seats || 7} Penumpang` },
+        { label: 'Transmisi', value: newCar.transmission || 'Matic / Manual' },
+        { label: 'Bahan Bakar', value: newCar.fuel || 'Bensin' },
+      ],
+      sort_order: cars.length + 1,
+      is_active: true,
+    } as CarRow);
+    setNewCar({
+      name: '',
+      category: '',
+      price_display: 'Rp500.000',
+      price_per_day: 500000,
+      image: '',
+      seats: 7,
+      transmission: 'Matic / Manual',
+      fuel: 'Bensin',
+      description: '',
+    });
+    setShowAdd(false);
+    setSaving(false);
+  };
 
   const startEdit = (car: CarRow) => {
     setEditingId(car.id);
@@ -566,13 +619,143 @@ function CarsPanel() {
     setEditingId(null);
   };
 
+  const handleDelete = async (carId: string, carName: string) => {
+    if (window.confirm(`Apakah Anda yakin ingin menghapus armada "${carName}"?`)) {
+      await deleteCar(carId);
+    }
+  };
+
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-xl font-black text-slate-800">Armada Mobil</h2>
-        <p className="text-sm text-slate-500 font-medium mt-1">Edit informasi, harga, dan foto setiap kendaraan</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-xl font-black text-slate-800">Armada Mobil</h2>
+          <p className="text-sm text-slate-500 font-medium mt-1">Tambah, edit informasi, harga, dan foto setiap kendaraan</p>
+        </div>
+        <button
+          onClick={() => setShowAdd(!showAdd)}
+          className="bg-sky-600 hover:bg-sky-500 text-white font-bold text-sm px-4 py-2.5 rounded-2xl flex items-center gap-2 cursor-pointer shadow-md transition-all"
+        >
+          <Plus className="w-4 h-4" /> <span>Tambah Armada</span>
+        </button>
       </div>
 
+      {/* Form Tambah Armada Baru */}
+      {showAdd && (
+        <div className="bg-sky-50 border border-sky-200 rounded-3xl p-6 space-y-5 shadow-sm">
+          <div className="flex items-center justify-between border-b border-sky-200/60 pb-3">
+            <h3 className="font-display font-black text-sky-900 text-base">➕ Tambah Kendaraan Baru</h3>
+            <button onClick={() => setShowAdd(false)} className="text-slate-400 hover:text-slate-600 cursor-pointer">
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          <ImageUploader
+            currentUrl={newCar.image}
+            folder="cars"
+            label="Foto Kendaraan"
+            onUploaded={(url) => setNewCar((f) => ({ ...f, image: url }))}
+          />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Nama Mobil</label>
+              <input
+                type="text"
+                placeholder="Contoh: Toyota Fortuner VRZ"
+                value={newCar.name}
+                onChange={(e) => setNewCar((f) => ({ ...f, name: e.target.value }))}
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm font-medium"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Kategori</label>
+              <input
+                type="text"
+                placeholder="Contoh: SUV Premium & Tangguh"
+                value={newCar.category}
+                onChange={(e) => setNewCar((f) => ({ ...f, category: e.target.value }))}
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm font-medium"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Harga Tampil (Label)</label>
+              <input
+                type="text"
+                placeholder="Contoh: Rp900.000"
+                value={newCar.price_display}
+                onChange={(e) => setNewCar((f) => ({ ...f, price_display: e.target.value }))}
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm font-medium"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Kapasitas Tempat Duduk</label>
+              <input
+                type="number"
+                placeholder="7"
+                value={newCar.seats}
+                onChange={(e) => setNewCar((f) => ({ ...f, seats: Number(e.target.value) || 7 }))}
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm font-medium"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Transmisi</label>
+              <input
+                type="text"
+                placeholder="Matic / Manual"
+                value={newCar.transmission}
+                onChange={(e) => setNewCar((f) => ({ ...f, transmission: e.target.value }))}
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm font-medium"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Bahan Bakar</label>
+              <input
+                type="text"
+                placeholder="Diesel / Bensin"
+                value={newCar.fuel}
+                onChange={(e) => setNewCar((f) => ({ ...f, fuel: e.target.value }))}
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm font-medium"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-1">
+            <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Deskripsi Singkat</label>
+            <textarea
+              rows={2}
+              placeholder="Deskripsi keunggulan armada dan kenyamanannya..."
+              value={newCar.description}
+              onChange={(e) => setNewCar((f) => ({ ...f, description: e.target.value }))}
+              className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm font-medium resize-none"
+            />
+          </div>
+
+          <div className="flex gap-3 pt-2">
+            <button
+              onClick={handleAdd}
+              disabled={saving || !newCar.name}
+              className="bg-sky-600 hover:bg-sky-500 disabled:bg-slate-300 text-white font-bold text-sm px-6 py-2.5 rounded-2xl shadow-md transition-all flex items-center gap-2 cursor-pointer"
+            >
+              {saving ? <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Save className="w-4 h-4" />}
+              <span>{saving ? 'Menyimpan...' : 'Simpan Armada'}</span>
+            </button>
+            <button
+              onClick={() => setShowAdd(false)}
+              className="px-5 py-2.5 rounded-2xl border border-slate-200 text-slate-600 text-sm font-bold cursor-pointer hover:bg-slate-50"
+            >
+              Batal
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* List Armada */}
       <div className="space-y-4">
         {cars.map((car) => (
           <div key={car.id} className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
@@ -580,12 +763,16 @@ function CarsPanel() {
               <div className="p-6 space-y-5">
                 <div className="flex items-center justify-between">
                   <h3 className="font-black text-slate-800">{car.name}</h3>
-                  <button onClick={() => setEditingId(null)} className="text-slate-400 hover:text-slate-600 cursor-pointer"><X className="w-5 h-5" /></button>
+                  <button onClick={() => setEditingId(null)} className="text-slate-400 hover:text-slate-600 cursor-pointer">
+                    <X className="w-5 h-5" />
+                  </button>
                 </div>
 
                 <ImageUploader
-                  currentUrl={editFields.image || car.image} folder="cars" label="Foto Mobil"
-                  onUploaded={(url) => setEditFields(f => ({ ...f, image: url }))}
+                  currentUrl={editFields.image || car.image}
+                  folder="cars"
+                  label="Foto Mobil"
+                  onUploaded={(url) => setEditFields((f) => ({ ...f, image: url }))}
                 />
 
                 {[
@@ -598,8 +785,9 @@ function CarsPanel() {
                   <div key={key} className="space-y-1">
                     <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">{label}</label>
                     <input
-                      type="text" value={String(editFields[key as keyof CarRow] ?? '')}
-                      onChange={(e) => setEditFields(f => ({ ...f, [key]: e.target.value }))}
+                      type="text"
+                      value={String(editFields[key as keyof CarRow] ?? '')}
+                      onChange={(e) => setEditFields((f) => ({ ...f, [key]: e.target.value }))}
                       className="w-full px-4 py-2 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm font-medium"
                     />
                   </div>
@@ -607,28 +795,54 @@ function CarsPanel() {
 
                 <div className="space-y-1">
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Deskripsi</label>
-                  <textarea value={editFields.description ?? ''} rows={3}
-                    onChange={(e) => setEditFields(f => ({ ...f, description: e.target.value }))}
+                  <textarea
+                    value={editFields.description ?? ''}
+                    rows={3}
+                    onChange={(e) => setEditFields((f) => ({ ...f, description: e.target.value }))}
                     className="w-full px-4 py-2 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm font-medium resize-none"
                   />
                 </div>
 
                 <div className="flex gap-3">
                   <SaveButton onClick={handleSave} saving={saving} />
-                  <button onClick={() => setEditingId(null)} className="px-5 py-2.5 rounded-2xl border border-slate-200 text-slate-600 text-sm font-bold cursor-pointer hover:bg-slate-50">Batal</button>
+                  <button
+                    onClick={() => setEditingId(null)}
+                    className="px-5 py-2.5 rounded-2xl border border-slate-200 text-slate-600 text-sm font-bold cursor-pointer hover:bg-slate-50"
+                  >
+                    Batal
+                  </button>
                 </div>
               </div>
             ) : (
               <div className="flex items-center gap-4 p-4">
-                <img src={car.image} alt={car.name} className="w-20 h-14 object-cover rounded-xl shrink-0 bg-slate-100" onError={(e) => { (e.target as HTMLImageElement).src = 'https://placehold.co/80x56/e2e8f0/94a3b8?text=No+Image'; }} />
+                <img
+                  src={car.image}
+                  alt={car.name}
+                  className="w-20 h-14 object-cover rounded-xl shrink-0 bg-slate-100"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = 'https://placehold.co/80x56/e2e8f0/94a3b8?text=No+Image';
+                  }}
+                />
                 <div className="flex-1 min-w-0">
                   <p className="font-black text-slate-800 text-sm">{car.name}</p>
                   <p className="text-xs text-slate-500 font-medium">{car.category}</p>
                   <p className="text-xs text-sky-600 font-bold mt-0.5">{car.price_display}</p>
                 </div>
-                <button onClick={() => startEdit(car)} className="bg-sky-50 hover:bg-sky-100 text-sky-700 font-bold text-xs px-4 py-2 rounded-xl border border-sky-200 cursor-pointer flex items-center gap-1.5">
-                  ✏️ Edit
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => startEdit(car)}
+                    className="bg-sky-50 hover:bg-sky-100 text-sky-700 font-bold text-xs px-3.5 py-2 rounded-xl border border-sky-200 cursor-pointer flex items-center gap-1.5"
+                  >
+                    ✏️ Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(car.id, car.name)}
+                    className="bg-red-50 hover:bg-red-100 text-red-600 font-bold text-xs p-2 rounded-xl border border-red-200 cursor-pointer"
+                    title="Hapus Armada"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             )}
           </div>
@@ -744,12 +958,54 @@ function RoutesPanel() {
 }
 
 function ToursPanel() {
-  const { tours, saveTour } = useData();
+  const { tours, saveTour, deleteTour } = useData();
+  const [showAdd, setShowAdd] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editFields, setEditFields] = useState<Partial<TourRow>>({});
   const [saving, setSaving] = useState(false);
+  const [newTour, setNewTour] = useState({
+    title: '',
+    location: '',
+    duration: 'Full Day / 2D1N (PP)',
+    badge: 'Wisata Alam & Pegunungan (PP)',
+    route_display: '',
+    image: '',
+  });
 
-  const startEdit = (tour: TourRow) => { setEditingId(tour.id); setEditFields({ ...tour }); };
+  const handleAdd = async () => {
+    if (!newTour.title) return;
+    setSaving(true);
+    const tourId = 'tour-' + newTour.title.toLowerCase().replace(/[^a-z0-9]/g, '-') + '-' + Date.now().toString().slice(-4);
+    await saveTour({
+      id: tourId,
+      title: newTour.title,
+      location: newTour.location || 'Sumatera Utara (PP)',
+      duration: newTour.duration || 'Full Day / 2D1N (PP)',
+      badge: newTour.badge || 'Wisata Favorit (PP)',
+      route_display: newTour.route_display || `Medan - ${newTour.title} (PP)`,
+      image: newTour.image || '/tour_berastagi.jpg',
+      highlights: ['Panorama alam memukau', 'Perjalanan nyaman pulang-pergi', 'Didampingi sopir berpengalaman'],
+      includes_list: ['Mobil Full AC Terawat (PP)', 'Sopir Berpengalaman & Ramah', 'Bahan Bakar Minyak (BBM) PP', 'Penjemputan Medan'],
+      excludes_list: ['Tiket Masuk Wahana & Pengeluaran Pribadi'],
+      sort_order: tours.length + 1,
+      is_active: true,
+    } as TourRow);
+    setNewTour({
+      title: '',
+      location: '',
+      duration: 'Full Day / 2D1N (PP)',
+      badge: 'Wisata Alam & Pegunungan (PP)',
+      route_display: '',
+      image: '',
+    });
+    setShowAdd(false);
+    setSaving(false);
+  };
+
+  const startEdit = (tour: TourRow) => {
+    setEditingId(tour.id);
+    setEditFields({ ...tour });
+  };
 
   const handleSave = async () => {
     if (!editingId) return;
@@ -759,13 +1015,121 @@ function ToursPanel() {
     setEditingId(null);
   };
 
+  const handleDelete = async (tourId: string, tourTitle: string) => {
+    if (window.confirm(`Apakah Anda yakin ingin menghapus destinasi wisata "${tourTitle}"?`)) {
+      await deleteTour(tourId);
+    }
+  };
+
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-xl font-black text-slate-800">Destinasi Wisata</h2>
-        <p className="text-sm text-slate-500 font-medium mt-1">Edit paket wisata, foto, dan deskripsi destinasi</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-xl font-black text-slate-800">Destinasi Wisata</h2>
+          <p className="text-sm text-slate-500 font-medium mt-1">Tambah, edit paket wisata, foto, dan deskripsi destinasi</p>
+        </div>
+        <button
+          onClick={() => setShowAdd(!showAdd)}
+          className="bg-sky-600 hover:bg-sky-500 text-white font-bold text-sm px-4 py-2.5 rounded-2xl flex items-center gap-2 cursor-pointer shadow-md transition-all"
+        >
+          <Plus className="w-4 h-4" /> <span>Tambah Wisata</span>
+        </button>
       </div>
 
+      {/* Form Tambah Wisata Baru */}
+      {showAdd && (
+        <div className="bg-sky-50 border border-sky-200 rounded-3xl p-6 space-y-5 shadow-sm">
+          <div className="flex items-center justify-between border-b border-sky-200/60 pb-3">
+            <h3 className="font-display font-black text-sky-900 text-base">➕ Tambah Destinasi Wisata Baru</h3>
+            <button onClick={() => setShowAdd(false)} className="text-slate-400 hover:text-slate-600 cursor-pointer">
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          <ImageUploader
+            currentUrl={newTour.image}
+            folder="tours"
+            label="Foto Destinasi"
+            onUploaded={(url) => setNewTour((f) => ({ ...f, image: url }))}
+          />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Nama Destinasi</label>
+              <input
+                type="text"
+                placeholder="Contoh: Air Terjun Sipiso-piso"
+                value={newTour.title}
+                onChange={(e) => setNewTour((f) => ({ ...f, title: e.target.value }))}
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm font-medium"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Lokasi Lengkap</label>
+              <input
+                type="text"
+                placeholder="Contoh: Tongging, Danau Toba, Sumatera Utara (PP)"
+                value={newTour.location}
+                onChange={(e) => setNewTour((f) => ({ ...f, location: e.target.value }))}
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm font-medium"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Durasi Wisata</label>
+              <input
+                type="text"
+                placeholder="Contoh: Full Day / 2D1N (PP)"
+                value={newTour.duration}
+                onChange={(e) => setNewTour((f) => ({ ...f, duration: e.target.value }))}
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm font-medium"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Label Badge</label>
+              <input
+                type="text"
+                placeholder="Contoh: Wisata Alam & Pegunungan (PP)"
+                value={newTour.badge}
+                onChange={(e) => setNewTour((f) => ({ ...f, badge: e.target.value }))}
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm font-medium"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-1">
+            <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Tampilan Rute Perjalanan</label>
+            <input
+              type="text"
+              placeholder="Contoh: Medan - Berastagi - Tongging - Sipiso-piso (PP)"
+              value={newTour.route_display}
+              onChange={(e) => setNewTour((f) => ({ ...f, route_display: e.target.value }))}
+              className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm font-medium"
+            />
+          </div>
+
+          <div className="flex gap-3 pt-2">
+            <button
+              onClick={handleAdd}
+              disabled={saving || !newTour.title}
+              className="bg-sky-600 hover:bg-sky-500 disabled:bg-slate-300 text-white font-bold text-sm px-6 py-2.5 rounded-2xl shadow-md transition-all flex items-center gap-2 cursor-pointer"
+            >
+              {saving ? <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Save className="w-4 h-4" />}
+              <span>{saving ? 'Menyimpan...' : 'Simpan Destinasi'}</span>
+            </button>
+            <button
+              onClick={() => setShowAdd(false)}
+              className="px-5 py-2.5 rounded-2xl border border-slate-200 text-slate-600 text-sm font-bold cursor-pointer hover:bg-slate-50"
+            >
+              Batal
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* List Wisata */}
       <div className="space-y-4">
         {tours.map((tour) => (
           <div key={tour.id} className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
@@ -773,11 +1137,15 @@ function ToursPanel() {
               <div className="p-6 space-y-5">
                 <div className="flex items-center justify-between">
                   <h3 className="font-black text-slate-800">{tour.title}</h3>
-                  <button onClick={() => setEditingId(null)} className="text-slate-400 hover:text-slate-600 cursor-pointer"><X className="w-5 h-5" /></button>
+                  <button onClick={() => setEditingId(null)} className="text-slate-400 hover:text-slate-600 cursor-pointer">
+                    <X className="w-5 h-5" />
+                  </button>
                 </div>
                 <ImageUploader
-                  currentUrl={editFields.image || tour.image} folder="tours" label="Foto Destinasi"
-                  onUploaded={(url) => setEditFields(f => ({ ...f, image: url }))}
+                  currentUrl={editFields.image || tour.image}
+                  folder="tours"
+                  label="Foto Destinasi"
+                  onUploaded={(url) => setEditFields((f) => ({ ...f, image: url }))}
                 />
                 {[
                   { key: 'title', label: 'Nama Destinasi' },
@@ -788,26 +1156,54 @@ function ToursPanel() {
                 ].map(({ key, label }) => (
                   <div key={key} className="space-y-1">
                     <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">{label}</label>
-                    <input type="text" value={String(editFields[key as keyof TourRow] ?? '')}
-                      onChange={(e) => setEditFields(f => ({ ...f, [key]: e.target.value }))}
+                    <input
+                      type="text"
+                      value={String(editFields[key as keyof TourRow] ?? '')}
+                      onChange={(e) => setEditFields((f) => ({ ...f, [key]: e.target.value }))}
                       className="w-full px-4 py-2 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm font-medium"
                     />
                   </div>
                 ))}
                 <div className="flex gap-3">
                   <SaveButton onClick={handleSave} saving={saving} />
-                  <button onClick={() => setEditingId(null)} className="px-5 py-2.5 rounded-2xl border text-sm font-bold cursor-pointer hover:bg-slate-50">Batal</button>
+                  <button
+                    onClick={() => setEditingId(null)}
+                    className="px-5 py-2.5 rounded-2xl border text-sm font-bold cursor-pointer hover:bg-slate-50"
+                  >
+                    Batal
+                  </button>
                 </div>
               </div>
             ) : (
               <div className="flex items-center gap-4 p-4">
-                <img src={tour.image} alt={tour.title} className="w-20 h-14 object-cover rounded-xl shrink-0 bg-slate-100" onError={(e) => { (e.target as HTMLImageElement).src = 'https://placehold.co/80x56/e2e8f0/94a3b8?text=No+Image'; }} />
+                <img
+                  src={tour.image}
+                  alt={tour.title}
+                  className="w-20 h-14 object-cover rounded-xl shrink-0 bg-slate-100"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = 'https://placehold.co/80x56/e2e8f0/94a3b8?text=No+Image';
+                  }}
+                />
                 <div className="flex-1 min-w-0">
                   <p className="font-black text-slate-800 text-sm">{tour.title}</p>
                   <p className="text-xs text-slate-500 font-medium">{tour.location}</p>
                   <p className="text-xs text-sky-600 font-bold mt-0.5">{tour.duration}</p>
                 </div>
-                <button onClick={() => startEdit(tour)} className="bg-sky-50 hover:bg-sky-100 text-sky-700 font-bold text-xs px-4 py-2 rounded-xl border border-sky-200 cursor-pointer">✏️ Edit</button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => startEdit(tour)}
+                    className="bg-sky-50 hover:bg-sky-100 text-sky-700 font-bold text-xs px-3.5 py-2 rounded-xl border border-sky-200 cursor-pointer"
+                  >
+                    ✏️ Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(tour.id, tour.title)}
+                    className="bg-red-50 hover:bg-red-100 text-red-600 font-bold text-xs p-2 rounded-xl border border-red-200 cursor-pointer"
+                    title="Hapus Destinasi"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             )}
           </div>
