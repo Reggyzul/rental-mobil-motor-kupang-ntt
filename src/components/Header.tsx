@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Shield } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TRANSLATIONS } from '../utils/translations';
 import { useData } from '../context/DataContext';
@@ -45,15 +45,6 @@ export default function Header({
     onNavClick(sectionId);
   };
 
-  const handleAdminAction = () => {
-    setMobileMenuOpen(false);
-    if (onAdminClick) {
-      onAdminClick();
-    } else {
-      onNavClick('admin');
-    }
-  };
-
   const navItems = [
     { id: 'home', label: t.nav_home },
     { id: 'cars', label: t.nav_vehicles },
@@ -64,46 +55,46 @@ export default function Header({
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 transition-all duration-300">
-      {/* MAIN NAVBAR - BIRU MUDA */}
+      {/* MAIN NAVBAR - BIRU MUDA BERSIH & PRESISI */}
       <div
         className={`w-full transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#e0f2fe]/95 backdrop-blur-md py-2.5 shadow-md border-b border-sky-200/90'
-            : 'bg-[#e0f2fe] py-3.5 border-b border-sky-200/70'
+            ? 'bg-[#e0f2fe]/95 backdrop-blur-md py-2 shadow-md border-b border-sky-200/90'
+            : 'bg-[#e0f2fe] py-2.5 sm:py-3.5 border-b border-sky-200/70'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between gap-3">
             
             {/* Left: Brand Logo & Typography */}
             <div 
               onClick={() => handleItemClick('home')}
-              className="flex items-center gap-3 cursor-pointer group shrink-0"
+              className="flex items-center gap-2.5 sm:gap-3 cursor-pointer group shrink min-w-0"
               id="header-logo"
             >
-              <div className="bg-white p-1.5 rounded-xl shadow-xs border border-sky-100 group-hover:scale-105 transition-transform duration-200 shrink-0 flex items-center justify-center">
+              <div className="bg-white p-1 sm:p-1.5 rounded-xl shadow-2xs border border-sky-100 group-hover:scale-105 transition-transform duration-200 shrink-0 flex items-center justify-center">
                 <img
                   src={logoImage}
                   alt={`${businessName} Logo`}
-                  className="h-8 sm:h-9 w-auto object-contain"
+                  className="h-7 sm:h-8 md:h-9 w-auto object-contain"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = '/logo.png';
                   }}
                 />
               </div>
               
-              <div className="flex flex-col leading-tight">
-                <span className="font-display font-black text-base sm:text-lg tracking-tight text-[#081836] uppercase">
+              <div className="flex flex-col leading-tight min-w-0">
+                <span className="font-display font-black text-sm sm:text-base md:text-lg tracking-tight text-[#081836] uppercase truncate">
                   {businessName}
                 </span>
-                <span className="font-sans font-bold text-[9px] sm:text-[10px] text-slate-600 tracking-wider uppercase">
+                <span className="font-sans font-bold text-[8px] sm:text-[9px] md:text-[10px] text-slate-600 tracking-wider uppercase truncate">
                   Melayani Jasa Transportasi
                 </span>
               </div>
             </div>
 
-            {/* Center/Right: Desktop Navigation Links + Lang Switcher + Admin Button */}
-            <nav className="hidden lg:flex items-center justify-end gap-6 text-[13px] font-sans font-extrabold tracking-wide" id="desktop-nav">
+            {/* Desktop Navigation Links + Lang Switcher (Tanpa Tombol Admin di Navbar) */}
+            <nav className="hidden lg:flex items-center justify-end gap-7 text-[13px] font-sans font-extrabold tracking-wide shrink-0" id="desktop-nav">
               {navItems.map((item) => {
                 const isActive = activeSection === item.id || (item.id === 'about-page' && (activeSection === 'about' || activeSection === 'about-page'));
                 return (
@@ -127,7 +118,7 @@ export default function Header({
                 );
               })}
 
-              {/* Language Switcher */}
+              {/* Language Switcher Desktop */}
               <div className="flex items-center gap-1 text-[11px] font-extrabold bg-white/90 px-2.5 py-1 rounded-lg border border-sky-300/80 shadow-2xs text-slate-700">
                 <button
                   onClick={() => setLang('ID')}
@@ -147,52 +138,35 @@ export default function Header({
                   EN
                 </button>
               </div>
-
-              {/* Prominent Admin Portal Button */}
-              <button
-                onClick={handleAdminAction}
-                className="bg-[#081836] hover:bg-sky-600 text-white font-sans font-bold text-xs uppercase px-3.5 py-2 rounded-xl shadow-xs transition-all flex items-center gap-1.5 cursor-pointer ml-1"
-                id="header-admin-btn"
-                title="Akses Portal Admin"
-              >
-                <Shield className="w-3.5 h-3.5 text-sky-400" />
-                <span>Admin</span>
-              </button>
             </nav>
 
-            {/* Mobile Hamburger Toggle Button */}
-            <div className="lg:hidden flex items-center gap-2">
-              <button
-                onClick={handleAdminAction}
-                className="bg-[#081836] text-white text-[11px] font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1"
-              >
-                <Shield className="w-3 h-3 text-sky-400" />
-                <span>Admin</span>
-              </button>
-
-              <div className="flex items-center gap-1 text-[11px] font-bold bg-white/90 px-2 py-1 rounded-lg border border-sky-300/80 text-slate-700">
+            {/* Mobile Controls: Language Switcher + Hamburger Menu (Rapi & Presisi) */}
+            <div className="lg:hidden flex items-center gap-2 shrink-0">
+              {/* Language Switcher Mobile */}
+              <div className="flex items-center gap-0.5 text-[10px] font-extrabold bg-white/90 px-1.5 py-1 rounded-lg border border-sky-300/80 shadow-2xs text-slate-700">
                 <button
                   onClick={() => setLang('ID')}
-                  className={`px-1.5 py-0.5 rounded ${lang === 'ID' ? 'bg-sky-600 text-white font-black' : 'text-slate-600'}`}
+                  className={`px-1.5 py-0.5 rounded transition-colors ${lang === 'ID' ? 'bg-sky-600 text-white font-black' : 'text-slate-600'}`}
                 >
                   ID
                 </button>
                 <span className="text-slate-300">|</span>
                 <button
                   onClick={() => setLang('EN')}
-                  className={`px-1.5 py-0.5 rounded ${lang === 'EN' ? 'bg-sky-600 text-white font-black' : 'text-slate-600'}`}
+                  className={`px-1.5 py-0.5 rounded transition-colors ${lang === 'EN' ? 'bg-sky-600 text-white font-black' : 'text-slate-600'}`}
                 >
                   EN
                 </button>
               </div>
 
+              {/* Hamburger Button Mobile */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 rounded-xl text-[#081836] hover:bg-sky-200/60 transition-colors cursor-pointer shrink-0"
+                className="p-1.5 sm:p-2 rounded-xl text-[#081836] hover:bg-sky-200/60 transition-colors cursor-pointer shrink-0"
                 id="mobile-menu-toggle"
                 aria-label="Toggle navigation menu"
               >
-                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
               </button>
             </div>
 
@@ -210,7 +184,7 @@ export default function Header({
             className="lg:hidden bg-[#e0f2fe] border-b border-sky-200 shadow-xl overflow-hidden text-left"
             id="mobile-menu-drawer"
           >
-            <div className="px-5 pt-3 pb-6 space-y-2 text-slate-800">
+            <div className="px-5 pt-3 pb-6 space-y-1.5 text-slate-800">
               {navItems.map((item) => {
                 const isActive = activeSection === item.id || (item.id === 'about-page' && (activeSection === 'about' || activeSection === 'about-page'));
                 return (
@@ -225,20 +199,6 @@ export default function Header({
                   </button>
                 );
               })}
-
-              {/* Admin Panel button in Mobile Drawer */}
-              <div className="pt-2">
-                <button
-                  onClick={handleAdminAction}
-                  className="w-full text-left py-3 px-4 rounded-xl font-display font-extrabold text-sm uppercase flex items-center justify-between text-white bg-[#081836] shadow-sm cursor-pointer"
-                >
-                  <span className="flex items-center gap-2">
-                    <Shield className="w-4 h-4 text-sky-400" />
-                    <span>Portal Admin Dashboard</span>
-                  </span>
-                  <span>➔</span>
-                </button>
-              </div>
 
               <div className="pt-3 text-xs text-slate-600 space-y-1">
                 <a
