@@ -215,6 +215,7 @@ function MainApp() {
         lang={lang}
         setLang={handleSetLang}
         onBookingClick={() => setSelectedCar(defaultBookingCar)}
+        onAdminClick={() => handleNavClick('admin')}
       />
 
       {/* Main Page Dynamic Router View */}
