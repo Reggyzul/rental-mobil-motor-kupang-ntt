@@ -166,8 +166,8 @@ export interface TranslationSchema {
 export const TRANSLATIONS: Record<'EN' | 'ID', TranslationSchema> = {
   ID: {
     // SEO & Head Metadata
-    seo_title: "CV SRM MANDIRI | Jasa Transportasi & Rental Mobil Medan - Sumatera",
-    seo_description: "CV SRM MANDIRI melayani jasa transportasi terpercaya, rental mobil (Innova, Avanza, Sigra, Calya), carter travel antar kota (Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi) & wisata Berastagi, Parapat, Pulau Samosir. Alamat: Simalingkar B. WhatsApp: 0852-7060-7796 / 0812-6232-0086.",
+    seo_title: "CV SRM MANDIRI | Rental Mobil Medan & Jasa Transportasi Antar Kota PP Sumatera",
+    seo_description: "CV SRM MANDIRI - Pusat rental mobil Medan murah & jasa transportasi carter antar kota Pulang-Pergi (PP): Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi. Sewa Innova, Avanza, Sigra, Calya & paket wisata Berastagi, Parapat, Danau Toba, Pulau Samosir. WhatsApp: 0852-7060-7796 / 0812-6232-0086. Alamat: Simalingkar B, Medan.",
 
     // Navigation
     nav_home: "Beranda",

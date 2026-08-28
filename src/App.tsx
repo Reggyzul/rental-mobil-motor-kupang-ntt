@@ -4,6 +4,7 @@ import Hero from './components/Hero';
 import CarList from './components/CarList';
 import Services from './components/Services';
 import Testimonials from './components/Testimonials';
+import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import BookingModal from './components/BookingModal';
 import AboutPage from './components/AboutPage';
@@ -244,6 +245,9 @@ function MainApp() {
 
             {/* 4. TESTIMONIALS */}
             <Testimonials lang={lang} />
+
+            {/* 5. SEO RICH FAQ SECTION */}
+            <FAQ lang={lang} />
           </>
         ) : currentPage === 'about' ? (
           <AboutPage lang={lang} onNavigateHome={() => handleNavClick('home')} />
