@@ -243,13 +243,7 @@ export default function Footer({ onNavigateSection, lang, onAdminClick }: Footer
         {/* Bottom Copyright & Disclaimer */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-medium">
           <p>© {new Date().getFullYear()} {businessName}. {t.footer_rights}</p>
-          <div className="flex items-center gap-3 text-[11px]">
-            <span>📍 {address}</span>
-            <span>•</span>
-            <a href={`https://www.tiktok.com/@${tiktokClean}`} target="_blank" rel="noreferrer" className="text-rose-400 hover:underline">
-              TikTok: @{tiktokClean}
-            </a>
-          </div>
+          <p className="text-[11px] text-slate-500 font-sans">Jasa Transportasi &amp; Rental Mobil Terpercaya di Medan</p>
         </div>
 
       </div>
