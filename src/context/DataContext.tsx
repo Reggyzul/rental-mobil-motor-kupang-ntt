@@ -4,8 +4,8 @@ import type { SiteContent, CarRow, RouteRow, TourRow, TestimonialRow } from '../
 import { CARS, TESTIMONIALS } from '../data/cars';
 import { TOUR_PACKAGES } from '../data/packages';
 
-// ─── Default fallback data (from static files) ──────────────────────────────
-const DEFAULT_SITE_CONTENT: Record<string, string> = {
+// ─── Default fallback data (used ONLY if Supabase returns empty / error) ────
+const FALLBACK_SITE_CONTENT: Record<string, string> = {
   business_name: 'CV SRM MANDIRI',
   business_tagline: 'Melayani Perjalanan Anda Sepenuh Hati',
   business_description: 'CV SRM MANDIRI melayani jasa transportasi profesional dengan armada pilihan: Innova, Avanza, Sigra, dan Calya. Melayani rute Pulang-Pergi (PP) Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi, serta wisata favorit Berastagi, Parapat, dan Pulau Samosir (PP).',
@@ -19,7 +19,7 @@ const DEFAULT_SITE_CONTENT: Record<string, string> = {
   seo_description: 'CV SRM MANDIRI melayani jasa transportasi terpercaya, rental mobil PP antar kota Medan, Dumai, Duri, Kandis, Garut, Pekanbaru, Kerinci, Jambi & wisata Berastagi, Parapat, Pulau Samosir.',
 };
 
-const DEFAULT_ROUTES: RouteRow[] = [
+const FALLBACK_ROUTES: RouteRow[] = [
   { id: '1', title: 'Medan - Dumai (PP)', from_city: 'Medan', to_city: 'Dumai', region: 'Riau', note: 'Pelabuhan & Kawasan Industri', sort_order: 1, is_active: true },
   { id: '2', title: 'Medan - Duri (PP)', from_city: 'Medan', to_city: 'Duri', region: 'Riau', note: 'Kawasan Migas & Perdagangan', sort_order: 2, is_active: true },
   { id: '3', title: 'Medan - Kandis (PP)', from_city: 'Medan', to_city: 'Kandis', region: 'Riau', note: 'Jalur Lintas Strategis', sort_order: 3, is_active: true },
@@ -30,6 +30,55 @@ const DEFAULT_ROUTES: RouteRow[] = [
   { id: '8', title: 'Medan & Sekitarnya (PP)', from_city: 'Medan', to_city: 'Medan', region: 'Sumatera Utara', note: 'City Tour, Operasional & Bandara KNO', sort_order: 8, is_active: true },
 ];
 
+const FALLBACK_CARS: CarRow[] = CARS.map((c, i) => ({
+  id: c.id,
+  name: c.name,
+  category: c.category,
+  price_per_day: c.pricePerDay,
+  price_display: c.priceDisplay,
+  image: c.image,
+  seats: c.seats,
+  transmission: c.transmission,
+  fuel: c.fuel,
+  include_list: c.includeList,
+  description: c.description,
+  rating: c.rating,
+  reviews_count: c.reviewsCount,
+  specifications: c.specifications,
+  sort_order: i + 1,
+  is_active: true,
+}));
+
+const FALLBACK_TOURS: TourRow[] = TOUR_PACKAGES.map((p, i) => ({
+  id: p.id,
+  title: p.title,
+  location: p.location,
+  duration: p.duration,
+  image: p.image,
+  badge: p.badge,
+  route_display: p.routeDisplay,
+  highlights: p.highlights,
+  includes_list: p.includes,
+  excludes_list: p.excludes,
+  sort_order: i + 1,
+  is_active: true,
+}));
+
+const FALLBACK_TESTIMONIALS: TestimonialRow[] = TESTIMONIALS.map((t, i) => ({
+  id: t.id,
+  name: t.name,
+  role_id: t.roleID,
+  role_en: t.roleEN,
+  text_id: t.textID,
+  text_en: t.textEN,
+  rating: t.rating,
+  image: t.image,
+  car_model: t.carModelID,
+  date_label: t.dateID,
+  sort_order: i + 1,
+  is_active: true,
+}));
+
 // ─── Context Types ──────────────────────────────────────────────────────────
 type DataContextType = {
   isLoading: boolean;
@@ -39,10 +88,8 @@ type DataContextType = {
   routes: RouteRow[];
   tours: TourRow[];
   testimonials: TestimonialRow[];
-  // Helpers
   getSiteValue: (key: string) => string;
   uploadImageToStorage: (file: File, folder?: string) => Promise<string | null>;
-  // CRUD for admin
   updateSiteContent: (key: string, value: string) => Promise<void>;
   saveCar: (car: Partial<CarRow> & { id: string }) => Promise<void>;
   deleteCar: (id: string) => Promise<void>;
@@ -84,60 +131,11 @@ function mapToursFromDB(dbTours: TourRow[]): TourRow[] {
 export function DataProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
-  const [siteContent, setSiteContent] = useState<Record<string, string>>(DEFAULT_SITE_CONTENT);
-  const [cars, setCars] = useState<CarRow[]>(
-    CARS.map((c, i) => ({
-      id: c.id,
-      name: c.name,
-      category: c.category,
-      price_per_day: c.pricePerDay,
-      price_display: c.priceDisplay,
-      image: c.image,
-      seats: c.seats,
-      transmission: c.transmission,
-      fuel: c.fuel,
-      include_list: c.includeList,
-      description: c.description,
-      rating: c.rating,
-      reviews_count: c.reviewsCount,
-      specifications: c.specifications,
-      sort_order: i + 1,
-      is_active: true,
-    }))
-  );
-  const [routes, setRoutes] = useState<RouteRow[]>(DEFAULT_ROUTES);
-  const [tours, setTours] = useState<TourRow[]>(
-    TOUR_PACKAGES.map((p, i) => ({
-      id: p.id,
-      title: p.title,
-      location: p.location,
-      duration: p.duration,
-      image: p.image,
-      badge: p.badge,
-      route_display: p.routeDisplay,
-      highlights: p.highlights,
-      includes_list: p.includes,
-      excludes_list: p.excludes,
-      sort_order: i + 1,
-      is_active: true,
-    }))
-  );
-  const [testimonials, setTestimonials] = useState<TestimonialRow[]>(
-    TESTIMONIALS.map((t, i) => ({
-      id: t.id,
-      name: t.name,
-      role_id: t.roleID,
-      role_en: t.roleEN,
-      text_id: t.textID,
-      text_en: t.textEN,
-      rating: t.rating,
-      image: t.image,
-      car_model: t.carModelID,
-      date_label: t.dateID,
-      sort_order: i + 1,
-      is_active: true,
-    }))
-  );
+  const [siteContent, setSiteContent] = useState<Record<string, string>>({});
+  const [cars, setCars] = useState<CarRow[]>([]);
+  const [routes, setRoutes] = useState<RouteRow[]>([]);
+  const [tours, setTours] = useState<TourRow[]>([]);
+  const [testimonials, setTestimonials] = useState<TestimonialRow[]>([]);
   const [lastPing, setLastPing] = useState<string | null>(null);
 
   const fetchAllData = useCallback(async () => {
@@ -150,48 +148,88 @@ export function DataProvider({ children }: { children: ReactNode }) {
         supabase.from('testimonials').select('*').eq('is_active', true).order('sort_order'),
       ]);
 
-      if (contentRes.error || carsRes.error || routesRes.error || toursRes.error || testiRes.error) {
+      const hasError = contentRes.error || carsRes.error || routesRes.error || toursRes.error || testiRes.error;
+
+      if (hasError) {
         setIsConnected(false);
+        // Fallback only when Supabase table/connection is not ready
+        setSiteContent(FALLBACK_SITE_CONTENT);
+        setCars(FALLBACK_CARS);
+        setRoutes(FALLBACK_ROUTES);
+        setTours(FALLBACK_TOURS);
+        setTestimonials(FALLBACK_TESTIMONIALS);
         return false;
       }
 
       setIsConnected(true);
 
+      // 1. Site content
       if (contentRes.data && contentRes.data.length > 0) {
-        const map: Record<string, string> = { ...DEFAULT_SITE_CONTENT };
+        const map: Record<string, string> = { ...FALLBACK_SITE_CONTENT };
         for (const row of contentRes.data as SiteContent[]) {
           map[row.key] = row.value;
         }
         setSiteContent(map);
+      } else {
+        setSiteContent(FALLBACK_SITE_CONTENT);
       }
-      if (carsRes.data && carsRes.data.length > 0) setCars(mapCarsFromDB(carsRes.data as CarRow[]));
-      if (routesRes.data && routesRes.data.length > 0) setRoutes(routesRes.data as RouteRow[]);
-      if (toursRes.data && toursRes.data.length > 0) setTours(mapToursFromDB(toursRes.data as TourRow[]));
-      if (testiRes.data && testiRes.data.length > 0) setTestimonials(testiRes.data as TestimonialRow[]);
+
+      // 2. Cars
+      if (carsRes.data && carsRes.data.length > 0) {
+        setCars(mapCarsFromDB(carsRes.data as CarRow[]));
+      } else {
+        setCars(FALLBACK_CARS);
+      }
+
+      // 3. Routes
+      if (routesRes.data && routesRes.data.length > 0) {
+        setRoutes(routesRes.data as RouteRow[]);
+      } else {
+        setRoutes(FALLBACK_ROUTES);
+      }
+
+      // 4. Tours
+      if (toursRes.data && toursRes.data.length > 0) {
+        setTours(mapToursFromDB(toursRes.data as TourRow[]));
+      } else {
+        setTours(FALLBACK_TOURS);
+      }
+
+      // 5. Testimonials
+      if (testiRes.data && testiRes.data.length > 0) {
+        setTestimonials(testiRes.data as TestimonialRow[]);
+      } else {
+        setTestimonials(FALLBACK_TESTIMONIALS);
+      }
 
       setLastPing(new Date().toLocaleTimeString('id-ID'));
       return true;
     } catch {
       setIsConnected(false);
+      setSiteContent(FALLBACK_SITE_CONTENT);
+      setCars(FALLBACK_CARS);
+      setRoutes(FALLBACK_ROUTES);
+      setTours(FALLBACK_TOURS);
+      setTestimonials(FALLBACK_TESTIMONIALS);
       return false;
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
   useEffect(() => {
-    // Initial fetch — non-blocking (UI already has fallback data)
-    setIsLoading(true);
-    fetchAllData().finally(() => setIsLoading(false));
+    fetchAllData();
 
-    // Keep-alive interval: ping every 2 days = 172800000ms (also every 30 min in foreground)
+    // Keep-alive heartbeat interval (every 30 mins)
     const keepAliveInterval = setInterval(async () => {
       const ok = await pingSupabase();
       if (ok) setLastPing(new Date().toLocaleTimeString('id-ID'));
-    }, 30 * 60 * 1000); // 30 minutes
+    }, 30 * 60 * 1000);
 
     return () => clearInterval(keepAliveInterval);
   }, [fetchAllData]);
 
-  const getSiteValue = useCallback((key: string) => siteContent[key] ?? DEFAULT_SITE_CONTENT[key] ?? '', [siteContent]);
+  const getSiteValue = useCallback((key: string) => siteContent[key] ?? FALLBACK_SITE_CONTENT[key] ?? '', [siteContent]);
 
   const uploadImageToStorage = useCallback((file: File, folder?: string) => uploadImage(file, folder), []);
 
