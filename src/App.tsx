@@ -65,23 +65,10 @@ function MainApp() {
   const [activeSection, setActiveSection] = useState('home');
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [lang, setLang] = useState<'EN' | 'ID'>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('srm_mandiri_lang');
-      return (saved === 'ID' || saved === 'EN') ? saved : 'ID';
-    }
-    return 'ID';
-  });
+  const lang = 'ID' as const;
 
-  const t = TRANSLATIONS[lang];
+  const t = TRANSLATIONS.ID;
   const { getSiteValue, cars, isLoading } = useData();
-
-  const handleSetLang = (newLang: 'EN' | 'ID') => {
-    setLang(newLang);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('srm_mandiri_lang', newLang);
-    }
-  };
 
   useEffect(() => {
     const handlePopState = () => {
@@ -106,7 +93,7 @@ function MainApp() {
     }
 
     // Dynamic SEO Metadata Synchronization
-    document.documentElement.lang = lang === 'EN' ? 'en' : 'id';
+    document.documentElement.lang = 'id';
     document.title = getSiteValue('seo_title') || t.seo_title;
     
     let metaDesc = document.querySelector('meta[name="description"]');
@@ -116,7 +103,7 @@ function MainApp() {
       document.head.appendChild(metaDesc);
     }
     metaDesc.setAttribute('content', getSiteValue('seo_description') || t.seo_description);
-  }, [lang, t.seo_title, t.seo_description, currentPage, getSiteValue]);
+  }, [t.seo_title, t.seo_description, currentPage, getSiteValue]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -234,7 +221,6 @@ function MainApp() {
         activeSection={currentPage === 'about' ? 'about-page' : activeSection}
         onNavClick={handleNavClick}
         lang={lang}
-        setLang={handleSetLang}
         onBookingClick={() => setSelectedCar(defaultBookingCar)}
         onAdminClick={() => handleNavClick('admin')}
       />

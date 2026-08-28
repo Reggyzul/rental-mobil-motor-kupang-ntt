@@ -7,8 +7,8 @@ import { useData } from '../context/DataContext';
 interface HeaderProps {
   activeSection: string;
   onNavClick: (sectionId: string) => void;
-  lang: 'ID' | 'EN';
-  setLang: (lang: 'ID' | 'EN') => void;
+  lang?: 'ID' | 'EN';
+  setLang?: (lang: 'ID' | 'EN') => void;
   onBookingClick?: () => void;
   onAdminClick?: () => void;
 }
@@ -16,14 +16,12 @@ interface HeaderProps {
 export default function Header({
   activeSection,
   onNavClick,
-  lang,
-  setLang,
   onAdminClick
 }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const t = TRANSLATIONS[lang];
+  const t = TRANSLATIONS.ID;
   const { getSiteValue } = useData();
   const businessName = getSiteValue('business_name') || 'CV SRM MANDIRI';
   const logoImage = getSiteValue('logo_image') || '/logo.png';
@@ -48,35 +46,35 @@ export default function Header({
   const navItems = [
     { id: 'home', label: t.nav_home },
     { id: 'cars', label: t.nav_vehicles },
-    { id: 'services', label: lang === 'EN' ? 'Routes & Tours' : 'Rute & Wisata' },
+    { id: 'services', label: 'Rute & Wisata' },
     { id: 'about-page', label: t.nav_about },
     { id: 'contact', label: t.nav_contact }
   ];
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 transition-all duration-300">
-      {/* MAIN NAVBAR - BIRU MUDA BERSIH & PRESISI */}
+      {/* MAIN NAVBAR - BIRU MUDA BERSIH, MINIMALIS & PRESISI */}
       <div
         className={`w-full transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#e0f2fe]/95 backdrop-blur-md py-2 shadow-md border-b border-sky-200/90'
-            : 'bg-[#e0f2fe] py-2.5 sm:py-3.5 border-b border-sky-200/70'
+            ? 'bg-[#e0f2fe]/95 backdrop-blur-md py-2.5 shadow-md border-b border-sky-200/90'
+            : 'bg-[#e0f2fe] py-3 sm:py-3.5 border-b border-sky-200/70'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between gap-4">
             
             {/* Left: Brand Logo & Typography */}
             <div 
               onClick={() => handleItemClick('home')}
-              className="flex items-center gap-2.5 sm:gap-3 cursor-pointer group shrink min-w-0"
+              className="flex items-center gap-3 cursor-pointer group shrink min-w-0"
               id="header-logo"
             >
-              <div className="bg-white p-1 sm:p-1.5 rounded-xl shadow-2xs border border-sky-100 group-hover:scale-105 transition-transform duration-200 shrink-0 flex items-center justify-center">
+              <div className="bg-white p-1.5 rounded-xl shadow-2xs border border-sky-100 group-hover:scale-105 transition-transform duration-200 shrink-0 flex items-center justify-center">
                 <img
                   src={logoImage}
                   alt={`${businessName} Logo`}
-                  className="h-7 sm:h-8 md:h-9 w-auto object-contain"
+                  className="h-8 sm:h-9 w-auto object-contain"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = '/logo.png';
                   }}
@@ -84,17 +82,17 @@ export default function Header({
               </div>
               
               <div className="flex flex-col leading-tight min-w-0">
-                <span className="font-display font-black text-sm sm:text-base md:text-lg tracking-tight text-[#081836] uppercase truncate">
+                <span className="font-display font-black text-base sm:text-lg tracking-tight text-[#081836] uppercase truncate">
                   {businessName}
                 </span>
-                <span className="font-sans font-bold text-[8px] sm:text-[9px] md:text-[10px] text-slate-600 tracking-wider uppercase truncate">
+                <span className="font-sans font-bold text-[9px] sm:text-[10px] text-slate-600 tracking-wider uppercase truncate">
                   Melayani Jasa Transportasi
                 </span>
               </div>
             </div>
 
-            {/* Desktop Navigation Links + Lang Switcher (Tanpa Tombol Admin di Navbar) */}
-            <nav className="hidden lg:flex items-center justify-end gap-7 text-[13px] font-sans font-extrabold tracking-wide shrink-0" id="desktop-nav">
+            {/* Right: Desktop Navigation Links */}
+            <nav className="hidden lg:flex items-center justify-end gap-8 text-[13px] font-sans font-extrabold tracking-wide shrink-0" id="desktop-nav">
               {navItems.map((item) => {
                 const isActive = activeSection === item.id || (item.id === 'about-page' && (activeSection === 'about' || activeSection === 'about-page'));
                 return (
@@ -117,56 +115,17 @@ export default function Header({
                   </button>
                 );
               })}
-
-              {/* Language Switcher Desktop */}
-              <div className="flex items-center gap-1 text-[11px] font-extrabold bg-white/90 px-2.5 py-1 rounded-lg border border-sky-300/80 shadow-2xs text-slate-700">
-                <button
-                  onClick={() => setLang('ID')}
-                  className={`px-1.5 py-0.5 rounded transition-colors cursor-pointer ${
-                    lang === 'ID' ? 'bg-sky-600 text-white font-black' : 'text-slate-600 hover:text-sky-600'
-                  }`}
-                >
-                  ID
-                </button>
-                <span className="text-slate-300">|</span>
-                <button
-                  onClick={() => setLang('EN')}
-                  className={`px-1.5 py-0.5 rounded transition-colors cursor-pointer ${
-                    lang === 'EN' ? 'bg-sky-600 text-white font-black' : 'text-slate-600 hover:text-sky-600'
-                  }`}
-                >
-                  EN
-                </button>
-              </div>
             </nav>
 
-            {/* Mobile Controls: Language Switcher + Hamburger Menu (Rapi & Presisi) */}
-            <div className="lg:hidden flex items-center gap-2 shrink-0">
-              {/* Language Switcher Mobile */}
-              <div className="flex items-center gap-0.5 text-[10px] font-extrabold bg-white/90 px-1.5 py-1 rounded-lg border border-sky-300/80 shadow-2xs text-slate-700">
-                <button
-                  onClick={() => setLang('ID')}
-                  className={`px-1.5 py-0.5 rounded transition-colors ${lang === 'ID' ? 'bg-sky-600 text-white font-black' : 'text-slate-600'}`}
-                >
-                  ID
-                </button>
-                <span className="text-slate-300">|</span>
-                <button
-                  onClick={() => setLang('EN')}
-                  className={`px-1.5 py-0.5 rounded transition-colors ${lang === 'EN' ? 'bg-sky-600 text-white font-black' : 'text-slate-600'}`}
-                >
-                  EN
-                </button>
-              </div>
-
-              {/* Hamburger Button Mobile */}
+            {/* Mobile Controls: Hamburger Menu Only */}
+            <div className="lg:hidden flex items-center shrink-0">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-1.5 sm:p-2 rounded-xl text-[#081836] hover:bg-sky-200/60 transition-colors cursor-pointer shrink-0"
+                className="p-2 rounded-xl text-[#081836] hover:bg-sky-200/60 transition-colors cursor-pointer shrink-0"
                 id="mobile-menu-toggle"
                 aria-label="Toggle navigation menu"
               >
-                {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
             </div>
 
