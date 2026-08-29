@@ -129,13 +129,13 @@ function mapToursFromDB(dbTours: TourRow[]): TourRow[] {
 }
 
 export function DataProvider({ children }: { children: ReactNode }) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
-  const [siteContent, setSiteContent] = useState<Record<string, string>>({});
-  const [cars, setCars] = useState<CarRow[]>([]);
-  const [routes, setRoutes] = useState<RouteRow[]>([]);
-  const [tours, setTours] = useState<TourRow[]>([]);
-  const [testimonials, setTestimonials] = useState<TestimonialRow[]>([]);
+  const [siteContent, setSiteContent] = useState<Record<string, string>>(FALLBACK_SITE_CONTENT);
+  const [cars, setCars] = useState<CarRow[]>(FALLBACK_CARS);
+  const [routes, setRoutes] = useState<RouteRow[]>(FALLBACK_ROUTES);
+  const [tours, setTours] = useState<TourRow[]>(FALLBACK_TOURS);
+  const [testimonials, setTestimonials] = useState<TestimonialRow[]>(FALLBACK_TESTIMONIALS);
   const [lastPing, setLastPing] = useState<string | null>(null);
 
   const fetchAllData = useCallback(async () => {

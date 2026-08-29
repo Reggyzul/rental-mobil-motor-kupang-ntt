@@ -115,6 +115,8 @@ export default function CarList({ onSelectCar, lang }: CarListProps) {
                     <img
                       src={car.image}
                       alt={car.name}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                       onError={(e) => {
                         (e.target as HTMLImageElement).src = 'https://placehold.co/400x250/e2e8f0/94a3b8?text=Armada+SRM';

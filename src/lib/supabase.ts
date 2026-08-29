@@ -110,7 +110,11 @@ function fileToDataUrl(file: File): Promise<string> {
         const ctx = canvas.getContext('2d');
         if (ctx) {
           ctx.drawImage(img, 0, 0, width, height);
-          resolve(canvas.toDataURL('image/jpeg', 0.85));
+          try {
+            resolve(canvas.toDataURL('image/webp', 0.8));
+          } catch {
+            resolve(canvas.toDataURL('image/jpeg', 0.85));
+          }
         } else {
           resolve(reader.result as string);
         }
