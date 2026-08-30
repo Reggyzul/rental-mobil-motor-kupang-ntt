@@ -1,41 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://srm-mandiri.pages.dev/</loc>
-    <lastmod>2026-08-28</lastmod>
+    <loc>https://srmtourtravel.com/</loc>
+    <lastmod>2026-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="id" href="https://srm-mandiri.pages.dev/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://srm-mandiri.pages.dev/" />
-  </url>
-  <url>
-    <loc>https://srm-mandiri.pages.dev/#cars</loc>
-    <lastmod>2026-08-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://srm-mandiri.pages.dev/#routes</loc>
-    <lastmod>2026-08-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://srm-mandiri.pages.dev/#tours</loc>
-    <lastmod>2026-08-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://srm-mandiri.pages.dev/#faq</loc>
-    <lastmod>2026-08-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://srm-mandiri.pages.dev/#contact</loc>
-    <lastmod>2026-08-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="id" href="https://srmtourtravel.com/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://srmtourtravel.com/" />
+    <image:image>
+      <image:loc>https://srmtourtravel.com/hero_sumut.jpg</image:loc>
+      <image:title>CV SRM MANDIRI Rental Mobil Medan &amp; Transportasi Antar Kota PP</image:title>
+      <image:caption>Layanan rental mobil Medan, carter antar kota PP Dumai, Duri, Pekanbaru, Jambi, Kerinci, wisata Berastagi &amp; Danau Toba Samosir.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://srmtourtravel.com/innova_reborn.png</image:loc>
+      <image:title>Sewa Toyota Innova Reborn Medan</image:title>
+      <image:caption>Rental Toyota Innova Reborn Medan murah dan nyaman untuk keluarga dan perjalanan dinas.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://srmtourtravel.com/avanza.jpg</image:loc>
+      <image:title>Rental Toyota Avanza Medan</image:title>
+      <image:caption>Sewa Avanza Medan hemat dan terpercaya untuk keliling kota dan luar kota.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://srmtourtravel.com/sigra_new.png</image:loc>
+      <image:title>Rental Daihatsu Sigra Medan</image:title>
+      <image:caption>Sewa Daihatsu Sigra Medan murah dan irit bahan bakar.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://srmtourtravel.com/calya_new.png</image:loc>
+      <image:title>Rental Toyota Calya Medan</image:title>
+      <image:caption>Sewa Toyota Calya Medan nyaman untuk perjalanan keluarga.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://srmtourtravel.com/tour_samosir.jpg</image:loc>
+      <image:title>Paket Wisata Danau Toba &amp; Pulau Samosir Medan</image:title>
+      <image:caption>Paket tour wisata Danau Toba dan Pulau Samosir dengan armada prima.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://srmtourtravel.com/tour_berastagi.jpg</image:loc>
+      <image:title>Paket Wisata Berastagi Karo Medan</image:title>
+      <image:caption>Paket tour wisata Berastagi dan pegunungan Karo dari Medan.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://srmtourtravel.com/tour_parapat.jpg</image:loc>
+      <image:title>Paket Wisata Parapat Danau Toba</image:title>
+      <image:caption>Perjalanan wisata Parapat dan Danau Toba Sumatera Utara.</image:caption>
+    </image:image>
   </url>
 </urlset>
